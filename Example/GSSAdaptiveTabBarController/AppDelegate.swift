@@ -7,15 +7,32 @@
 //
 
 import UIKit
+import GSSAdaptiveTabBarController
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
+    var verticalTabBarViewController: GSSVerticalTabBarController?
 
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
-        // Override point for customization after application launch.
+        self.verticalTabBarViewController = GSSVerticalTabBarController()
+        
+        let vc1 = UIViewController()
+        vc1.view.backgroundColor = UIColor.redColor()
+        vc1.tabBarItem = UITabBarItem(title: "An Item 1", image: UIImage(named: "book"), selectedImage: UIImage(named: "book-selected"))
+        
+        let vc2 = UIViewController()
+        vc2.view.backgroundColor = UIColor.greenColor()
+        vc2.tabBarItem = UITabBarItem(title: "An Item 1", image: UIImage(named: "book"), selectedImage: UIImage(named: "book-selected"))
+        
+        self.verticalTabBarViewController?.tabBarViewControllers = [vc1, vc2]
+        
+        self.window = UIWindow()
+        self.window?.rootViewController = self.verticalTabBarViewController
+        self.window?.makeKeyAndVisible()
+        
         return true
     }
 
