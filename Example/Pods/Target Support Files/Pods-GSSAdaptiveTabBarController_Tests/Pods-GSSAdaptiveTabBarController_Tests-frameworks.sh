@@ -84,11 +84,13 @@ strip_invalid_archs() {
 
 
 if [[ "$CONFIGURATION" == "Debug" ]]; then
+  install_framework "Pods-GSSAdaptiveTabBarController_Tests/AppController.framework"
   install_framework "Pods-GSSAdaptiveTabBarController_Tests/GSSAdaptiveTabBarController.framework"
   install_framework "Pods-GSSAdaptiveTabBarController_Tests/Nimble.framework"
   install_framework "Pods-GSSAdaptiveTabBarController_Tests/Quick.framework"
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
+  install_framework "Pods-GSSAdaptiveTabBarController_Tests/AppController.framework"
   install_framework "Pods-GSSAdaptiveTabBarController_Tests/GSSAdaptiveTabBarController.framework"
   install_framework "Pods-GSSAdaptiveTabBarController_Tests/Nimble.framework"
   install_framework "Pods-GSSAdaptiveTabBarController_Tests/Quick.framework"

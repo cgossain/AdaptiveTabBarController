@@ -1,5 +1,7 @@
 PODS:
-  - GSSAdaptiveTabBarController (0.1.0)
+  - AppController (0.2.0)
+  - GSSAdaptiveTabBarController (0.1.0):
+    - AppController (~> 0.2.0)
   - Nimble (3.0.0)
   - Quick (0.8.0)
 
@@ -13,7 +15,8 @@ EXTERNAL SOURCES:
     :path: ../
 
 SPEC CHECKSUMS:
-  GSSAdaptiveTabBarController: 68c48e26b63aceaa702a8899cdc74dcb660d80e1
+  AppController: 5b6632c6487047e3d2a9631e714bdb30ea5abee2
+  GSSAdaptiveTabBarController: 818faf5edf6b6840869c3edf4cdbbcf939e4f569
   Nimble: 4c353d43735b38b545cbb4cb91504588eb5de926
   Quick: 563d0f6ec5f72e394645adb377708639b7dd38ab
 

@@ -13,11 +13,11 @@ import GSSAdaptiveTabBarController
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-    var verticalTabBarViewController: GSSVerticalTabBarController?
+    var adaptiveTabBarViewController: GSSAdaptiveTabBarController?
 
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
-        self.verticalTabBarViewController = GSSVerticalTabBarController()
+        self.adaptiveTabBarViewController = GSSAdaptiveTabBarController()
         
         let vc1 = UIViewController()
         vc1.view.backgroundColor = UIColor.redColor()
@@ -27,10 +27,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         vc2.view.backgroundColor = UIColor.greenColor()
         vc2.tabBarItem = UITabBarItem(title: "An Item 1", image: UIImage(named: "book"), selectedImage: UIImage(named: "book-selected"))
         
-        self.verticalTabBarViewController?.tabBarViewControllers = [vc1, vc2]
+        self.adaptiveTabBarViewController?.viewControllers = [vc1, vc2]
         
         self.window = UIWindow()
-        self.window?.rootViewController = self.verticalTabBarViewController
+        self.window?.rootViewController = self.adaptiveTabBarViewController
         self.window?.makeKeyAndVisible()
         
         return true

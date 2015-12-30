@@ -7,29 +7,85 @@
 //
 
 import UIKit
+import AppController
 
-class GSSAdaptiveTabBarController: UIViewController {
-
-    override func viewDidLoad() {
+public class GSSAdaptiveTabBarController: AppViewController {
+    
+    public var viewControllers: [UIViewController]?
+    
+    public var selectedIndex: Int {
+        set {
+            if let controller = currentTabBarController as? UITabBarController {
+                controller.selectedIndex = newValue
+            } else if let controller = currentTabBarController as? GSSVerticalTabBarController {
+                controller.selectedIndex = newValue
+            }
+        }
+        get {
+            if let controller = currentTabBarController as? UITabBarController {
+                return controller.selectedIndex
+            } else if let controller = currentTabBarController as? GSSVerticalTabBarController {
+                return controller.selectedIndex
+            } else {
+                return 0
+            }
+        }
+    }
+    
+    private var currentTabBarController: UIViewController?
+    
+    // MARK: View Lifecycle
+    
+    override public func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
     }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    public override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        self.loadTabBarControllerForTraitCollection(self.traitCollection)
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    public override func willTransitionToTraitCollection(newCollection: UITraitCollection, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
+        super.willTransitionToTraitCollection(newCollection, withTransitionCoordinator: coordinator)
+        coordinator.animateAlongsideTransition({ context in
+            self.loadTabBarControllerForTraitCollection(newCollection)
+        }, completion: nil)
     }
-    */
+    
+    // MARK: Methods (Private)
+    
+    func isCompactForTraitCollection(traitCollection: UITraitCollection) -> Bool {
+        return traitCollection.horizontalSizeClass == .Compact
+    }
+    
+    func loadTabBarControllerForTraitCollection(traitCollection: UITraitCollection) {
+        let currentSelectedIndex = selectedIndex
+        
+        // load the correct tab bar controller based on the horizontal environment
+        if isCompactForTraitCollection(traitCollection) {
+            // load the UITabBarController
+            let tabBarController = UITabBarController()
+            tabBarController.viewControllers = viewControllers
+            
+            currentTabBarController = tabBarController
+            
+            self.transitionToViewController(tabBarController, animated: false, completion: nil)
+            
+        } else {
+            // load the GSSVerticalTabBarController
+            let tabBarController = GSSVerticalTabBarController()
+            tabBarController.tabBarViewControllers = viewControllers
+            
+            currentTabBarController = tabBarController
+            
+            self.transitionToViewController(tabBarController, animated: false, completion: nil)
+            
+        }
+        
+        // select/reselect the previously loaded view controller
+        self.selectedIndex = currentSelectedIndex
+    }
 
 }
