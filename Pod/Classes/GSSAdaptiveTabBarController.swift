@@ -11,7 +11,15 @@ import AppController
 
 public class GSSAdaptiveTabBarController: AppViewController {
     
-    public var viewControllers: [UIViewController]?
+    public var viewControllers: [UIViewController]? {
+        didSet {
+            if let controller = currentTabBarController as? UITabBarController {
+                controller.viewControllers = viewControllers
+            } else if let controller = currentTabBarController as? GSSVerticalTabBarController {
+                controller.tabBarViewControllers = viewControllers
+            }
+        }
+    }
     
     public var selectedIndex: Int {
         set {
@@ -29,6 +37,16 @@ public class GSSAdaptiveTabBarController: AppViewController {
             } else {
                 return 0
             }
+        }
+    }
+    
+    public var selectedViewController: UIViewController? {
+        if let controller = currentTabBarController as? UITabBarController {
+            return controller.selectedViewController
+        } else if let controller = currentTabBarController as? GSSVerticalTabBarController {
+            return controller.selectedViewController
+        } else {
+            return nil
         }
     }
     
