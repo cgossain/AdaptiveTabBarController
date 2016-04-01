@@ -11,6 +11,8 @@ import AppController
 
 public class GSSAdaptiveTabBarController: AppViewController {
     
+    public var tabBarControllerConfigurationBlock: ((tabBarController: UITabBarController) -> Void)?
+    
     public var viewControllers: [UIViewController]? {
         didSet {
             if let controller = currentTabBarController as? UITabBarController {
@@ -50,6 +52,7 @@ public class GSSAdaptiveTabBarController: AppViewController {
         }
     }
     
+    private var tabBarControllerClass: UITabBarController.Type?
     private var currentTabBarController: UIViewController?
     
     // MARK: View Lifecycle
@@ -72,21 +75,37 @@ public class GSSAdaptiveTabBarController: AppViewController {
         }, completion: nil)
     }
     
+    // MARK: Methods (Public)
+    
+    public func registerTabBarControllerClass(tabBarControllerClass: UITabBarController.Type) {
+        self.tabBarControllerClass = tabBarControllerClass
+    }
+    
     // MARK: Methods (Private)
     
-    func isCompactForTraitCollection(traitCollection: UITraitCollection) -> Bool {
+    private func isCompactForTraitCollection(traitCollection: UITraitCollection) -> Bool {
         return traitCollection.horizontalSizeClass == .Compact
     }
     
-    func loadTabBarControllerForTraitCollection(traitCollection: UITraitCollection) {
+    private func loadTabBarControllerForTraitCollection(traitCollection: UITraitCollection) {
         let currentSelectedIndex = selectedIndex
         
         // load the correct tab bar controller based on the horizontal environment
         if isCompactForTraitCollection(traitCollection) {
-            // load the UITabBarController
-            let tabBarController = UITabBarController()
-            tabBarController.viewControllers = viewControllers
+            let tabBarController: UITabBarController!
             
+            // load an instance of UITabBarController
+            if let customTabBarClass = self.tabBarControllerClass {
+                tabBarController = customTabBarClass.init()
+            } else {
+                tabBarController = UITabBarController()
+            }
+            
+            // configure the tab bar controller using the configuation block
+            tabBarControllerConfigurationBlock?(tabBarController: tabBarController)
+            
+            // set the view controllers
+            tabBarController.viewControllers = viewControllers
             currentTabBarController = tabBarController
             
             self.transitionToViewController(tabBarController, animated: false, completion: nil)
