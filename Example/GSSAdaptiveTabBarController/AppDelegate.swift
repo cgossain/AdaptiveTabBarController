@@ -29,6 +29,22 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         self.adaptiveTabBarViewController?.viewControllers = [vc1, vc2]
         
+//         public func enableAccessoryButtonWith(image: UIImage, anchor: CGPoint)
+        adaptiveTabBarViewController?.enableAccessoryButtonWith(UIImage(named: "tab-bar-center-button")!) {
+            
+        }
+        adaptiveTabBarViewController?.addTabBarAction(MFTTabBarAction(image: UIImage(named: "tab-barcode-action")!, title: "Action 1", handler: {
+            
+        }))
+        
+        adaptiveTabBarViewController?.addTabBarAction(MFTTabBarAction(image: UIImage(named: "tab-barcode-action")!, title: "Action 2", handler: {
+            
+        }))
+        
+        adaptiveTabBarViewController?.addTabBarAction(MFTTabBarAction(image: UIImage(named: "tab-barcode-action")!, title: "Action 3", handler: {
+            
+        }))
+        
         self.window = UIWindow()
         self.window?.rootViewController = self.adaptiveTabBarViewController
         self.window?.makeKeyAndVisible()

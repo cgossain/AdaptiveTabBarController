@@ -1,23 +1,22 @@
 PODS:
-  - AppController (0.2.0)
+  - AppController (0.3.0)
   - GSSAdaptiveTabBarController (0.1.0):
-    - AppController (~> 0.2.0)
-  - Nimble (3.0.0)
-  - Quick (0.8.0)
+    - AppController (~> 0.3.0)
+    - SnapKit
+  - SnapKit (0.21.1)
 
 DEPENDENCIES:
   - GSSAdaptiveTabBarController (from `../`)
-  - Nimble (= 3.0.0)
-  - Quick (~> 0.8.0)
 
 EXTERNAL SOURCES:
   GSSAdaptiveTabBarController:
     :path: ../
 
 SPEC CHECKSUMS:
-  AppController: 5b6632c6487047e3d2a9631e714bdb30ea5abee2
-  GSSAdaptiveTabBarController: 818faf5edf6b6840869c3edf4cdbbcf939e4f569
-  Nimble: 4c353d43735b38b545cbb4cb91504588eb5de926
-  Quick: 563d0f6ec5f72e394645adb377708639b7dd38ab
+  AppController: 3c902d8d988435f8a0b97a4fc85128dd5b07f1d9
+  GSSAdaptiveTabBarController: dc28a9d9a0701c2c594ad66884e17144d4e9eccf
+  SnapKit: bbad04cb016c7cead63965f16b00c09318d271ee
 
-COCOAPODS: 0.39.0
+PODFILE CHECKSUM: 273bd1ec508561277039cf9387bc7d6aae571c7e
+
+COCOAPODS: 1.1.0.beta.1

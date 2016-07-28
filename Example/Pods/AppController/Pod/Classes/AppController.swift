@@ -53,9 +53,14 @@ public class AppController: NSObject {
     public var didLogoutBlock: (() -> Void)?
     
     /// The view controller that should be installed as your window's rootViewController.
-    public lazy var rootViewController: AppViewController! = {
-        let vc = self.storyboard.instantiateInitialViewController() as! AppViewController
-        return vc
+    public lazy var rootViewController: AppViewController = {
+        if let storyboard = self.storyboard {
+            // get the rootViewController from the storyboard
+            return storyboard.instantiateInitialViewController() as! AppViewController
+        }
+        
+        // if there is no storyboard, just create one
+        return AppViewController()
     }()
     
     private var isLoggedIn: Bool {
@@ -64,17 +69,13 @@ public class AppController: NSObject {
     
     private let authenticationController = AuthenticationController()
     
-    public let storyboard: UIStoryboard
-    private let loginInterfaceStoryboardID: String
-    private let mainInterfaceStoryboardID: String
+    private var loginInterfaceProvider: (Void -> UIViewController)
+    private var loginInterfaceViewController: UIViewController { return loginInterfaceProvider() }
     
-    private var loginInterfaceViewController: UIViewController! {
-        return self.storyboard.instantiateViewControllerWithIdentifier(loginInterfaceStoryboardID)
-    }
+    private var mainInterfaceProvider: (Void -> UIViewController)
+    private var mainInterfaceViewController: UIViewController { return mainInterfaceProvider() }
     
-    private var mainInterfaceViewController: UIViewController! {
-        return self.storyboard.instantiateViewControllerWithIdentifier(mainInterfaceStoryboardID)
-    }
+    private var storyboard: UIStoryboard?
     
     /**
      Initializes the controller using the specified storyboard name, login interface storyboard identifier and main interface storyboard identifier.
@@ -85,22 +86,35 @@ public class AppController: NSObject {
      - parameter loginInterfaceID: The storyboard identifier of the view controller that should be loaded as the root login view controller.
      - parameter mainInterfaceID: The storyboard identifier of the view controller that should be loaded as the root main view controller.
      */
-    public init(storyboardName: String, loginInterfaceID: String, mainInterfaceID: String) {
-        storyboard = UIStoryboard(name: storyboardName, bundle: nil)
-        loginInterfaceStoryboardID = loginInterfaceID
-        mainInterfaceStoryboardID = mainInterfaceID
+    public convenience init(storyboardName: String, loginInterfaceID: String, mainInterfaceID: String) {
+        let storyboard = UIStoryboard(name: storyboardName, bundle: nil)
         
+        // create a closure that instantiates the login view controller from the storyboard
+        let loginProvider: (Void -> UIViewController) = {
+            return storyboard.instantiateViewControllerWithIdentifier(loginInterfaceID)
+        }
+        
+        // create a closure that instantiates the main view controller from the storyboard
+        let mainProvider: (Void -> UIViewController) = {
+            return storyboard.instantiateViewControllerWithIdentifier(mainInterfaceID)
+        }
+        
+        self.init(loginInterfaceProvider: loginProvider, mainInterfaceProvider: mainProvider)
+        self.storyboard = storyboard
+    }
+    
+    /**
+     Initializes the controller with a _loginInterfaceProvider_ closure and a _mainInterfaceProvider_ block.
+     
+     - parameter loginInterfaceProvider: A closure that is called when ever the controller is requesting the view controller that should be installed as the login interface.
+     - parameter mainInterfaceProvider: A closure that is called when ever the controller is requesting the view controller that should be installed as the main interface.
+     */
+    public init(loginInterfaceProvider loginProvider: (Void -> UIViewController), mainInterfaceProvider mainProvider: (Void -> UIViewController)) {
+        loginInterfaceProvider = loginProvider
+        mainInterfaceProvider = mainProvider
         super.init()
-        
-        // logout handler
-        authenticationController.onLogout = {
-            self.transitionToLoginInterface()
-        }
-        
-        // login handler
-        authenticationController.onLogin = {
-            self.transitionToMainInterface()
-        }
+        authenticationController.onLogout = { self.transitionToLoginInterface() }
+        authenticationController.onLogin = { self.transitionToMainInterface() }
     }
     
     /**
@@ -116,18 +130,16 @@ public class AppController: NSObject {
     
     private func transitionToMainInterface() {
         let target = mainInterfaceViewController
-        
         willLoginBlock?(targetViewController: target)
-        rootViewController.transitionToViewController(target, animated: true) {
+        rootViewController.transitionToViewController(target, animated: true) { [unowned self] in
             self.didLoginBlock?()
         }
     }
     
     private func transitionToLoginInterface() {
         let target = loginInterfaceViewController
-        
         willLogoutBlock?(targetViewController: target)
-        rootViewController.transitionToViewController(target, animated: true) {
+        rootViewController.transitionToViewController(target, animated: true) { [unowned self] in
             self.didLogoutBlock?()
         }
     }

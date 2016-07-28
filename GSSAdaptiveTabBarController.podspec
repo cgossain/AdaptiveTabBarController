@@ -9,14 +9,9 @@
 Pod::Spec.new do |s|
   s.name             = "GSSAdaptiveTabBarController"
   s.version          = "0.1.0"
-  s.summary          = "A short description of GSSAdaptiveTabBarController."
-
-# This description is used to generate tags and improve search results.
-#   * Think: What does it do? Why did you write it? What is the focus?
-#   * Try to keep it short, snappy and to the point.
-#   * Write the description between the DESC delimiters below.
-#   * Finally, don't worry about the indent, CocoaPods strips it!  
+  s.summary          = "An adaptive tab bar controller implementation."
   s.description      = <<-DESC
+                       This project implements an adaptive tab bar controller. Compact environments use the standard UITabBarController, but regular environments use custom tab bar controlller with the tab bar located on the left side of the view. This adaptive tab bar controller takes care of transitioning to the correct controller when the environment changes (i.e. rotation, split screen multitasking, etc.).
                        DESC
 
   s.homepage         = "https://github.com/<GITHUB_USERNAME>/GSSAdaptiveTabBarController"
@@ -35,5 +30,6 @@ Pod::Spec.new do |s|
   }
 
   # s.public_header_files = 'Pod/Classes/**/*.h'
-  s.dependency 'AppController', '~> 0.2.0'
+  s.dependency 'AppController', '~> 0.3.0'
+  s.dependency 'SnapKit'
 end

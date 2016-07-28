@@ -9,9 +9,20 @@
 import UIKit
 import AppController
 
+public enum AccessoryButtonPosition {
+    case BottomRight
+    case BottomCenter
+}
+
+private class _AdaptivePlaceholderViewController: UIViewController {}
+
+public protocol GSSAdaptiveTabBarControllerDelegate: NSObjectProtocol {
+    func tabBarController(tabBarController: GSSAdaptiveTabBarController, didSelectViewController viewController: UIViewController)
+}
+
 public class GSSAdaptiveTabBarController: AppViewController {
     
-    public var tabBarControllerConfigurationBlock: ((tabBarController: UITabBarController) -> Void)?
+    public weak var delegate: GSSAdaptiveTabBarControllerDelegate?
     
     public var viewControllers: [UIViewController]? {
         didSet {
@@ -54,18 +65,19 @@ public class GSSAdaptiveTabBarController: AppViewController {
     
     private var tabBarControllerClass: UITabBarController.Type?
     private var currentTabBarController: UIViewController?
+    private var centerButtonImage: UIImage?
+    private var registeredActions = [MFTTabBarAction]()
+    private var accessoryButtonDidExpandHandler: (() -> Void)?
     
     // MARK: View Lifecycle
     
     override public func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
     }
 
     public override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
-        self.loadTabBarControllerForTraitCollection(self.traitCollection)
+        loadTabBarControllerForTraitCollection(traitCollection)
     }
     
     public override func willTransitionToTraitCollection(newCollection: UITraitCollection, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
@@ -75,13 +87,18 @@ public class GSSAdaptiveTabBarController: AppViewController {
         }, completion: nil)
     }
     
-    // MARK: Methods (Public)
+    // MARK: Public
     
-    public func registerTabBarControllerClass(tabBarControllerClass: UITabBarController.Type) {
-        self.tabBarControllerClass = tabBarControllerClass
+    public func enableAccessoryButtonWith(image: UIImage, didExpandHandler: (() -> Void)?) {
+        centerButtonImage = image
+        accessoryButtonDidExpandHandler = didExpandHandler
     }
     
-    // MARK: Methods (Private)
+    public func addTabBarAction(action: MFTTabBarAction) {
+        registeredActions.append(action)
+    }
+    
+    // MARK: Private
     
     private func isCompactForTraitCollection(traitCollection: UITraitCollection) -> Bool {
         return traitCollection.horizontalSizeClass == .Compact
@@ -92,37 +109,70 @@ public class GSSAdaptiveTabBarController: AppViewController {
         
         // load the correct tab bar controller based on the horizontal environment
         if isCompactForTraitCollection(traitCollection) {
-            let tabBarController: UITabBarController!
+            let tabBarController = MFTTabBarController()
+            tabBarController.accessoryButtonDidExpandHandler = accessoryButtonDidExpandHandler
+            tabBarController.delegate = self
             
-            // load an instance of UITabBarController
-            if let customTabBarClass = self.tabBarControllerClass {
-                tabBarController = customTabBarClass.init()
-            } else {
-                tabBarController = UITabBarController()
+            if let image = centerButtonImage {
+                tabBarController.enableAccessoryButtonWith(image)
             }
             
-            // configure the tab bar controller using the configuation block
-            tabBarControllerConfigurationBlock?(tabBarController: tabBarController)
+            for action in registeredActions {
+                tabBarController.addTabBarAction(action)
+            }
             
             // set the view controllers
-            tabBarController.viewControllers = viewControllers
-            currentTabBarController = tabBarController
+            if let viewControllers = viewControllers {
+                var controllers = viewControllers
+                if centerButtonImage != nil {
+                    if controllers.count == 2 || controllers.count == 4 {
+                        // insert a placeholder view controller to make room for the center button
+                        controllers.insert(_AdaptivePlaceholderViewController(), atIndex: (controllers.count/2))
+                    }
+                }
+                tabBarController.viewControllers = controllers
+            }
             
-            self.transitionToViewController(tabBarController, animated: false, completion: nil)
+            currentTabBarController = tabBarController
+            transitionToViewController(tabBarController, animated: false, completion: nil)
             
         } else {
             // load the GSSVerticalTabBarController
             let tabBarController = GSSVerticalTabBarController()
-            tabBarController.tabBarViewControllers = viewControllers
+            tabBarController.accessoryButtonDidExpandHandler = accessoryButtonDidExpandHandler
+            tabBarController.didSelectViewControllerHandler = { [unowned self] viewController in
+                self.delegate?.tabBarController(self, didSelectViewController: viewController)
+            }
             
+            if let image = centerButtonImage {
+                tabBarController.enableAccessoryButtonWith(image)
+            }
+            
+            for action in registeredActions {
+                tabBarController.addTabBarAction(action)
+            }
+            
+            tabBarController.tabBarViewControllers = viewControllers
             currentTabBarController = tabBarController
             
-            self.transitionToViewController(tabBarController, animated: false, completion: nil)
+            transitionToViewController(tabBarController, animated: false, completion: nil)
             
         }
         
         // select/reselect the previously loaded view controller
-        self.selectedIndex = currentSelectedIndex
+        selectedIndex = currentSelectedIndex
     }
 
+}
+
+extension GSSAdaptiveTabBarController: UITabBarControllerDelegate {
+    
+    public func tabBarController(tabBarController: UITabBarController, shouldSelectViewController viewController: UIViewController) -> Bool {
+        return !(viewController is _AdaptivePlaceholderViewController) // prevent the placeholder view controller from beign selected
+    }
+    
+    public func tabBarController(tabBarController: UITabBarController, didSelectViewController viewController: UIViewController) {
+        delegate?.tabBarController(self, didSelectViewController: viewController)
+    }
+    
 }
