@@ -1,7 +1,11 @@
-source 'https://github.com/CocoaPods/Specs.git'
 use_frameworks!
 
+target 'MFTAdaptiveTabBarController_Example' do
+  pod 'MFTAdaptiveTabBarController', :path => '../'
 
-target 'GSSAdaptiveTabBarController_Example' do
-	pod "GSSAdaptiveTabBarController", :path => "../"
+  target 'MFTAdaptiveTabBarController_Tests' do
+    inherit! :search_paths
+
+    
+  end
 end

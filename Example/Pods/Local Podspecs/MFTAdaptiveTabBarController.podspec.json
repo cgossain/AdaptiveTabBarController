@@ -1,0 +1,30 @@
+{
+  "name": "MFTAdaptiveTabBarController",
+  "version": "0.1.0",
+  "summary": "A short description of MFTAdaptiveTabBarController.",
+  "description": "TODO: Add long description of the pod here.",
+  "homepage": "https://github.com/<GITHUB_USERNAME>/MFTAdaptiveTabBarController",
+  "license": {
+    "type": "MIT",
+    "file": "LICENSE"
+  },
+  "authors": {
+    "Christian Gossain": "Christian Gossain"
+  },
+  "source": {
+    "git": "https://github.com/<GITHUB_USERNAME>/MFTAdaptiveTabBarController.git",
+    "tag": "0.1.0"
+  },
+  "platforms": {
+    "ios": "9.3"
+  },
+  "source_files": "MFTAdaptiveTabBarController/Classes/**/*",
+  "dependencies": {
+    "AppController": [
+      "~> 0.3.0"
+    ],
+    "SnapKit": [
+
+    ]
+  }
+}

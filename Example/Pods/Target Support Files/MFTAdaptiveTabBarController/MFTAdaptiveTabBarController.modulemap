@@ -1,0 +1,6 @@
+framework module MFTAdaptiveTabBarController {
+  umbrella header "MFTAdaptiveTabBarController-umbrella.h"
+
+  export *
+  module * { export * }
+}

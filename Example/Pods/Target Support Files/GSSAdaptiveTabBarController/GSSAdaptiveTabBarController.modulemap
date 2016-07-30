@@ -1,6 +1,0 @@
-framework module GSSAdaptiveTabBarController {
-  umbrella header "GSSAdaptiveTabBarController-umbrella.h"
-
-  export *
-  module * { export * }
-}
