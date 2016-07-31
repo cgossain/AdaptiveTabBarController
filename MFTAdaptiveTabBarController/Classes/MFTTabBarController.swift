@@ -61,16 +61,18 @@ public class MFTTabBarController: UITabBarController {
     // MARK: - Private
     
     private func updateLayoutForCurrentCenterButtonState() {
+        dimmingView.accessoryButtonSize = accessoryButton.bounds.size
+        
         if dimmingView.collapsed {
             dimmingView.removeFromSuperview()
+            accessoryButton.center = tabBar.convertPoint(dimmingView.anchor, fromView:dimmingView)
+            tabBar.addSubview(accessoryButton)
         }
         else {
             view.addSubview(dimmingView)
+            accessoryButton.center = dimmingView.anchor
+            view.addSubview(accessoryButton)
         }
-        
-        dimmingView.accessoryButtonSize = accessoryButton.bounds.size
-        accessoryButton.center = dimmingView.anchor
-        view.addSubview(accessoryButton)
     }
     
     @objc func accessoryButtonTapped(sender: UIButton) {
