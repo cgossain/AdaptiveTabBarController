@@ -14,7 +14,7 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   AppController: 3c902d8d988435f8a0b97a4fc85128dd5b07f1d9
-  MFTAdaptiveTabBarController: 25e9dc80ee57cdd65aae27ef945a23b3961cbc6b
+  MFTAdaptiveTabBarController: 7e0b8678b48bdd6815917fd840a125eaac80c2a0
   SnapKit: bbad04cb016c7cead63965f16b00c09318d271ee
 
 PODFILE CHECKSUM: e429ac7fa97f303f77d0c77c91db4f4ecf81f86c

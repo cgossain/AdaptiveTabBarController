@@ -1,9 +1,9 @@
 {
   "name": "MFTAdaptiveTabBarController",
   "version": "0.1.0",
-  "summary": "A short description of MFTAdaptiveTabBarController.",
-  "description": "TODO: Add long description of the pod here.",
-  "homepage": "https://github.com/<GITHUB_USERNAME>/MFTAdaptiveTabBarController",
+  "summary": "An adaptive view controller that adapts between a compact and regualar version of a tab bar controller.",
+  "description": "The MFTAdaptiveTabBarController offers an adaptive view controller that can be installed as the root view controller of an application.\n\nWhen in a horizontally compact environment, the controller installs a UITabBarController to its interface. When horizontally regular, the controller installs a MFTVerticalTabBarController to its interface. The MFTVerticalTabBarController is a view controller that provides a tab bar on the left side of its interface, and is more appropriate in regular environments.",
+  "homepage": "https://github.com/cgossain/MFTAdaptiveTabBarController",
   "license": {
     "type": "MIT",
     "file": "LICENSE"
@@ -12,7 +12,7 @@
     "Christian Gossain": "Christian Gossain"
   },
   "source": {
-    "git": "https://github.com/<GITHUB_USERNAME>/MFTAdaptiveTabBarController.git",
+    "git": "https://github.com/cgossain/MFTAdaptiveTabBarController.git",
     "tag": "0.1.0"
   },
   "platforms": {
