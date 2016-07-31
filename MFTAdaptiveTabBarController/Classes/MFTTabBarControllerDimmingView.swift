@@ -179,7 +179,7 @@ public class MFTTabBarControllerDimmingView: UIView {
             return 90.0
             
         case .BottomCenter:
-            return 120.0
+            return 110.0
         }
     }
     
@@ -189,7 +189,7 @@ public class MFTTabBarControllerDimmingView: UIView {
             return 180.0
             
         case .BottomCenter:
-            return 150.0
+            return 145.0
         }
     }
     
