@@ -45,33 +45,33 @@ class AuthenticationController: NSObject {
     
     // MARK: Methods (Private)
     
-    private func beginListeningForNotifications() {
+    fileprivate func beginListeningForNotifications() {
         loginNotificationObserver =
-        NSNotificationCenter.defaultCenter().addObserverForName(AuthenticationControllerDidLoginNotification,
+        NotificationCenter.default.addObserver(forName: NSNotification.Name(rawValue: AuthenticationControllerDidLoginNotification),
             object: nil,
-            queue: NSOperationQueue.mainQueue(),
-            usingBlock: { notification in
+            queue: OperationQueue.main,
+            using: { notification in
                 // call the login handler
                 self.onLogin?()
         })
         
         logoutNotificationObserver =
-        NSNotificationCenter.defaultCenter().addObserverForName(AuthenticationControllerDidLogoutNotification,
+        NotificationCenter.default.addObserver(forName: NSNotification.Name(rawValue: AuthenticationControllerDidLogoutNotification),
             object: nil,
-            queue: NSOperationQueue.mainQueue(),
-            usingBlock: { notification in
+            queue: OperationQueue.main,
+            using: { notification in
                 // call the login handler
                 self.onLogout?()
         })
     }
     
-    private func endListeningForNotifications() {
+    fileprivate func endListeningForNotifications() {
         if let note = loginNotificationObserver {
-            NSNotificationCenter.defaultCenter().removeObserver(note)
+            NotificationCenter.default.removeObserver(note)
         }
         
         if let note = logoutNotificationObserver {
-            NSNotificationCenter.defaultCenter().removeObserver(note)
+            NotificationCenter.default.removeObserver(note)
         }
     }
     

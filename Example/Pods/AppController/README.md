@@ -15,10 +15,6 @@ The AppController determines the "logged in" state on launch by checking calling
 
 It is a simple but powerful set of classes. The example project demonstrates the core functionality.
 
-## To-Do
-
-• Need to add the abiltiy to specify "logged out" and "logged in" interfaces programatically without using storyboards.
-
 ## Requirements
 
 ## Installation

@@ -13,6 +13,6 @@ Pod::Spec.new do |s|
   s.source           = { :git => 'https://github.com/cgossain/MFTAdaptiveTabBarController.git', :tag => s.version.to_s }
   s.ios.deployment_target = '9.3'
   s.source_files = 'MFTAdaptiveTabBarController/Classes/**/*'
-  s.dependency 'AppController', '~> 0.3.0'
+  s.dependency 'AppController'
   s.dependency 'SnapKit'
 end
