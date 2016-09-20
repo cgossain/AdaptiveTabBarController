@@ -11,51 +11,51 @@ import UIKit
 private let kExpansionRadius = 140.0
 
 protocol MFTTabBarControllerDimmingViewDelegate: NSObjectProtocol {
-    func dimmingViewWillExpand(dimmingView: MFTTabBarControllerDimmingView)
-    func dimmingViewDidExpand(dimmingView: MFTTabBarControllerDimmingView)
-    func dimmingViewWillCollapse(dimmingView: MFTTabBarControllerDimmingView)
-    func dimmingViewDidCollapse(dimmingView: MFTTabBarControllerDimmingView)
+    func dimmingViewWillExpand(_ dimmingView: MFTTabBarControllerDimmingView)
+    func dimmingViewDidExpand(_ dimmingView: MFTTabBarControllerDimmingView)
+    func dimmingViewWillCollapse(_ dimmingView: MFTTabBarControllerDimmingView)
+    func dimmingViewDidCollapse(_ dimmingView: MFTTabBarControllerDimmingView)
 }
 
-public class MFTTabBarControllerDimmingView: UIView {
+open class MFTTabBarControllerDimmingView: UIView {
     
     var delegate: MFTTabBarControllerDimmingViewDelegate?
     
-    public var accessoryButtonSize = CGSizeZero
-    public var position: AccessoryButtonPosition = .BottomCenter
-    public var anchor: CGPoint {
+    open var accessoryButtonSize = CGSize.zero
+    open var position: AccessoryButtonPosition = .bottomCenter
+    open var anchor: CGPoint {
         switch position {
-        case .BottomRight:
+        case .bottomRight:
             let anchorOffset = accessoryButtonSize.width/2 + 24
-            var anchor = CGPointMake(CGRectGetMaxX(bounds), CGRectGetMaxY(bounds))
+            var anchor = CGPoint(x: bounds.maxX, y: bounds.maxY)
             anchor.x -= anchorOffset
             anchor.y -= anchorOffset
             return anchor
             
-        case .BottomCenter:
-            var anchor = CGPointMake(CGRectGetMidX(bounds), CGRectGetMaxY(bounds) - accessoryButtonSize.height/2)
+        case .bottomCenter:
+            let anchor = CGPoint(x: bounds.midX, y: bounds.maxY - accessoryButtonSize.height/2)
             return anchor
         }
     }
     
-    private(set) var collapsed = true
-    private var actions = [MFTTabBarActionView]()
+    fileprivate(set) var collapsed = true
+    fileprivate var actions = [MFTTabBarActionView]()
     
     override public init(frame: CGRect) {
         super.init(frame: frame)
-        backgroundColor = UIColor.blackColor().colorWithAlphaComponent(0.5)
+        backgroundColor = UIColor.black.withAlphaComponent(0.5)
         addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(MFTTabBarControllerDimmingView.backgroundTappedGesture(_:))))
     }
     
     required public init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
-        backgroundColor = UIColor.blackColor().colorWithAlphaComponent(0.5)
+        backgroundColor = UIColor.black.withAlphaComponent(0.5)
         addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(MFTTabBarControllerDimmingView.backgroundTappedGesture(_:))))
     }
     
     // MARK: - Public
     
-    public func addTabBarAction(action: MFTTabBarAction) {
+    open func addTabBarAction(_ action: MFTTabBarAction) {
         let actionView = MFTTabBarActionView(action: action)
         actionView.didTapHandler = { [unowned self] in
             self.collapse(true)
@@ -63,16 +63,16 @@ public class MFTTabBarControllerDimmingView: UIView {
         actions.append(actionView)
     }
     
-    public func collapse(animated: Bool) {
+    open func collapse(_ animated: Bool) {
         willCollapse()
         if animated {
-            UIView.animateWithDuration(0.1, delay: 0.0, options: .CurveLinear, animations: {
+            UIView.animate(withDuration: 0.1, delay: 0.0, options: .curveLinear, animations: {
                 // move the items to their collapsed positions
                 self.moveActionViewsToCollapsedPositions()
                 
             }, completion: { (finished) in
                 // fade out the dimming view
-                UIView.animateWithDuration(0.1, delay: 0.0, options: .CurveLinear, animations: {
+                UIView.animate(withDuration: 0.1, delay: 0.0, options: .curveLinear, animations: {
                     self.alpha = 0.0
                     
                 }, completion: { (finished) in
@@ -86,17 +86,17 @@ public class MFTTabBarControllerDimmingView: UIView {
         }
     }
     
-    public func expand(animated: Bool) {
+    open func expand(_ animated: Bool) {
         willExpand()
         if animated {
-            UIView.animateWithDuration(0.2, delay: 0.0, options: .CurveLinear, animations: {
+            UIView.animate(withDuration: 0.2, delay: 0.0, options: .curveLinear, animations: {
                 self.alpha = 1.0
             }, completion: { (finished) in
                 // make sure the items begin at their collapsed positions
                 self.moveActionViewsToCollapsedPositions()
                 
                 // spring them into their expanded positions
-                UIView.animateWithDuration(0.6, delay: 0.0, usingSpringWithDamping: 0.45, initialSpringVelocity: 0.7, options: [], animations: {
+                UIView.animate(withDuration: 0.6, delay: 0.0, usingSpringWithDamping: 0.45, initialSpringVelocity: 0.7, options: [], animations: {
                     // move the items to their expanded positions
                     self.moveActionViewsToExpandedPositions()
                     
@@ -113,50 +113,50 @@ public class MFTTabBarControllerDimmingView: UIView {
     
     // MARK: - Actions
     
-    @objc func backgroundTappedGesture(sender: UITapGestureRecognizer) {
+    @objc func backgroundTappedGesture(_ sender: UITapGestureRecognizer) {
         collapse(true)
     }
     
     // MARK: - Private
     
-    private func moveActionViewsToExpandedPositions() {
-        for (idx, action) in self.actions.enumerate() {
+    fileprivate func moveActionViewsToExpandedPositions() {
+        for (idx, action) in self.actions.enumerated() {
             addSubview(action)
             action.center = expandedCenterPointForAction(action, at: idx)
             action.alpha = 1.0
         }
     }
     
-    private func moveActionViewsToCollapsedPositions() {
-        for (idx, action) in self.actions.enumerate() {
+    fileprivate func moveActionViewsToCollapsedPositions() {
+        for (idx, action) in self.actions.enumerated() {
             action.center = collapsedCenterPointForAction(action, at: idx)
             action.alpha = 0.0
         }
     }
     
-    private func willExpand() {
+    fileprivate func willExpand() {
         collapsed = false
         delegate?.dimmingViewWillExpand(self)
     }
     
-    private func didExpand() {
+    fileprivate func didExpand() {
         delegate?.dimmingViewDidExpand(self)
     }
     
-    private func willCollapse() {
+    fileprivate func willCollapse() {
         delegate?.dimmingViewWillCollapse(self)
     }
     
-    private func didCollapse() {
+    fileprivate func didCollapse() {
         collapsed = true
         delegate?.dimmingViewDidCollapse(self)
     }
     
-    private func collapsedCenterPointForAction(action: MFTTabBarActionView, at: Int) -> CGPoint {
+    fileprivate func collapsedCenterPointForAction(_ action: MFTTabBarActionView, at: Int) -> CGPoint {
         return anchor
     }
     
-    private func expandedCenterPointForAction(action: MFTTabBarActionView, at: Int) -> CGPoint {
+    fileprivate func expandedCenterPointForAction(_ action: MFTTabBarActionView, at: Int) -> CGPoint {
         let range = angleRange(forPosition: position)
         let start = startAngle(forPosition: position)
         
@@ -169,26 +169,26 @@ public class MFTTabBarControllerDimmingView: UIView {
         let x = kExpansionRadius * cos(expandedAngleInRadians)
         let y = kExpansionRadius * sin(expandedAngleInRadians)
         
-        return CGPointMake(anchor.x + CGFloat(x), anchor.y - CGFloat(y))
+        return CGPoint(x: anchor.x + CGFloat(x), y: anchor.y - CGFloat(y))
         
     }
     
-    private func angleRange(forPosition position: AccessoryButtonPosition) -> Double {
+    fileprivate func angleRange(forPosition position: AccessoryButtonPosition) -> Double {
         switch position {
-        case .BottomRight:
+        case .bottomRight:
             return 90.0
             
-        case .BottomCenter:
+        case .bottomCenter:
             return 110.0
         }
     }
     
-    private func startAngle(forPosition position: AccessoryButtonPosition) -> Double {
+    fileprivate func startAngle(forPosition position: AccessoryButtonPosition) -> Double {
         switch position {
-        case .BottomRight:
+        case .bottomRight:
             return 180.0
             
-        case .BottomCenter:
+        case .bottomCenter:
             return 145.0
         }
     }

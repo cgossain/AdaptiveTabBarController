@@ -22,10 +22,10 @@ class MFTVerticalTabBar: UIView {
         }
         didSet {
             if let unwrappedItems = items {
-                for (idx, item) in unwrappedItems.enumerate() {
+                for (idx, item) in unwrappedItems.enumerated() {
                     item.translatesAutoresizingMaskIntoConstraints = false
                     item.index = idx
-                    item.addTarget(self, action: "tabBarItemTouched:", forControlEvents: .TouchDown)
+                    item.addTarget(self, action: #selector(MFTVerticalTabBar.tabBarItemTouched(_:)), for: .touchDown)
                     
                     self.addSubview(item)
                 }
@@ -39,12 +39,12 @@ class MFTVerticalTabBar: UIView {
         willSet {
             // deselect the current item
             let currentItem = self.tabBarItemAtIndex(selectedItemIndex)
-            currentItem?.selected = false
+            currentItem?.isSelected = false
         }
         didSet {
             // select the new item
             let newItem = self.tabBarItemAtIndex(selectedItemIndex)
-            newItem?.selected = true
+            newItem?.isSelected = true
         }
     }
     
@@ -61,7 +61,7 @@ class MFTVerticalTabBar: UIView {
     }
     
     func commonInit() {
-        self.backgroundColor = UIColor.whiteColor()
+        self.backgroundColor = UIColor.white
     }
     
     // MARK: Constraints
@@ -69,15 +69,15 @@ class MFTVerticalTabBar: UIView {
     override func updateConstraints() {
         if let unwrappedItems = items {
             var previousItem: MFTVerticalTabBarItemView?
-            for (idx, item) in unwrappedItems.enumerate() {
-                item.leadingAnchor.constraintEqualToAnchor(self.leadingAnchor).active = true
-                item.trailingAnchor.constraintEqualToAnchor(self.trailingAnchor).active = true
+            for (idx, item) in unwrappedItems.enumerated() {
+                item.leadingAnchor.constraint(equalTo: self.leadingAnchor).isActive = true
+                item.trailingAnchor.constraint(equalTo: self.trailingAnchor).isActive = true
                 
                 if idx == 0 {
-                    item.topAnchor.constraintEqualToAnchor(self.topAnchor, constant: 64.0).active = true
+                    item.topAnchor.constraint(equalTo: self.topAnchor, constant: 64.0).isActive = true
                 }
                 else if let p = previousItem {
-                    item.topAnchor.constraintEqualToAnchor(p.bottomAnchor).active = true
+                    item.topAnchor.constraint(equalTo: p.bottomAnchor).isActive = true
                 }
                 
                 previousItem = item
@@ -89,14 +89,14 @@ class MFTVerticalTabBar: UIView {
     
     // MARK: Selectors
     
-    func tabBarItemTouched(item: MFTVerticalTabBarItemView) {
+    func tabBarItemTouched(_ item: MFTVerticalTabBarItemView) {
         self.selectedItemIndex = item.index
         self.didSelectItemHandler?(item)
     }
     
     // MARK: Methods (Private)
     
-    func tabBarItemAtIndex(index: Int) -> MFTVerticalTabBarItemView? {
+    func tabBarItemAtIndex(_ index: Int) -> MFTVerticalTabBarItemView? {
         var item: MFTVerticalTabBarItemView?
         if let unwrappedItems = items {
             for i in unwrappedItems {

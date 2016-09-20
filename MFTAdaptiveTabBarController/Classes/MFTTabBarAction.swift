@@ -14,7 +14,7 @@ public struct MFTTabBarAction {
     public let title: String
     public let handler: (() -> Void)
     
-    public init(image: UIImage, title: String, handler: (() -> Void)) {
+    public init(image: UIImage, title: String, handler: @escaping (() -> Void)) {
         self.image = image
         self.title = title
         self.handler = handler
@@ -23,18 +23,18 @@ public struct MFTTabBarAction {
 
 class MFTTabBarActionView: UIView {
     
-    private lazy var button: UIButton = {
-        let button = UIButton(type: .Custom)
-        button.setImage(self.action.image, forState: .Normal)
-        button.addTarget(self, action: #selector(actionButtonTapped(_:)), forControlEvents: .TouchUpInside)
+    fileprivate lazy var button: UIButton = {
+        let button = UIButton(type: .custom)
+        button.setImage(self.action.image, for: UIControlState())
+        button.addTarget(self, action: #selector(actionButtonTapped(_:)), for: .touchUpInside)
         return button
     }()
     
-    private lazy var titleLabel: UILabel = {
+    fileprivate lazy var titleLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.boldSystemFontOfSize(12)
+        label.font = UIFont.boldSystemFont(ofSize: 12)
         label.text = self.action.title
-        label.textColor = UIColor.whiteColor()
+        label.textColor = UIColor.white
         return label
     }()
     
@@ -43,7 +43,7 @@ class MFTTabBarActionView: UIView {
     
     public init(action: MFTTabBarAction) {
         self.action = action
-        super.init(frame: CGRectMake(0.0, 0.0, 70.0, 70.0))
+        super.init(frame: CGRect(x: 0.0, y: 0.0, width: 70.0, height: 70.0))
         addSubview(button)
         addSubview(titleLabel)
         
@@ -69,7 +69,7 @@ class MFTTabBarActionView: UIView {
     
     // MARK: - Actions
     
-    @objc func actionButtonTapped(sender: UIButton) {
+    @objc func actionButtonTapped(_ sender: UIButton) {
         action.handler()
         didTapHandler?()
     }

@@ -10,42 +10,42 @@ import UIKit
 
 class MFTVerticalTabBarItemView: UIControl {
     
-    private var tabBarItem: UITabBarItem?
+    fileprivate var tabBarItem: UITabBarItem?
     
     var index: Int = 0
     
-    override var selected: Bool {
+    override var isSelected: Bool {
         didSet { self.updateSelection() }
     }
     
-    override var highlighted: Bool {
+    override var isHighlighted: Bool {
         didSet { self.updateSelection() }
     }
     
-    private let imageView: UIImageView = {
+    fileprivate let imageView: UIImageView = {
         let i = UIImageView()
         i.translatesAutoresizingMaskIntoConstraints = false
-        i.userInteractionEnabled = false
+        i.isUserInteractionEnabled = false
         
         return i
     }()
     
-    private let titleLabel: UILabel = {
+    fileprivate let titleLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.userInteractionEnabled = false
-        label.textAlignment = .Center
-        label.font = UIFont.systemFontOfSize(12.0)
-        label.textColor = UIColor.lightGrayColor()
+        label.isUserInteractionEnabled = false
+        label.textAlignment = .center
+        label.font = UIFont.systemFont(ofSize: 12.0)
+        label.textColor = UIColor.lightGray
         
         return label
         
     }()
     
-    private let containerView: UIView = {
+    fileprivate let containerView: UIView = {
         let container = UIView()
         container.translatesAutoresizingMaskIntoConstraints = false
-        container.userInteractionEnabled = false
+        container.isUserInteractionEnabled = false
         
         return container
     }()
@@ -54,10 +54,10 @@ class MFTVerticalTabBarItemView: UIControl {
     
     init(tabBarItem item: UITabBarItem) {
         tabBarItem = item
-        super.init(frame: CGRectZero)
+        super.init(frame: CGRect.zero)
         
-        imageView.image = item.image?.imageWithRenderingMode(.Automatic)
-        imageView.highlightedImage = item.selectedImage?.imageWithRenderingMode(.AlwaysTemplate)
+        imageView.image = item.image?.withRenderingMode(.automatic)
+        imageView.highlightedImage = item.selectedImage?.withRenderingMode(.alwaysTemplate)
         titleLabel.text = item.title
         
         self.commonInit()
@@ -88,22 +88,22 @@ class MFTVerticalTabBarItemView: UIControl {
     
     // MARK: Constraints
     
-    override func intrinsicContentSize() -> CGSize {
+    override var intrinsicContentSize : CGSize {
         return CGSize(width: UIViewNoIntrinsicMetric, height: 72.0)
     }
     
     override func updateConstraints() {
-        containerView.centerYAnchor.constraintEqualToAnchor(self.centerYAnchor).active = true
-        containerView.leadingAnchor.constraintEqualToAnchor(self.leadingAnchor).active = true
-        containerView.trailingAnchor.constraintEqualToAnchor(self.trailingAnchor).active = true
+        containerView.centerYAnchor.constraint(equalTo: self.centerYAnchor).isActive = true
+        containerView.leadingAnchor.constraint(equalTo: self.leadingAnchor).isActive = true
+        containerView.trailingAnchor.constraint(equalTo: self.trailingAnchor).isActive = true
         
-        imageView.topAnchor.constraintEqualToAnchor(containerView.topAnchor).active = true
-        imageView.centerXAnchor.constraintEqualToAnchor(containerView.centerXAnchor).active = true
+        imageView.topAnchor.constraint(equalTo: containerView.topAnchor).isActive = true
+        imageView.centerXAnchor.constraint(equalTo: containerView.centerXAnchor).isActive = true
         
-        titleLabel.topAnchor.constraintEqualToAnchor(imageView.bottomAnchor, constant: 6.0).active = true
-        titleLabel.leadingAnchor.constraintEqualToAnchor(containerView.leadingAnchor).active = true
-        titleLabel.bottomAnchor.constraintEqualToAnchor(containerView.bottomAnchor).active = true
-        titleLabel.trailingAnchor.constraintEqualToAnchor(containerView.trailingAnchor).active = true
+        titleLabel.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 6.0).isActive = true
+        titleLabel.leadingAnchor.constraint(equalTo: containerView.leadingAnchor).isActive = true
+        titleLabel.bottomAnchor.constraint(equalTo: containerView.bottomAnchor).isActive = true
+        titleLabel.trailingAnchor.constraint(equalTo: containerView.trailingAnchor).isActive = true
         
         super.updateConstraints()
     }
@@ -111,8 +111,8 @@ class MFTVerticalTabBarItemView: UIControl {
     // MARK: Methods (Private)
     
     func updateSelection() {
-        let isSelected = self.selected || self.highlighted
-        imageView.highlighted = isSelected
+        let isSelected = self.isSelected || self.isHighlighted
+        imageView.isHighlighted = isSelected
     }
 
 }

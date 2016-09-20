@@ -8,21 +8,21 @@
 
 import UIKit
 
-public class MFTTabBarController: UITabBarController {
+open class MFTTabBarController: UITabBarController {
     
-    public var accessoryButtonDidExpandHandler: (() -> Void)?
+    open var accessoryButtonDidExpandHandler: (() -> Void)?
     
-    private let dimmingView = MFTTabBarControllerDimmingView()
+    fileprivate let dimmingView = MFTTabBarControllerDimmingView()
     
-    private var accessoryButtonEnabled = false
+    fileprivate var accessoryButtonEnabled = false
     
-    private var accessoryButton = UIButton(type: .Custom)
+    fileprivate var accessoryButton = UIButton(type: .custom)
     
-    private var selectedNavigationController: UINavigationController?
+    fileprivate var selectedNavigationController: UINavigationController?
     
     // MARK: - Override
     
-    override public var selectedViewController: UIViewController? {
+    override open var selectedViewController: UIViewController? {
         didSet {
             if accessoryButtonEnabled {
                 if let vc = selectedViewController as? UINavigationController {
@@ -35,7 +35,7 @@ public class MFTTabBarController: UITabBarController {
     
     // MARK: - View Lifecycle
     
-    public override func viewWillLayoutSubviews() {
+    open override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
         dimmingView.frame = view.bounds
         if accessoryButtonEnabled {
@@ -45,27 +45,27 @@ public class MFTTabBarController: UITabBarController {
     
     // MARK: - Public
     
-    public func enableAccessoryButtonWith(image: UIImage) {
+    open func enableAccessoryButtonWith(_ image: UIImage) {
         accessoryButtonEnabled = true
         dimmingView.delegate = self
-        dimmingView.position = .BottomCenter
-        accessoryButton.setImage(image, forState: .Normal)
+        dimmingView.position = .bottomCenter
+        accessoryButton.setImage(image, for: UIControlState())
         accessoryButton.sizeToFit()
-        accessoryButton.addTarget(self, action: #selector(MFTVerticalTabBarController.accessoryButtonTapped(_:)), forControlEvents: .TouchUpInside)
+        accessoryButton.addTarget(self, action: #selector(MFTVerticalTabBarController.accessoryButtonTapped(_:)), for: .touchUpInside)
     }
     
-    public func addTabBarAction(action: MFTTabBarAction) {
+    open func addTabBarAction(_ action: MFTTabBarAction) {
         dimmingView.addTabBarAction(action)
     }
     
     // MARK: - Private
     
-    private func updateLayoutForCurrentCenterButtonState() {
+    fileprivate func updateLayoutForCurrentCenterButtonState() {
         dimmingView.accessoryButtonSize = accessoryButton.bounds.size
         
         if dimmingView.collapsed {
             dimmingView.removeFromSuperview()
-            accessoryButton.center = tabBar.convertPoint(dimmingView.anchor, fromView:dimmingView)
+            accessoryButton.center = tabBar.convert(dimmingView.anchor, from:dimmingView)
             tabBar.addSubview(accessoryButton)
         }
         else {
@@ -75,7 +75,7 @@ public class MFTTabBarController: UITabBarController {
         }
     }
     
-    @objc func accessoryButtonTapped(sender: UIButton) {
+    @objc func accessoryButtonTapped(_ sender: UIButton) {
         if dimmingView.collapsed {
             dimmingView.expand(true)
         }
@@ -88,25 +88,25 @@ public class MFTTabBarController: UITabBarController {
 
 extension MFTTabBarController: MFTTabBarControllerDimmingViewDelegate {
     
-    func dimmingViewWillExpand(dimmingView: MFTTabBarControllerDimmingView) {
+    func dimmingViewWillExpand(_ dimmingView: MFTTabBarControllerDimmingView) {
         updateLayoutForCurrentCenterButtonState()
         
-        UIView.animateWithDuration(0.2) {
-            self.accessoryButton.transform = CGAffineTransformMakeRotation(CGFloat(45.0 * M_PI / 180.0))
-        }
+        UIView.animate(withDuration: 0.2, animations: {
+            self.accessoryButton.transform = CGAffineTransform(rotationAngle: CGFloat(45.0 * M_PI / 180.0))
+        }) 
     }
     
-    func dimmingViewDidExpand(dimmingView: MFTTabBarControllerDimmingView) {
+    func dimmingViewDidExpand(_ dimmingView: MFTTabBarControllerDimmingView) {
         accessoryButtonDidExpandHandler?()
     }
     
-    func dimmingViewWillCollapse(dimmingView: MFTTabBarControllerDimmingView) {
-        UIView.animateWithDuration(0.2) {
-            self.accessoryButton.transform = CGAffineTransformIdentity
-        }
+    func dimmingViewWillCollapse(_ dimmingView: MFTTabBarControllerDimmingView) {
+        UIView.animate(withDuration: 0.2, animations: {
+            self.accessoryButton.transform = CGAffineTransform.identity
+        }) 
     }
     
-    func dimmingViewDidCollapse(dimmingView: MFTTabBarControllerDimmingView) {
+    func dimmingViewDidCollapse(_ dimmingView: MFTTabBarControllerDimmingView) {
         updateLayoutForCurrentCenterButtonState()
     }
     
@@ -114,16 +114,16 @@ extension MFTTabBarController: MFTTabBarControllerDimmingViewDelegate {
 
 extension MFTTabBarController: UINavigationControllerDelegate {
     
-    public func navigationController(navigationController: UINavigationController, willShowViewController viewController: UIViewController, animated: Bool) {
+    public func navigationController(_ navigationController: UINavigationController, willShow viewController: UIViewController, animated: Bool) {
         var hidesBottomBar = false
-        for vc in navigationController.viewControllers.reverse() {
+        for vc in navigationController.viewControllers.reversed() {
             if vc.hidesBottomBarWhenPushed {
                 hidesBottomBar = true
                 break
             }
         }
         
-        navigationController.transitionCoordinator()?.animateAlongsideTransition({ (context) in
+        navigationController.transitionCoordinator?.animate(alongsideTransition: { (context) in
             
             if hidesBottomBar {
                 self.accessoryButton.alpha = 0.0
@@ -135,10 +135,10 @@ extension MFTTabBarController: UINavigationControllerDelegate {
         }, completion: { (context) in
             
             if hidesBottomBar {
-                self.accessoryButton.alpha = context.isCancelled() ? 1.0 : 0.0
+                self.accessoryButton.alpha = context.isCancelled ? 1.0 : 0.0
             }
             else {
-                self.accessoryButton.alpha = context.isCancelled() ? 0.0 : 1.0
+                self.accessoryButton.alpha = context.isCancelled ? 0.0 : 1.0
             }
             
         })
