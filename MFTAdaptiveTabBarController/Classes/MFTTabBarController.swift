@@ -10,14 +10,11 @@ import UIKit
 
 open class MFTTabBarController: UITabBarController {
     
-    open var accessoryButtonDidExpandHandler: (() -> Void)?
+    var accessoryButtonDidExpandHandler: (() -> Void)?
     
     fileprivate let dimmingView = MFTTabBarControllerDimmingView()
-    
     fileprivate var accessoryButtonEnabled = false
-    
     fileprivate var accessoryButton = MFTAdaptiveTabBarCentreButton()
-    
     fileprivate var selectedNavigationController: UINavigationController?
     
     // MARK: - Override

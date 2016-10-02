@@ -70,12 +70,8 @@ open class MFTAdaptiveTabBarController: AppViewController {
     fileprivate var registeredActions = [MFTTabBarAction]()
     fileprivate var isCenterButtonEnabled: Bool { return registeredActions.count > 0 }
     
-    // MARK: View Lifecycle
+    // MARK: - View Lifecycle
     
-    override open func viewDidLoad() {
-        super.viewDidLoad()
-    }
-
     open override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         loadTabBarControllerForTraitCollection(traitCollection)
@@ -88,13 +84,13 @@ open class MFTAdaptiveTabBarController: AppViewController {
         }, completion: nil)
     }
     
-    // MARK: Public
+    // MARK: - Public
     
     open func addTabBarAction(_ action: MFTTabBarAction) {
         registeredActions.append(action)
     }
     
-    // MARK: Private
+    // MARK: - Private
     
     fileprivate func isCompactForTraitCollection(_ traitCollection: UITraitCollection) -> Bool {
         return traitCollection.horizontalSizeClass == .compact

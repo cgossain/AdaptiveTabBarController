@@ -26,12 +26,11 @@ class MFTVerticalTabBar: UIView {
                     item.translatesAutoresizingMaskIntoConstraints = false
                     item.index = idx
                     item.addTarget(self, action: #selector(MFTVerticalTabBar.tabBarItemTouched(_:)), for: .touchDown)
-                    
-                    self.addSubview(item)
+                    addSubview(item)
                 }
             }
             
-            self.setNeedsUpdateConstraints()
+            setNeedsUpdateConstraints()
         }
     }
     
@@ -48,23 +47,23 @@ class MFTVerticalTabBar: UIView {
         }
     }
     
-    // MARK: Initialization
+    // MARK: - Initialization
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        self.commonInit()
+        commonInit()
     }
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
-        self.commonInit()
+        commonInit()
     }
     
     func commonInit() {
-        self.backgroundColor = UIColor.white
+        backgroundColor = .white
     }
     
-    // MARK: Constraints
+    // MARK: - Constraints
     
     override func updateConstraints() {
         if let unwrappedItems = items {
@@ -83,18 +82,17 @@ class MFTVerticalTabBar: UIView {
                 previousItem = item
             }
         }
-        
         super.updateConstraints()
     }
     
-    // MARK: Selectors
+    // MARK: - Selectors
     
     func tabBarItemTouched(_ item: MFTVerticalTabBarItemView) {
-        self.selectedItemIndex = item.index
-        self.didSelectItemHandler?(item)
+        selectedItemIndex = item.index
+        didSelectItemHandler?(item)
     }
     
-    // MARK: Methods (Private)
+    // MARK: - Methods (Private)
     
     func tabBarItemAtIndex(_ index: Int) -> MFTVerticalTabBarItemView? {
         var item: MFTVerticalTabBarItemView?
