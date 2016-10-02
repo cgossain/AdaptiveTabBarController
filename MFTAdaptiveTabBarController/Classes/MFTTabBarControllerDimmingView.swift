@@ -8,7 +8,7 @@
 
 import UIKit
 
-private let kExpansionRadius = 140.0
+private let kExpansionRadius = 120.0
 
 protocol MFTTabBarControllerDimmingViewDelegate: NSObjectProtocol {
     func dimmingViewWillExpand(_ dimmingView: MFTTabBarControllerDimmingView)
@@ -89,19 +89,19 @@ open class MFTTabBarControllerDimmingView: UIView {
     open func expand(_ animated: Bool) {
         willExpand()
         if animated {
-            UIView.animate(withDuration: 0.2, delay: 0.0, options: .curveLinear, animations: {
+            UIView.animate(withDuration: 0.15, delay: 0.0, options: .curveLinear, animations: {
                 self.alpha = 1.0
             }, completion: { (finished) in
                 // make sure the items begin at their collapsed positions
                 self.moveActionViewsToCollapsedPositions()
                 
                 // spring them into their expanded positions
-                UIView.animate(withDuration: 0.6, delay: 0.0, usingSpringWithDamping: 0.45, initialSpringVelocity: 0.7, options: [], animations: {
+                UIView.animate(withDuration: 0.4, delay: 0.0, usingSpringWithDamping: 0.6, initialSpringVelocity: 1.0, options: [], animations: {
                     // move the items to their expanded positions
                     self.moveActionViewsToExpandedPositions()
                     
                 }, completion: { (finished) in
-                        self.didExpand()
+                    self.didExpand()
                 })
             })
         }
