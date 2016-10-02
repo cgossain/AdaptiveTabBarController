@@ -63,10 +63,8 @@ open class MFTVerticalTabBarController: UISplitViewController {
     }()
     
     fileprivate let dimmingView = MFTTabBarControllerDimmingView()
-    
     fileprivate var accessoryButtonEnabled = false
-    
-    fileprivate var accessoryButton = UIButton(type: .custom)
+    fileprivate var accessoryButton = MFTAdaptiveTabBarCentreButton()
     
     // MARK: Initialization
     
@@ -108,13 +106,20 @@ open class MFTVerticalTabBarController: UISplitViewController {
     
     // MARK: - Public
     
-    open func enableAccessoryButtonWith(_ image: UIImage) {
+    open func enableAccessoryButton() {
         accessoryButtonEnabled = true
         dimmingView.delegate = self
         dimmingView.position = .bottomRight
-        accessoryButton.setImage(image, for: UIControlState())
+        
         accessoryButton.sizeToFit()
-        accessoryButton.addTarget(self, action: #selector(MFTVerticalTabBarController.accessoryButtonTapped(_:)), for: .touchUpInside)
+        accessoryButton.touchUpInsideHandler = { [unowned self] in
+            if self.dimmingView.collapsed {
+                self.dimmingView.expand(true)
+            }
+            else {
+                self.dimmingView.collapse(true)
+            }
+        }
     }
     
     open func addTabBarAction(_ action: MFTTabBarAction) {
@@ -131,18 +136,9 @@ open class MFTVerticalTabBarController: UISplitViewController {
             view.addSubview(dimmingView)
         }
         
-        dimmingView.accessoryButtonSize = accessoryButton.bounds.size
+        dimmingView.accessoryButtonSize = accessoryButton.intrinsicContentSize
         accessoryButton.center = dimmingView.anchor
         view.addSubview(accessoryButton)
-    }
-    
-    @objc func accessoryButtonTapped(_ sender: UIButton) {
-        if dimmingView.collapsed {
-            dimmingView.expand(true)
-        }
-        else {
-            dimmingView.collapse(true)
-        }
     }
     
 }
@@ -153,7 +149,7 @@ extension MFTVerticalTabBarController: MFTTabBarControllerDimmingViewDelegate {
         updateLayoutForCurrentCenterButtonState()
         
         UIView.animate(withDuration: 0.2, animations: {
-            self.accessoryButton.transform = CGAffineTransform(rotationAngle: CGFloat(45.0 * M_PI / 180.0))
+            self.accessoryButton.plusImageView.transform = CGAffineTransform(rotationAngle: CGFloat(45.0 * M_PI / 180.0))
         }) 
     }
     
@@ -163,7 +159,7 @@ extension MFTVerticalTabBarController: MFTTabBarControllerDimmingViewDelegate {
     
     func dimmingViewWillCollapse(_ dimmingView: MFTTabBarControllerDimmingView) {
         UIView.animate(withDuration: 0.2, animations: { 
-            self.accessoryButton.transform = CGAffineTransform.identity
+            self.accessoryButton.plusImageView.transform = .identity
         }) 
     }
     

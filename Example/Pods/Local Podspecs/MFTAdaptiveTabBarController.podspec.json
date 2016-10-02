@@ -19,6 +19,7 @@
     "ios": "9.3"
   },
   "source_files": "MFTAdaptiveTabBarController/Classes/**/*",
+  "resources": "MFTAdaptiveTabBarController/Assets/*.xcassets",
   "dependencies": {
     "AppController": [
 

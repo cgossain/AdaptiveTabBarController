@@ -220,6 +220,7 @@
 					};
 					607FACE41AFB9204008FA782 = {
 						CreatedOnToolsVersion = 6.3.1;
+						DevelopmentTeam = U4YZ3YB6S3;
 						LastSwiftMigration = 0800;
 						TestTargetID = 607FACCF1AFB9204008FA782;
 					};
@@ -496,7 +497,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = AB3CFCD66662F0C482A1CC45 /* Pods-MFTAdaptiveTabBarController_Example.debug.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = TY457QWLH7;
 				INFOPLIST_FILE = MFTAdaptiveTabBarController/Info.plist;
@@ -513,7 +513,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 632FC4476023AB68D5E6BA4F /* Pods-MFTAdaptiveTabBarController_Example.release.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = TY457QWLH7;
 				INFOPLIST_FILE = MFTAdaptiveTabBarController/Info.plist;
@@ -530,6 +529,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 0404CDF871666CDBD4DE24CA /* Pods-MFTAdaptiveTabBarController_Tests.debug.xcconfig */;
 			buildSettings = {
+				DEVELOPMENT_TEAM = U4YZ3YB6S3;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
@@ -550,6 +550,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 154B6616AF2774E96A657D15 /* Pods-MFTAdaptiveTabBarController_Tests.release.xcconfig */;
 			buildSettings = {
+				DEVELOPMENT_TEAM = U4YZ3YB6S3;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",

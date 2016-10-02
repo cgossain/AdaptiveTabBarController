@@ -29,10 +29,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         vc2.tabBarItem = UITabBarItem(title: "An Item 1", image: UIImage(named: "book"), selectedImage: UIImage(named: "book-selected"))
         
         adaptiveTabBarViewController.viewControllers = [vc1, vc2]
-        
-        adaptiveTabBarViewController.enableAccessoryButtonWith(UIImage(named: "tab-bar-center-button")!) {
-            
-        }
+                
         adaptiveTabBarViewController.addTabBarAction(MFTTabBarAction(image: UIImage(named: "tab-barcode-action")!, title: "Action 1", handler: {
             
         }))

@@ -22,6 +22,8 @@ public protocol MFTAdaptiveTabBarControllerDelegate: NSObjectProtocol {
 
 open class MFTAdaptiveTabBarController: AppViewController {
     
+    open var accessoryButtonDidExpandHandler: (() -> Void)?
+    
     open weak var delegate: MFTAdaptiveTabBarControllerDelegate?
     
     open var viewControllers: [UIViewController]? {
@@ -65,9 +67,8 @@ open class MFTAdaptiveTabBarController: AppViewController {
     
     fileprivate var tabBarControllerClass: UITabBarController.Type?
     fileprivate var currentTabBarController: UIViewController?
-    fileprivate var centerButtonImage: UIImage?
     fileprivate var registeredActions = [MFTTabBarAction]()
-    fileprivate var accessoryButtonDidExpandHandler: (() -> Void)?
+    fileprivate var isCenterButtonEnabled: Bool { return registeredActions.count > 0 }
     
     // MARK: View Lifecycle
     
@@ -89,11 +90,6 @@ open class MFTAdaptiveTabBarController: AppViewController {
     
     // MARK: Public
     
-    open func enableAccessoryButtonWith(_ image: UIImage, didExpandHandler: (() -> Void)?) {
-        centerButtonImage = image
-        accessoryButtonDidExpandHandler = didExpandHandler
-    }
-    
     open func addTabBarAction(_ action: MFTTabBarAction) {
         registeredActions.append(action)
     }
@@ -113,8 +109,8 @@ open class MFTAdaptiveTabBarController: AppViewController {
             tabBarController.accessoryButtonDidExpandHandler = accessoryButtonDidExpandHandler
             tabBarController.delegate = self
             
-            if let image = centerButtonImage {
-                tabBarController.enableAccessoryButtonWith(image)
+            if isCenterButtonEnabled {
+                tabBarController.enableAccessoryButton()
             }
             
             for action in registeredActions {
@@ -124,7 +120,7 @@ open class MFTAdaptiveTabBarController: AppViewController {
             // set the view controllers
             if let viewControllers = viewControllers {
                 var controllers = viewControllers
-                if centerButtonImage != nil {
+                if isCenterButtonEnabled {
                     if controllers.count == 2 || controllers.count == 4 {
                         // insert a placeholder view controller to make room for the center button
                         controllers.insert(_AdaptivePlaceholderViewController(), at: (controllers.count/2))
@@ -136,15 +132,16 @@ open class MFTAdaptiveTabBarController: AppViewController {
             currentTabBarController = tabBarController
             transitionToViewController(tabBarController, animated: false, completion: nil)
             
-        } else {
+        }
+        else {
             let tabBarController = MFTVerticalTabBarController()
             tabBarController.accessoryButtonDidExpandHandler = accessoryButtonDidExpandHandler
             tabBarController.didSelectViewControllerHandler = { [unowned self] viewController in
                 self.delegate?.tabBarController(self, didSelectViewController: viewController)
             }
             
-            if let image = centerButtonImage {
-                tabBarController.enableAccessoryButtonWith(image)
+            if isCenterButtonEnabled {
+                tabBarController.enableAccessoryButton()
             }
             
             for action in registeredActions {
