@@ -8,7 +8,8 @@
 
 import UIKit
 
-private let kExpansionRadius = 120.0
+private let kExpansionRadiusCompact = 120.0
+private let kExpansionRadiusRegular = 140.0
 
 protocol MFTTabBarControllerDimmingViewDelegate: NSObjectProtocol {
     func dimmingViewWillExpand(_ dimmingView: MFTTabBarControllerDimmingView)
@@ -119,6 +120,17 @@ open class MFTTabBarControllerDimmingView: UIView {
     
     // MARK: - Private
     
+    fileprivate func expansionRadius() -> Double {
+        switch traitCollection.horizontalSizeClass {
+        case .compact:
+            return kExpansionRadiusCompact
+        case .regular:
+            return kExpansionRadiusRegular
+        default:
+            return kExpansionRadiusCompact
+        }
+    }
+    
     fileprivate func moveActionViewsToExpandedPositions() {
         for (idx, action) in self.actions.enumerated() {
             addSubview(action)
@@ -166,8 +178,8 @@ open class MFTTabBarControllerDimmingView: UIView {
         let expandedAngleInRadians = expandedAngleInDegrees * (M_PI / 180.0)
         
         // convert the position from cylindrical to cartesian coordinates
-        let x = kExpansionRadius * cos(expandedAngleInRadians)
-        let y = kExpansionRadius * sin(expandedAngleInRadians)
+        let x = expansionRadius() * cos(expandedAngleInRadians)
+        let y = expansionRadius() * sin(expandedAngleInRadians)
         
         return CGPoint(x: anchor.x + CGFloat(x), y: anchor.y - CGFloat(y))
         
