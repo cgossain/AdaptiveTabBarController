@@ -30,7 +30,8 @@ open class MFTAdaptiveTabBarController: AppViewController {
         didSet {
             if let controller = currentTabBarController as? UITabBarController {
                 controller.viewControllers = viewControllers
-            } else if let controller = currentTabBarController as? MFTVerticalTabBarController {
+            }
+            else if let controller = currentTabBarController as? MFTVerticalTabBarController {
                 controller.tabBarViewControllers = viewControllers
             }
         }
@@ -39,17 +40,42 @@ open class MFTAdaptiveTabBarController: AppViewController {
     open var selectedIndex: Int {
         set {
             if let controller = currentTabBarController as? UITabBarController {
-                controller.selectedIndex = newValue
-            } else if let controller = currentTabBarController as? MFTVerticalTabBarController {
+                var offset = 0
+                if let viewControllers = controller.viewControllers {
+                    for (idx, vc) in viewControllers.enumerated() {
+                        if vc is _AdaptivePlaceholderViewController {
+                            offset += 1
+                        }
+                        else if idx >= newValue + offset {
+                            break
+                        }
+                    }
+                }
+                controller.selectedIndex = newValue + offset
+            }
+            else if let controller = currentTabBarController as? MFTVerticalTabBarController {
                 controller.selectedIndex = newValue
             }
         }
         get {
             if let controller = currentTabBarController as? UITabBarController {
+                var offset = 0
+                if let viewControllers = controller.viewControllers {
+                    for (idx, vc) in viewControllers.enumerated() {
+                        if vc is _AdaptivePlaceholderViewController {
+                            offset += 1
+                        }
+                        else if idx >= controller.selectedIndex {
+                            break
+                        }
+                    }
+                }
+                return controller.selectedIndex - offset
+            }
+            else if let controller = currentTabBarController as? MFTVerticalTabBarController {
                 return controller.selectedIndex
-            } else if let controller = currentTabBarController as? MFTVerticalTabBarController {
-                return controller.selectedIndex
-            } else {
+            }
+            else {
                 return 0
             }
         }
