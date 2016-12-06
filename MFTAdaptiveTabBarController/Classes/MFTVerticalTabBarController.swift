@@ -65,8 +65,9 @@ open class MFTVerticalTabBarController: UISplitViewController {
     fileprivate let dimmingView = MFTTabBarControllerDimmingView()
     fileprivate var accessoryButtonEnabled = false
     fileprivate var accessoryButton = MFTAdaptiveTabBarCentreButton()
+    fileprivate var centerButtonPreviewInteraction: UIPreviewInteraction?
     
-    // MARK: Initialization
+    // MARK: - Lifecycle
     
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
@@ -83,8 +84,6 @@ open class MFTVerticalTabBarController: UISplitViewController {
         preferredDisplayMode = .allVisible
         viewControllers = [tabBarContainerViewController]
     }
-    
-    // MARK: - View Lifecycle
     
     open override func viewDidLoad() {
         super.viewDidLoad()

@@ -99,7 +99,7 @@ open class MFTTabBarControllerDimmingView: UIView {
                 // spring them into their expanded positions
                 UIView.animate(withDuration: 0.4, delay: 0.0, usingSpringWithDamping: 0.6, initialSpringVelocity: 1.0, options: [], animations: {
                     // move the items to their expanded positions
-                    self.moveActionViewsToExpandedPositions()
+                    self.moveActionViewsToExpandedPositions(progress: 1.0)
                     
                 }, completion: { (finished) in
                     self.didExpand()
@@ -131,17 +131,17 @@ open class MFTTabBarControllerDimmingView: UIView {
         }
     }
     
-    fileprivate func moveActionViewsToExpandedPositions() {
-        for (idx, action) in self.actions.enumerated() {
-            addSubview(action)
-            action.center = expandedCenterPointForAction(action, at: idx)
+    fileprivate func moveActionViewsToExpandedPositions(progress: Double) {
+        actions.enumerated().forEach { (idx, action) in
+            self.addSubview(action)
+            action.center = expandedCenterPoint(forAction: action, at: idx, progress: progress)
             action.alpha = 1.0
         }
     }
     
     fileprivate func moveActionViewsToCollapsedPositions() {
-        for (idx, action) in self.actions.enumerated() {
-            action.center = collapsedCenterPointForAction(action, at: idx)
+        actions.enumerated().forEach { (idx, action) in
+            action.center = collapsedCenterPoint(forAction: action, at: idx)
             action.alpha = 0.0
         }
     }
@@ -164,11 +164,11 @@ open class MFTTabBarControllerDimmingView: UIView {
         delegate?.dimmingViewDidCollapse(self)
     }
     
-    fileprivate func collapsedCenterPointForAction(_ action: MFTTabBarActionView, at: Int) -> CGPoint {
+    fileprivate func collapsedCenterPoint(forAction action: MFTTabBarActionView, at: Int) -> CGPoint {
         return anchor
     }
     
-    fileprivate func expandedCenterPointForAction(_ action: MFTTabBarActionView, at: Int) -> CGPoint {
+    fileprivate func expandedCenterPoint(forAction action: MFTTabBarActionView, at: Int, progress: Double) -> CGPoint {
         let range = angleRange(forPosition: position)
         let start = startAngle(forPosition: position)
         
@@ -177,31 +177,37 @@ open class MFTTabBarControllerDimmingView: UIView {
         let expandedAngleInDegrees = start - (incrementAngle*incrementIdx)
         let expandedAngleInRadians = expandedAngleInDegrees * (M_PI / 180.0)
         
+        var normalizedProgress = progress
+        
+        if progress < 0 {
+            normalizedProgress = 0
+        }
+        
+        if progress > 1 {
+            normalizedProgress = 1
+        }
+        
         // convert the position from cylindrical to cartesian coordinates
-        let x = expansionRadius() * cos(expandedAngleInRadians)
-        let y = expansionRadius() * sin(expandedAngleInRadians)
-        
+        let x = expansionRadius() * cos(expandedAngleInRadians) * normalizedProgress
+        let y = expansionRadius() * sin(expandedAngleInRadians) * normalizedProgress
         return CGPoint(x: anchor.x + CGFloat(x), y: anchor.y - CGFloat(y))
-        
     }
     
     fileprivate func angleRange(forPosition position: AccessoryButtonPosition) -> Double {
         switch position {
         case .bottomRight:
-            return 90.0
-            
+            return 90
         case .bottomCenter:
-            return 110.0
+            return 110
         }
     }
     
     fileprivate func startAngle(forPosition position: AccessoryButtonPosition) -> Double {
         switch position {
         case .bottomRight:
-            return 180.0
-            
+            return 180
         case .bottomCenter:
-            return 145.0
+            return 145
         }
     }
     

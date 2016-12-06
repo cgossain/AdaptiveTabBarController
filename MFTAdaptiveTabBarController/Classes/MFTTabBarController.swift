@@ -16,8 +16,9 @@ open class MFTTabBarController: UITabBarController {
     fileprivate var accessoryButtonEnabled = false
     fileprivate var accessoryButton = MFTAdaptiveTabBarCentreButton()
     fileprivate var selectedNavigationController: UINavigationController?
+    fileprivate var centerButtonPreviewInteraction: UIPreviewInteraction?
     
-    // MARK: - Override
+    // MARK: - Lifecycle
     
     override open var selectedViewController: UIViewController? {
         didSet {
@@ -30,7 +31,11 @@ open class MFTTabBarController: UITabBarController {
         }
     }
     
-    // MARK: - View Lifecycle
+    open override func viewDidLoad() {
+        super.viewDidLoad()
+        centerButtonPreviewInteraction = UIPreviewInteraction(view: view)
+        centerButtonPreviewInteraction?.delegate = self
+    }
     
     open override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
@@ -87,7 +92,7 @@ extension MFTTabBarController: MFTTabBarControllerDimmingViewDelegate {
         updateLayoutForCurrentCenterButtonState()
         
         UIView.animate(withDuration: 0.2, animations: {
-            self.accessoryButton.plusImageView.transform = CGAffineTransform(rotationAngle: CGFloat(45.0 * M_PI / 180.0))
+            self.updateForPreview(forProgress: 1.0)
         }) 
     }
     
@@ -104,6 +109,22 @@ extension MFTTabBarController: MFTTabBarControllerDimmingViewDelegate {
     func dimmingViewDidCollapse(_ dimmingView: MFTTabBarControllerDimmingView) {
         updateLayoutForCurrentCenterButtonState()
     }
+    
+    func updateForPreview(forProgress progress: Double) {
+        var normalizedProgress = progress
+        
+        if progress < 0 {
+            normalizedProgress = 0
+        }
+        
+        if progress > 1 {
+            normalizedProgress = 1
+        }
+        
+        let angle = 45.0 * M_PI / 180.0 * normalizedProgress
+        accessoryButton.plusImageView.transform = CGAffineTransform(rotationAngle: CGFloat(angle))
+    }
+    
     
 }
 
@@ -138,5 +159,27 @@ extension MFTTabBarController: UINavigationControllerDelegate {
             
         })
     }
+    
+}
+
+extension MFTTabBarController: UIPreviewInteractionDelegate {
+    
+    public func previewInteraction(_ previewInteraction: UIPreviewInteraction, didUpdatePreviewTransition transitionProgress: CGFloat, ended: Bool) {
+        updateForPreview(forProgress: Double(transitionProgress))
+        
+        if ended {
+            dimmingView.expand(true)
+        }
+    }
+    
+    public func previewInteractionDidCancel(_ previewInteraction: UIPreviewInteraction) {
+        dimmingView.collapse(true)
+    }
+    
+//    public func previewInteractionShouldBegin(_ previewInteraction: UIPreviewInteraction) -> Bool {
+//        let location = previewInteraction.location(in: accessoryButton)
+//        let contains = accessoryButton.point(inside: location, with: nil)
+//        return contains
+//    }
     
 }
