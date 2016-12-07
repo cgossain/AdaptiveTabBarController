@@ -8,8 +8,8 @@
 
 import UIKit
 
-private let kExpansionRadiusCompact = 120.0
-private let kExpansionRadiusRegular = 140.0
+private let MFTExpansionRadiusCompact = 140.0
+private let MFTExpansionRadiusRegular = 200.0
 
 protocol MFTTabBarControllerDimmingViewDelegate: NSObjectProtocol {
     func dimmingViewWillExpand(_ dimmingView: MFTTabBarControllerDimmingView)
@@ -27,14 +27,14 @@ open class MFTTabBarControllerDimmingView: UIView {
     open var anchor: CGPoint {
         switch position {
         case .bottomRight:
-            let anchorOffset = accessoryButtonSize.width/2 + 24
+            let anchorOffset = accessoryButtonSize.width/2.0 + 24
             var anchor = CGPoint(x: bounds.maxX, y: bounds.maxY)
             anchor.x -= anchorOffset
             anchor.y -= anchorOffset
             return anchor
             
         case .bottomCenter:
-            let anchor = CGPoint(x: bounds.midX, y: bounds.maxY - accessoryButtonSize.height/2)
+            let anchor = CGPoint(x: bounds.midX, y: bounds.maxY - accessoryButtonSize.height/2.0)
             return anchor
         }
     }
@@ -42,15 +42,33 @@ open class MFTTabBarControllerDimmingView: UIView {
     fileprivate(set) var collapsed = true
     fileprivate var actions = [MFTTabBarActionView]()
     
+    // MARK: - Lifecycle
+    
     override public init(frame: CGRect) {
         super.init(frame: frame)
-        backgroundColor = UIColor.black.withAlphaComponent(0.5)
-        addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(MFTTabBarControllerDimmingView.backgroundTappedGesture(_:))))
+        dimmingViewCommonInit()
     }
     
     required public init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
-        backgroundColor = UIColor.black.withAlphaComponent(0.5)
+        dimmingViewCommonInit()
+    }
+    
+    private func dimmingViewCommonInit() {
+        if #available(iOS 10.0, *) {
+            let blurEffectsView = UIVisualEffectView(effect: UIBlurEffect(style: .dark))
+            addSubview(blurEffectsView)
+            
+            blurEffectsView.translatesAutoresizingMaskIntoConstraints = false
+            blurEffectsView.topAnchor.constraint(equalTo: topAnchor).isActive = true
+            blurEffectsView.leadingAnchor.constraint(equalTo: leadingAnchor).isActive = true
+            blurEffectsView.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
+            blurEffectsView.trailingAnchor.constraint(equalTo: trailingAnchor).isActive = true
+        }
+        else {
+            backgroundColor = UIColor.black.withAlphaComponent(0.6)
+        }
+        
         addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(MFTTabBarControllerDimmingView.backgroundTappedGesture(_:))))
     }
     
@@ -112,9 +130,24 @@ open class MFTTabBarControllerDimmingView: UIView {
         }
     }
     
+    func moveActionViewsToExpandedPositions() {
+        for (idx, action) in self.actions.enumerated() {
+            addSubview(action)
+            action.center = expandedCenterPointForAction(action, at: idx)
+            action.alpha = 1.0
+        }
+    }
+    
+    func moveActionViewsToCollapsedPositions() {
+        for (idx, action) in self.actions.enumerated() {
+            action.center = collapsedCenterPointForAction(action, at: idx)
+            action.alpha = 0.0
+        }
+    }
+    
     // MARK: - Actions
     
-    @objc func backgroundTappedGesture(_ sender: UITapGestureRecognizer) {
+    @objc private func backgroundTappedGesture(_ sender: UITapGestureRecognizer) {
         collapse(true)
     }
     
@@ -123,26 +156,9 @@ open class MFTTabBarControllerDimmingView: UIView {
     fileprivate func expansionRadius() -> Double {
         switch traitCollection.horizontalSizeClass {
         case .compact:
-            return kExpansionRadiusCompact
-        case .regular:
-            return kExpansionRadiusRegular
+            return MFTExpansionRadiusCompact
         default:
-            return kExpansionRadiusCompact
-        }
-    }
-    
-    fileprivate func moveActionViewsToExpandedPositions() {
-        for (idx, action) in self.actions.enumerated() {
-            addSubview(action)
-            action.center = expandedCenterPointForAction(action, at: idx)
-            action.alpha = 1.0
-        }
-    }
-    
-    fileprivate func moveActionViewsToCollapsedPositions() {
-        for (idx, action) in self.actions.enumerated() {
-            action.center = collapsedCenterPointForAction(action, at: idx)
-            action.alpha = 0.0
+            return MFTExpansionRadiusRegular
         }
     }
     
@@ -188,20 +204,20 @@ open class MFTTabBarControllerDimmingView: UIView {
     fileprivate func angleRange(forPosition position: AccessoryButtonPosition) -> Double {
         switch position {
         case .bottomRight:
-            return 90.0
+            return 90
             
         case .bottomCenter:
-            return 110.0
+            return 140
         }
     }
     
     fileprivate func startAngle(forPosition position: AccessoryButtonPosition) -> Double {
         switch position {
         case .bottomRight:
-            return 180.0
+            return 180
             
         case .bottomCenter:
-            return 145.0
+            return 160
         }
     }
     
