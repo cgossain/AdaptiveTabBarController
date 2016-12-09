@@ -8,7 +8,7 @@
 
 import UIKit
 
-private let MFTExpansionRadiusCompact = 140.0
+private let MFTExpansionRadiusCompact = 135.0
 private let MFTExpansionRadiusRegular = 200.0
 
 protocol MFTTabBarControllerDimmingViewDelegate: NSObjectProtocol {
@@ -55,20 +55,16 @@ open class MFTTabBarControllerDimmingView: UIView {
     }
     
     private func dimmingViewCommonInit() {
-        if #available(iOS 10.0, *) {
-            let blurEffectsView = UIVisualEffectView(effect: UIBlurEffect(style: .dark))
-            addSubview(blurEffectsView)
-            
-            blurEffectsView.translatesAutoresizingMaskIntoConstraints = false
-            blurEffectsView.topAnchor.constraint(equalTo: topAnchor).isActive = true
-            blurEffectsView.leadingAnchor.constraint(equalTo: leadingAnchor).isActive = true
-            blurEffectsView.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
-            blurEffectsView.trailingAnchor.constraint(equalTo: trailingAnchor).isActive = true
-        }
-        else {
-            backgroundColor = UIColor.black.withAlphaComponent(0.6)
-        }
+//        let blurEffectsView = UIVisualEffectView(effect: UIBlurEffect(style: .dark))
+//        addSubview(blurEffectsView)
+//        
+//        blurEffectsView.translatesAutoresizingMaskIntoConstraints = false
+//        blurEffectsView.topAnchor.constraint(equalTo: topAnchor).isActive = true
+//        blurEffectsView.leadingAnchor.constraint(equalTo: leadingAnchor).isActive = true
+//        blurEffectsView.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
+//        blurEffectsView.trailingAnchor.constraint(equalTo: trailingAnchor).isActive = true
         
+        backgroundColor = UIColor.black.withAlphaComponent(0.7)
         addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(MFTTabBarControllerDimmingView.backgroundTappedGesture(_:))))
     }
     
@@ -108,14 +104,14 @@ open class MFTTabBarControllerDimmingView: UIView {
     open func expand(_ animated: Bool) {
         willExpand()
         if animated {
-            UIView.animate(withDuration: 0.15, delay: 0.0, options: .curveLinear, animations: {
+            UIView.animate(withDuration: 0.1, delay: 0.0, options: .curveLinear, animations: {
                 self.alpha = 1.0
             }, completion: { (finished) in
                 // make sure the items begin at their collapsed positions
                 self.moveActionViewsToCollapsedPositions()
                 
                 // spring them into their expanded positions
-                UIView.animate(withDuration: 0.4, delay: 0.0, usingSpringWithDamping: 0.6, initialSpringVelocity: 1.0, options: [], animations: {
+                UIView.animate(withDuration: 0.35, delay: 0.0, usingSpringWithDamping: 0.65, initialSpringVelocity: 1.0, options: [], animations: {
                     // move the items to their expanded positions
                     self.moveActionViewsToExpandedPositions()
                     
@@ -185,20 +181,46 @@ open class MFTTabBarControllerDimmingView: UIView {
     }
     
     fileprivate func expandedCenterPointForAction(_ action: MFTTabBarActionView, at: Int) -> CGPoint {
-        let range = angleRange(forPosition: position)
-        let start = startAngle(forPosition: position)
-        
-        let incrementAngle = range / Double(actions.count - 1)
-        let incrementIdx = Double(at)
-        let expandedAngleInDegrees = start - (incrementAngle*incrementIdx)
-        let expandedAngleInRadians = expandedAngleInDegrees * (M_PI / 180.0)
-        
-        // convert the position from cylindrical to cartesian coordinates
-        let x = expansionRadius() * cos(expandedAngleInRadians)
-        let y = expansionRadius() * sin(expandedAngleInRadians)
-        
-        return CGPoint(x: anchor.x + CGFloat(x), y: anchor.y - CGFloat(y))
-        
+        if position == .bottomRight {
+            let incrementSpacing = 100.0
+            let incrementIdx = Double(at)
+            
+            // convert the position from cylindrical to cartesian coordinates
+            let x = 0
+            let y = incrementSpacing * (incrementIdx + 1.0)
+            
+            return CGPoint(x: anchor.x + CGFloat(x), y: anchor.y - CGFloat(y))
+        }
+        else {
+            let total = stride(from: 0, to: actions.count, by: 1)
+            let median = Double(total.sorted(by: <)[actions.count / 2])
+            
+            
+            let range = angleRange(forPosition: position)
+            let start = startAngle(forPosition: position)
+            let incrementAngle = range / Double(actions.count - 1)
+            let incrementIdx = Double(at)
+            var expandedAngleInDegrees = start - (incrementAngle*incrementIdx)
+            
+            var angleOffset = 0.0
+            if Int(median).mft_isEven {
+                if (incrementIdx > 0 && incrementIdx < median) {
+                    angleOffset -= 2.5
+                }
+                else if (incrementIdx < Double(actions.count) && incrementIdx > median) {
+                    angleOffset += 2.5
+                }
+            }
+            
+            expandedAngleInDegrees += angleOffset
+            let expandedAngleInRadians = expandedAngleInDegrees * (M_PI / 180.0)
+            
+            // lay out the action views equally spaced along an eliptical path
+            let x = (1.0 * expansionRadius()) * cos(expandedAngleInRadians)
+            let y = (0.89 * expansionRadius()) * sin(expandedAngleInRadians)
+            
+            return CGPoint(x: anchor.x + CGFloat(x), y: anchor.y - CGFloat(y))
+        }
     }
     
     fileprivate func angleRange(forPosition position: AccessoryButtonPosition) -> Double {
@@ -207,7 +229,8 @@ open class MFTTabBarControllerDimmingView: UIView {
             return 90
             
         case .bottomCenter:
-            return 140
+            let angle = 180 - startAngle(forPosition: position)
+            return 180 - (2*angle) // produces a range that is centered relative to the start angle
         }
     }
     
@@ -217,8 +240,24 @@ open class MFTTabBarControllerDimmingView: UIView {
             return 180
             
         case .bottomCenter:
-            return 160
+            return 157
         }
+    }
+    
+}
+
+extension Array where Element: Comparable {
+    
+    var mft_adtaptive_median: Element {
+        return self.sorted(by: <)[self.count / 2]
+    }
+    
+}
+
+extension Int {
+    
+    var mft_isEven: Bool {
+        return self % 2 == 0
     }
     
 }

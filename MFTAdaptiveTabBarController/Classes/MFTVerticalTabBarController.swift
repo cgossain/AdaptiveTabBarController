@@ -111,7 +111,6 @@ open class MFTVerticalTabBarController: UISplitViewController {
                 self.dimmingView.moveActionViewsToExpandedPositions()
             }
         }, completion: nil)
-        
     }
     
     // MARK: - Public

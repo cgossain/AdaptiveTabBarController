@@ -40,6 +40,15 @@ open class MFTTabBarController: UITabBarController {
         }
     }
     
+    open override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        super.viewWillTransition(to: size, with: coordinator)
+        coordinator.animate(alongsideTransition: { (context) in
+            if !self.dimmingView.collapsed {
+                self.dimmingView.moveActionViewsToExpandedPositions()
+            }
+        }, completion: nil)
+    }
+    
     // MARK: - Public
     
     open func enableAccessoryButton() {
