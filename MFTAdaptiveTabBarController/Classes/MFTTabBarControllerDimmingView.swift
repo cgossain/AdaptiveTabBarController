@@ -57,14 +57,13 @@ open class MFTTabBarControllerDimmingView: UIView {
     private func dimmingViewCommonInit() {
 //        let blurEffectsView = UIVisualEffectView(effect: UIBlurEffect(style: .dark))
 //        addSubview(blurEffectsView)
-//        
 //        blurEffectsView.translatesAutoresizingMaskIntoConstraints = false
 //        blurEffectsView.topAnchor.constraint(equalTo: topAnchor).isActive = true
 //        blurEffectsView.leadingAnchor.constraint(equalTo: leadingAnchor).isActive = true
 //        blurEffectsView.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
 //        blurEffectsView.trailingAnchor.constraint(equalTo: trailingAnchor).isActive = true
         
-        backgroundColor = UIColor.black.withAlphaComponent(0.7)
+        backgroundColor = UIColor.black.withAlphaComponent(0.8)
         addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(MFTTabBarControllerDimmingView.backgroundTappedGesture(_:))))
     }
     
