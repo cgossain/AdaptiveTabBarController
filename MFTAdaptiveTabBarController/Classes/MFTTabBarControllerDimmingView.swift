@@ -27,10 +27,12 @@ open class MFTTabBarControllerDimmingView: UIView {
     open var anchor: CGPoint {
         switch position {
         case .bottomRight:
-            let anchorOffset = accessoryButtonSize.width/2.0 + 24
+            let anchorOffsetX = accessoryButtonSize.width/2.0 + 24
+            let anchorOffsetY = accessoryButtonSize.width/2.0 + 52
+            
             var anchor = CGPoint(x: bounds.maxX, y: bounds.maxY)
-            anchor.x -= anchorOffset
-            anchor.y -= anchorOffset
+            anchor.x -= anchorOffsetX
+            anchor.y -= anchorOffsetY
             return anchor
             
         case .bottomCenter:
