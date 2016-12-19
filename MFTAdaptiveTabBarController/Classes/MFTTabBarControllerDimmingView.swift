@@ -20,7 +20,7 @@ protocol MFTTabBarControllerDimmingViewDelegate: NSObjectProtocol {
 
 open class MFTTabBarControllerDimmingView: UIView {
     
-    var delegate: MFTTabBarControllerDimmingViewDelegate?
+    weak var delegate: MFTTabBarControllerDimmingViewDelegate?
     
     open var accessoryButtonSize = CGSize.zero
     open var position: AccessoryButtonPosition = .bottomCenter
