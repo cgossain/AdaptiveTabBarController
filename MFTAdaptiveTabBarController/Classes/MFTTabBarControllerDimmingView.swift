@@ -206,10 +206,10 @@ open class MFTTabBarControllerDimmingView: UIView {
             var angleOffset = 0.0
             if Int(median).mft_isEven {
                 if (incrementIdx > 0 && incrementIdx < median) {
-                    angleOffset -= 2.5
+                    angleOffset -= 2.6 // larger number move item towards the center
                 }
                 else if (incrementIdx < Double(actions.count) && incrementIdx > median) {
-                    angleOffset += 2.5
+                    angleOffset += 2.6 // larger number move item towards the center
                 }
             }
             
@@ -218,7 +218,7 @@ open class MFTTabBarControllerDimmingView: UIView {
             
             // lay out the action views equally spaced along an eliptical path
             let x = (1.0 * expansionRadius()) * cos(expandedAngleInRadians)
-            let y = (0.89 * expansionRadius()) * sin(expandedAngleInRadians)
+            let y = (0.8 * expansionRadius()) * sin(expandedAngleInRadians) + 28 // displace arc upwards
             
             return CGPoint(x: anchor.x + CGFloat(x), y: anchor.y - CGFloat(y))
         }
@@ -241,7 +241,7 @@ open class MFTTabBarControllerDimmingView: UIView {
             return 180
             
         case .bottomCenter:
-            return 157
+            return 160
         }
     }
     
