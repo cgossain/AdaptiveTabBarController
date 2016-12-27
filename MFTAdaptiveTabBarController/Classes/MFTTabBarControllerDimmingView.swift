@@ -23,7 +23,9 @@ open class MFTTabBarControllerDimmingView: UIView {
     weak var delegate: MFTTabBarControllerDimmingViewDelegate?
     
     open var accessoryButtonSize = CGSize.zero
+    
     open var position: AccessoryButtonPosition = .bottomCenter
+    
     open var anchor: CGPoint {
         switch position {
         case .bottomRight:

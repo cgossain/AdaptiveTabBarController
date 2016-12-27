@@ -78,7 +78,7 @@ open class MFTTabBarController: UITabBarController {
         
         if dimmingView.collapsed {
             dimmingView.removeFromSuperview()
-            accessoryButton.center = tabBar.convert(dimmingView.anchor, from:dimmingView)
+            accessoryButton.center = tabBar.convert(dimmingView.anchor, from:view)
             tabBar.addSubview(accessoryButton)
         }
         else {
