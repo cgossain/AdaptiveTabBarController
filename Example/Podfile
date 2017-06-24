@@ -1,3 +1,4 @@
+platform :ios, '9.3'
 use_frameworks!
 
 target 'MFTAdaptiveTabBarController_Example' do
@@ -6,6 +7,6 @@ target 'MFTAdaptiveTabBarController_Example' do
   target 'MFTAdaptiveTabBarController_Tests' do
     inherit! :search_paths
 
-    
+
   end
 end
