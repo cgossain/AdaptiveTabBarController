@@ -96,17 +96,18 @@ open class MFTAdaptiveTabBarController: AppViewController {
     fileprivate var registeredActions = [MFTTabBarAction]()
     fileprivate var isCenterButtonEnabled: Bool { return registeredActions.count > 0 }
     
-    // MARK: - View Lifecycle
+    
+    // MARK: - Lifecycle
     
     open override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        loadTabBarControllerForTraitCollection(traitCollection)
+        loadTabBarController(for: traitCollection)
     }
     
     open override func willTransition(to newCollection: UITraitCollection, with coordinator: UIViewControllerTransitionCoordinator) {
         super.willTransition(to: newCollection, with: coordinator)
         coordinator.animate(alongsideTransition: { (context) in
-            self.loadTabBarControllerForTraitCollection(newCollection)
+            self.loadTabBarController(for: newCollection)
         }, completion: nil)
     }
     
@@ -115,18 +116,20 @@ open class MFTAdaptiveTabBarController: AppViewController {
     open func addTabBarAction(_ action: MFTTabBarAction) {
         registeredActions.append(action)
     }
+
+}
+
+fileprivate extension MFTAdaptiveTabBarController {
     
-    // MARK: - Private
-    
-    fileprivate func isCompactForTraitCollection(_ traitCollection: UITraitCollection) -> Bool {
+    func isCompact(for traitCollection: UITraitCollection) -> Bool {
         return traitCollection.horizontalSizeClass == .compact
     }
     
-    fileprivate func loadTabBarControllerForTraitCollection(_ traitCollection: UITraitCollection) {
+    func loadTabBarController(for traitCollection: UITraitCollection) {
         let currentSelectedIndex = selectedIndex
         
         // load the correct tab bar controller based on the horizontal environment
-        if isCompactForTraitCollection(traitCollection) {
+        if isCompact(for: traitCollection) {
             let tabBarController = MFTTabBarController()
             tabBarController.accessoryButtonDidExpandHandler = accessoryButtonDidExpandHandler
             tabBarController.delegate = self
@@ -152,8 +155,9 @@ open class MFTAdaptiveTabBarController: AppViewController {
             }
             
             currentTabBarController = tabBarController
-            transitionToViewController(tabBarController, animated: false, completion: nil)
             
+            // transition
+            transition(to: tabBarController, duration: 0.0, options: [], completion: nil)
         }
         else {
             let tabBarController = MFTVerticalTabBarController()
@@ -173,14 +177,14 @@ open class MFTAdaptiveTabBarController: AppViewController {
             tabBarController.tabBarViewControllers = viewControllers
             currentTabBarController = tabBarController
             
-            transitionToViewController(tabBarController, animated: false, completion: nil)
-            
+            // transition
+            transition(to: tabBarController, duration: 0.0, options: [], completion: nil)
         }
         
         // select/reselect the previously loaded view controller
         selectedIndex = currentSelectedIndex
     }
-
+    
 }
 
 extension MFTAdaptiveTabBarController: UITabBarControllerDelegate {
