@@ -99,8 +99,8 @@ open class MFTAdaptiveTabBarController: AppViewController {
     
     // MARK: - Lifecycle
     
-    open override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
+    open override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
         loadTabBarController(for: traitCollection)
     }
     
@@ -110,6 +110,7 @@ open class MFTAdaptiveTabBarController: AppViewController {
             self.loadTabBarController(for: newCollection)
         }, completion: nil)
     }
+    
     
     // MARK: - Public
     
@@ -121,15 +122,12 @@ open class MFTAdaptiveTabBarController: AppViewController {
 
 fileprivate extension MFTAdaptiveTabBarController {
     
-    func isCompact(for traitCollection: UITraitCollection) -> Bool {
-        return traitCollection.horizontalSizeClass == .compact
-    }
-    
     func loadTabBarController(for traitCollection: UITraitCollection) {
         let currentSelectedIndex = selectedIndex
         
         // load the correct tab bar controller based on the horizontal environment
-        if isCompact(for: traitCollection) {
+        switch traitCollection.horizontalSizeClass {
+        case .compact:
             let tabBarController = MFTTabBarController()
             tabBarController.accessoryButtonDidExpandHandler = accessoryButtonDidExpandHandler
             tabBarController.delegate = self
@@ -157,9 +155,12 @@ fileprivate extension MFTAdaptiveTabBarController {
             currentTabBarController = tabBarController
             
             // transition
-            transition(to: tabBarController, duration: 0.0, options: [], completion: nil)
-        }
-        else {
+            var configuration = AppController.Configuration(transitionDuration: 0.0)
+            configuration.dismissesPresentedViewControllerOnTransition = false
+            
+            transition(to: tabBarController, configuration: configuration, completionHandler: nil)
+            
+        default:
             let tabBarController = MFTVerticalTabBarController()
             tabBarController.accessoryButtonDidExpandHandler = accessoryButtonDidExpandHandler
             tabBarController.didSelectViewControllerHandler = { [unowned self] viewController in
@@ -178,7 +179,10 @@ fileprivate extension MFTAdaptiveTabBarController {
             currentTabBarController = tabBarController
             
             // transition
-            transition(to: tabBarController, duration: 0.0, options: [], completion: nil)
+            var configuration = AppController.Configuration(transitionDuration: 0.0)
+            configuration.dismissesPresentedViewControllerOnTransition = false
+            
+            transition(to: tabBarController, configuration: configuration, completionHandler: nil)
         }
         
         // select/reselect the previously loaded view controller
