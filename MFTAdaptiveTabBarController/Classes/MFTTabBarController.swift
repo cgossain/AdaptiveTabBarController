@@ -127,25 +127,24 @@ extension MFTTabBarController: UINavigationControllerDelegate {
             }
         }
         
-        navigationController.transitionCoordinator?.animate(alongsideTransition: { (context) in
-            
-            if hidesBottomBar {
-                self.accessoryButton.alpha = 0.0
-            }
-            else {
-                self.accessoryButton.alpha = 1.0
-            }
-            
-        }, completion: { (context) in
-            
-            if hidesBottomBar {
-                self.accessoryButton.alpha = context.isCancelled ? 1.0 : 0.0
-            }
-            else {
-                self.accessoryButton.alpha = context.isCancelled ? 0.0 : 1.0
-            }
-            
-        })
+//        navigationController.transitionCoordinator?.animate(alongsideTransition: { (context) in
+//            if hidesBottomBar {
+//                self.accessoryButton.alpha = 0.0
+//            }
+//            else {
+//                self.accessoryButton.alpha = 1.0
+//            }
+//            
+//        }, completion: { (context) in
+//            
+//            if hidesBottomBar {
+//                self.accessoryButton.alpha = context.isCancelled ? 1.0 : 0.0
+//            }
+//            else {
+//                self.accessoryButton.alpha = context.isCancelled ? 0.0 : 1.0
+//            }
+//            
+//        })
     }
     
 }
