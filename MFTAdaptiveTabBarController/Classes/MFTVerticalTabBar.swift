@@ -47,7 +47,7 @@ class MFTVerticalTabBar: UIView {
         }
     }
     
-    // MARK: - Initialization
+    // MARK: - Lifecycle
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -59,11 +59,9 @@ class MFTVerticalTabBar: UIView {
         commonInit()
     }
     
-    func commonInit() {
+    private func commonInit() {
         backgroundColor = .white
     }
-    
-    // MARK: - Constraints
     
     override func updateConstraints() {
         if let unwrappedItems = items {
@@ -85,15 +83,16 @@ class MFTVerticalTabBar: UIView {
         super.updateConstraints()
     }
     
-    // MARK: - Selectors
-    
-    func tabBarItemTouched(_ item: MFTVerticalTabBarItemView) {
+}
+
+fileprivate extension MFTVerticalTabBar {
+    @objc func tabBarItemTouched(_ item: MFTVerticalTabBarItemView) {
         selectedItemIndex = item.index
         didSelectItemHandler?(item)
     }
-    
-    // MARK: - Methods (Private)
-    
+}
+
+fileprivate extension MFTVerticalTabBar {
     func tabBarItemAtIndex(_ index: Int) -> MFTVerticalTabBarItemView? {
         var item: MFTVerticalTabBarItemView?
         if let unwrappedItems = items {
@@ -106,5 +105,4 @@ class MFTVerticalTabBar: UIView {
         }
         return item
     }
-    
 }
