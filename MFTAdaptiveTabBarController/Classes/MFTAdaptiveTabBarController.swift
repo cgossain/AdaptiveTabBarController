@@ -155,10 +155,7 @@ fileprivate extension MFTAdaptiveTabBarController {
             currentTabBarController = tabBarController
             
             // transition
-            var configuration = AppController.Configuration(transitionDuration: 0.0)
-            configuration.dismissesPresentedViewControllerOnTransition = false
-            
-            transition(to: tabBarController, configuration: configuration, completionHandler: nil)
+            transition(to: tabBarController, duration: 0.0, options: .transitionCrossDissolve, willBeginTransition: nil, completion: nil)
             
         default:
             let tabBarController = MFTVerticalTabBarController()
@@ -179,10 +176,7 @@ fileprivate extension MFTAdaptiveTabBarController {
             currentTabBarController = tabBarController
             
             // transition
-            var configuration = AppController.Configuration(transitionDuration: 0.0)
-            configuration.dismissesPresentedViewControllerOnTransition = false
-            
-            transition(to: tabBarController, configuration: configuration, completionHandler: nil)
+            transition(to: tabBarController, duration: 0.0, options: .transitionCrossDissolve, willBeginTransition: nil, completion: nil)
         }
         
         // select/reselect the previously loaded view controller

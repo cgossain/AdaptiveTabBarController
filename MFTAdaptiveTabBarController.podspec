@@ -15,5 +15,4 @@ Pod::Spec.new do |s|
   s.source_files = 'MFTAdaptiveTabBarController/Classes/**/*'
   s.resource = 'MFTAdaptiveTabBarController/Assets/*.xcassets'
   s.dependency 'AppController'
-  s.dependency 'SnapKit'
 end

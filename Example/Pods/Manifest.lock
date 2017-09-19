@@ -2,8 +2,6 @@ PODS:
   - AppController (0.5.4)
   - MFTAdaptiveTabBarController (0.2):
     - AppController
-    - SnapKit
-  - SnapKit (3.2.0)
 
 DEPENDENCIES:
   - MFTAdaptiveTabBarController (from `../`)
@@ -14,9 +12,8 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   AppController: fbb587a06787b0e3b3b3a1185e17ec2a0f4b98cb
-  MFTAdaptiveTabBarController: a21dbf343ff80fcdbb6b3bb0b2981e9d871f7199
-  SnapKit: 1ca44df72cfa543218d177cb8aab029d10d86ea7
+  MFTAdaptiveTabBarController: 5f423caf9bbf842fdf4f1289a5e39610537f41e5
 
 PODFILE CHECKSUM: faef7139c7faa62a9b8ed9dd90e3d90c2f0f527e
 
-COCOAPODS: 1.2.1
+COCOAPODS: 1.3.1

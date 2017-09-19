@@ -7,7 +7,6 @@
 //
 
 import Foundation
-import SnapKit
 
 public struct MFTTabBarAction {
     public let image: UIImage
@@ -39,39 +38,40 @@ class MFTTabBarActionView: UIView {
     }()
     
     let action: MFTTabBarAction
+    
     var didTapHandler: (() -> Void)?
     
+    
+    // MARK: - Lifecycle
     public init(action: MFTTabBarAction) {
         self.action = action
-        super.init(frame: CGRect(x: 0.0, y: 0.0, width: 70.0, height: 70.0))
-        addSubview(button)
-        addSubview(titleLabel)
-        
-//        snp_makeConstraints { (make) in
-//            make.width.greaterThanOrEqualTo(button)
-//        }
-        
-        button.snp_makeConstraints { (make) in
-            make.centerX.equalTo(self)
-            make.top.equalTo(self)
-            make.bottom.equalTo(titleLabel.snp_top)
-        }
-        
-        titleLabel.snp_makeConstraints { (make) in
-            make.centerX.equalTo(self)
-            make.bottom.equalTo(self)
-        }
+        super.init(frame: CGRect(x: 0, y: 0, width: 70, height: 70))
+        let stackView = UIStackView(arrangedSubviews: [button, titleLabel])
+        addSubview(stackView)
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([stackView.topAnchor.constraint(equalTo: topAnchor),
+                                     stackView.leadingAnchor.constraint(equalTo: leadingAnchor),
+                                     stackView.bottomAnchor.constraint(equalTo: bottomAnchor),
+                                     stackView.trailingAnchor.constraint(equalTo: trailingAnchor)])
     }
     
     required public init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    // MARK: - Actions
+    override func sizeThatFits(_ size: CGSize) -> CGSize {
+        return CGSize(width: 70, height: 70)
+    }
     
+    override var intrinsicContentSize: CGSize {
+        return CGSize(width: 70, height: 70)
+    }
+    
+}
+
+fileprivate extension MFTTabBarActionView {
     @objc func actionButtonTapped(_ sender: UIButton) {
         action.handler()
         didTapHandler?()
     }
-    
 }
