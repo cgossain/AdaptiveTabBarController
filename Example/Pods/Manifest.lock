@@ -1,5 +1,5 @@
 PODS:
-  - AppController (0.5.4)
+  - AppController (0.6.1)
   - MFTAdaptiveTabBarController (0.2):
     - AppController
 
@@ -11,7 +11,7 @@ EXTERNAL SOURCES:
     :path: ../
 
 SPEC CHECKSUMS:
-  AppController: fbb587a06787b0e3b3b3a1185e17ec2a0f4b98cb
+  AppController: f219df47b49a66e44514cde3fe6e123be7b41934
   MFTAdaptiveTabBarController: 5f423caf9bbf842fdf4f1289a5e39610537f41e5
 
 PODFILE CHECKSUM: faef7139c7faa62a9b8ed9dd90e3d90c2f0f527e

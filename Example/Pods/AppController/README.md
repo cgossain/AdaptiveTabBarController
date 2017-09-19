@@ -9,14 +9,12 @@
 
 This project was originaly inspired by the architecture described in [this blog post](http://dev.teeps.org/blog/2015/3/27/how-to-architect-your-ios-app).
 
-The app controller aims to cleanup the code required to manage transitioning between a "logged out" interface and a "logged in" interface using proper iOS view controller containment. Currently it only supports loading the "logged out" and/or "logged in" interfaces from a storyboard file by specifing the storyboard identifiers of the respective interfaces.
+The purpose of the AppController is to cleanup the code required to manage transitioning between `logged out` and `logged in` interfaces using proper iOS view controller containment. It supports programatically loading your view controllers, and also offers a convenience initializer to load your interfaces from a storyboard file.
 
-The AppController determines the "logged in" state on launch by checking calling a block that you provide. After that, to login or log out you can simply call the corresponding class methods on the AppController and the controller takes care of transitioning to the correct interface.
-
-It is a simple but powerful set of classes. The example project demonstrates the core functionality.
+The controller is easy to use. Just create an instance of the controller (typically in the AppDelegate), give it a reference to your application window, and the controller takes care of the rest. After the initial load you simply call `AppController.login()` or `AppController.logout()` to transition to the desired interface (i.e. on an auth state change notification).
 
 ## Requirements
-* iOS 9.0+
+* iOS 9.3+
 * Swift 3.0+
 
 ## Installation
