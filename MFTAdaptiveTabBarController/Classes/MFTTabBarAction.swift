@@ -22,6 +22,10 @@ public struct MFTTabBarAction {
 
 class MFTTabBarActionView: UIView {
     
+    var didTapHandler: (() -> Void)?
+    
+    let action: MFTTabBarAction
+    
     fileprivate lazy var button: UIButton = {
         let button = UIButton(type: .custom)
         button.setImage(self.action.image, for: UIControlState())
@@ -33,20 +37,20 @@ class MFTTabBarActionView: UIView {
         let label = UILabel()
         label.font = UIFont.boldSystemFont(ofSize: 12)
         label.text = self.action.title
-        label.textColor = UIColor.white
+        label.textColor = .white
+        label.textAlignment = .center
         return label
     }()
-    
-    let action: MFTTabBarAction
-    
-    var didTapHandler: (() -> Void)?
     
     
     // MARK: - Lifecycle
     public init(action: MFTTabBarAction) {
         self.action = action
         super.init(frame: CGRect(x: 0, y: 0, width: 70, height: 70))
+        
         let stackView = UIStackView(arrangedSubviews: [button, titleLabel])
+        stackView.axis = .vertical
+        
         addSubview(stackView)
         stackView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([stackView.topAnchor.constraint(equalTo: topAnchor),
