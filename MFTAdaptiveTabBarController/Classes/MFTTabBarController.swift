@@ -34,7 +34,9 @@ open class MFTTabBarController: UITabBarController {
     
     open override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
+        dimmingView.tabBar = tabBar
         dimmingView.frame = view.bounds
+        
         if accessoryButtonEnabled {
             updateLayoutForCurrentCenterButtonState()
         }

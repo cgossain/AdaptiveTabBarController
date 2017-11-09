@@ -22,7 +22,7 @@ open class MFTTabBarControllerDimmingView: UIView {
     
     weak var delegate: MFTTabBarControllerDimmingViewDelegate?
     
-    open var accessoryButtonSize = CGSize.zero
+    open var accessoryButtonSize: CGSize = .zero
     
     open var position: AccessoryButtonPosition = .bottomCenter
     
@@ -38,10 +38,16 @@ open class MFTTabBarControllerDimmingView: UIView {
             return anchor
             
         case .bottomCenter:
-            let anchor = CGPoint(x: bounds.midX, y: bounds.maxY - accessoryButtonSize.height/2.0)
-            return anchor
+            if let tabBarHeight = self.tabBar?.bounds.height {
+                return CGPoint(x: bounds.midX, y: bounds.maxY - tabBarHeight + accessoryButtonSize.height/2.0 - 7.0)
+            }
+            else {
+                return CGPoint(x: bounds.midX, y: bounds.maxY - accessoryButtonSize.height/2.0)
+            }
         }
     }
+    
+    var tabBar: UITabBar?
     
     fileprivate(set) var collapsed = true
     fileprivate var actions = [MFTTabBarActionView]()
