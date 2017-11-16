@@ -121,7 +121,7 @@ open class MFTVerticalTabBarController: UISplitViewController {
         dimmingView.position = .bottomRight
         
         accessoryButton.sizeToFit()
-        accessoryButton.touchUpInsideHandler = { [unowned self] in
+        accessoryButton.touchUpInsideHandler = { [unowned self] () -> Void in
             if self.dimmingView.collapsed {
                 self.dimmingView.expand(true)
             }

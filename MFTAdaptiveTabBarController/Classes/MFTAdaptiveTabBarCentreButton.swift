@@ -10,7 +10,7 @@ import UIKit
 
 class MFTAdaptiveTabBarCentreButton: UIView {
     
-    var touchUpInsideHandler: ((Void) -> Void)?
+    var touchUpInsideHandler: (() -> Void)?
     
     fileprivate lazy var bundle: Bundle = {
         return Bundle(for: MFTAdaptiveTabBarCentreButton.classForCoder())

@@ -59,7 +59,7 @@ open class MFTTabBarController: UITabBarController {
         dimmingView.position = .bottomCenter
         
         accessoryButton.sizeToFit()
-        accessoryButton.touchUpInsideHandler = { [unowned self] in
+        accessoryButton.touchUpInsideHandler = { [unowned self] () -> Void in
             if self.dimmingView.collapsed {
                 self.dimmingView.expand(true)
             }
