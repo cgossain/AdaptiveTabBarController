@@ -7,14 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		1D5104AD7173AB4A9ED9D404 /* Pods_MFTAdaptiveTabBarController_Example.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 51DA2C226A0B05559826FEFB /* Pods_MFTAdaptiveTabBarController_Example.framework */; };
-		526B3E48BB549139A6BC15EB /* Pods_MFTAdaptiveTabBarController_Tests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3552591F4D87711D36813B0C /* Pods_MFTAdaptiveTabBarController_Tests.framework */; };
+		5E55DCCC62C6999AFF5F2E77 /* Pods_MFTAdaptiveTabBarController_Tests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 964564E4A8E225292833A478 /* Pods_MFTAdaptiveTabBarController_Tests.framework */; };
 		607FACD61AFB9204008FA782 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607FACD51AFB9204008FA782 /* AppDelegate.swift */; };
 		607FACD81AFB9204008FA782 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607FACD71AFB9204008FA782 /* ViewController.swift */; };
 		607FACDB1AFB9204008FA782 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 607FACD91AFB9204008FA782 /* Main.storyboard */; };
 		607FACDD1AFB9204008FA782 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 607FACDC1AFB9204008FA782 /* Images.xcassets */; };
 		607FACE01AFB9204008FA782 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 607FACDE1AFB9204008FA782 /* LaunchScreen.xib */; };
 		607FACEC1AFB9204008FA782 /* Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607FACEB1AFB9204008FA782 /* Tests.swift */; };
+		CCA24D273A108E84D506507C /* Pods_MFTAdaptiveTabBarController_Example.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 36E60F8D95CA5A6EFDD813F8 /* Pods_MFTAdaptiveTabBarController_Example.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -28,13 +28,12 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		0404CDF871666CDBD4DE24CA /* Pods-MFTAdaptiveTabBarController_Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MFTAdaptiveTabBarController_Tests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MFTAdaptiveTabBarController_Tests/Pods-MFTAdaptiveTabBarController_Tests.debug.xcconfig"; sourceTree = "<group>"; };
-		154B6616AF2774E96A657D15 /* Pods-MFTAdaptiveTabBarController_Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MFTAdaptiveTabBarController_Tests.release.xcconfig"; path = "Pods/Target Support Files/Pods-MFTAdaptiveTabBarController_Tests/Pods-MFTAdaptiveTabBarController_Tests.release.xcconfig"; sourceTree = "<group>"; };
+		0DFBB499DACB9C5CEFE570BD /* Pods-MFTAdaptiveTabBarController_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MFTAdaptiveTabBarController_Example.release.xcconfig"; path = "Target Support Files/Pods-MFTAdaptiveTabBarController_Example/Pods-MFTAdaptiveTabBarController_Example.release.xcconfig"; sourceTree = "<group>"; };
 		1F28CD955477AF1D74457B98 /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
 		30570E7DDA8119BA4ED99102 /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
-		34DF3ABE9DEE944E2538D894 /* MFTAdaptiveTabBarController.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = MFTAdaptiveTabBarController.podspec; path = ../MFTAdaptiveTabBarController.podspec; sourceTree = "<group>"; };
-		3552591F4D87711D36813B0C /* Pods_MFTAdaptiveTabBarController_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MFTAdaptiveTabBarController_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		51DA2C226A0B05559826FEFB /* Pods_MFTAdaptiveTabBarController_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MFTAdaptiveTabBarController_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		3369114EEB4A773DC5B9BA2C /* Pods-MFTAdaptiveTabBarController_Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MFTAdaptiveTabBarController_Tests.debug.xcconfig"; path = "Target Support Files/Pods-MFTAdaptiveTabBarController_Tests/Pods-MFTAdaptiveTabBarController_Tests.debug.xcconfig"; sourceTree = "<group>"; };
+		34DF3ABE9DEE944E2538D894 /* MFTAdaptiveTabBarController.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = MFTAdaptiveTabBarController.podspec; path = ../MFTAdaptiveTabBarController.podspec; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		36E60F8D95CA5A6EFDD813F8 /* Pods_MFTAdaptiveTabBarController_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MFTAdaptiveTabBarController_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		607FACD01AFB9204008FA782 /* MFTAdaptiveTabBarController_Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MFTAdaptiveTabBarController_Example.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		607FACD41AFB9204008FA782 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		607FACD51AFB9204008FA782 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -45,8 +44,9 @@
 		607FACE51AFB9204008FA782 /* MFTAdaptiveTabBarController_Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MFTAdaptiveTabBarController_Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		607FACEA1AFB9204008FA782 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		607FACEB1AFB9204008FA782 /* Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tests.swift; sourceTree = "<group>"; };
-		632FC4476023AB68D5E6BA4F /* Pods-MFTAdaptiveTabBarController_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MFTAdaptiveTabBarController_Example.release.xcconfig"; path = "Pods/Target Support Files/Pods-MFTAdaptiveTabBarController_Example/Pods-MFTAdaptiveTabBarController_Example.release.xcconfig"; sourceTree = "<group>"; };
-		AB3CFCD66662F0C482A1CC45 /* Pods-MFTAdaptiveTabBarController_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MFTAdaptiveTabBarController_Example.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MFTAdaptiveTabBarController_Example/Pods-MFTAdaptiveTabBarController_Example.debug.xcconfig"; sourceTree = "<group>"; };
+		7FD39FC34F2B93F7F964F775 /* Pods-MFTAdaptiveTabBarController_Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MFTAdaptiveTabBarController_Tests.release.xcconfig"; path = "Target Support Files/Pods-MFTAdaptiveTabBarController_Tests/Pods-MFTAdaptiveTabBarController_Tests.release.xcconfig"; sourceTree = "<group>"; };
+		964564E4A8E225292833A478 /* Pods_MFTAdaptiveTabBarController_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MFTAdaptiveTabBarController_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		ABDEB0B64BF16EA1F9A31201 /* Pods-MFTAdaptiveTabBarController_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MFTAdaptiveTabBarController_Example.debug.xcconfig"; path = "Target Support Files/Pods-MFTAdaptiveTabBarController_Example/Pods-MFTAdaptiveTabBarController_Example.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -54,7 +54,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1D5104AD7173AB4A9ED9D404 /* Pods_MFTAdaptiveTabBarController_Example.framework in Frameworks */,
+				CCA24D273A108E84D506507C /* Pods_MFTAdaptiveTabBarController_Example.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -62,7 +62,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				526B3E48BB549139A6BC15EB /* Pods_MFTAdaptiveTabBarController_Tests.framework in Frameworks */,
+				5E55DCCC62C6999AFF5F2E77 /* Pods_MFTAdaptiveTabBarController_Tests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -76,8 +76,8 @@
 				607FACD21AFB9204008FA782 /* Example for MFTAdaptiveTabBarController */,
 				607FACE81AFB9204008FA782 /* Tests */,
 				607FACD11AFB9204008FA782 /* Products */,
-				788A7F9B4B721F095DDD7BD6 /* Pods */,
-				F7403824C483D75A3C8395EB /* Frameworks */,
+				E891B299FE0146A5B300E386 /* Pods */,
+				C5DE14FA444B93FB295AE9B2 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -139,24 +139,25 @@
 			name = "Podspec Metadata";
 			sourceTree = "<group>";
 		};
-		788A7F9B4B721F095DDD7BD6 /* Pods */ = {
+		C5DE14FA444B93FB295AE9B2 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				AB3CFCD66662F0C482A1CC45 /* Pods-MFTAdaptiveTabBarController_Example.debug.xcconfig */,
-				632FC4476023AB68D5E6BA4F /* Pods-MFTAdaptiveTabBarController_Example.release.xcconfig */,
-				0404CDF871666CDBD4DE24CA /* Pods-MFTAdaptiveTabBarController_Tests.debug.xcconfig */,
-				154B6616AF2774E96A657D15 /* Pods-MFTAdaptiveTabBarController_Tests.release.xcconfig */,
-			);
-			name = Pods;
-			sourceTree = "<group>";
-		};
-		F7403824C483D75A3C8395EB /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				51DA2C226A0B05559826FEFB /* Pods_MFTAdaptiveTabBarController_Example.framework */,
-				3552591F4D87711D36813B0C /* Pods_MFTAdaptiveTabBarController_Tests.framework */,
+				36E60F8D95CA5A6EFDD813F8 /* Pods_MFTAdaptiveTabBarController_Example.framework */,
+				964564E4A8E225292833A478 /* Pods_MFTAdaptiveTabBarController_Tests.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		E891B299FE0146A5B300E386 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				ABDEB0B64BF16EA1F9A31201 /* Pods-MFTAdaptiveTabBarController_Example.debug.xcconfig */,
+				0DFBB499DACB9C5CEFE570BD /* Pods-MFTAdaptiveTabBarController_Example.release.xcconfig */,
+				3369114EEB4A773DC5B9BA2C /* Pods-MFTAdaptiveTabBarController_Tests.debug.xcconfig */,
+				7FD39FC34F2B93F7F964F775 /* Pods-MFTAdaptiveTabBarController_Tests.release.xcconfig */,
+			);
+			name = Pods;
+			path = Pods;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -166,12 +167,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 607FACEF1AFB9204008FA782 /* Build configuration list for PBXNativeTarget "MFTAdaptiveTabBarController_Example" */;
 			buildPhases = (
-				98D2CE26613E43BA850070DF /* [CP] Check Pods Manifest.lock */,
+				49B150505C9A51C3BC20EED2 /* [CP] Check Pods Manifest.lock */,
 				607FACCC1AFB9204008FA782 /* Sources */,
 				607FACCD1AFB9204008FA782 /* Frameworks */,
 				607FACCE1AFB9204008FA782 /* Resources */,
-				C9709BD4686192C5F1345BF9 /* [CP] Embed Pods Frameworks */,
-				5FCF11E11542584F7BF3205F /* [CP] Copy Pods Resources */,
+				F5F074F3372137EA62D5E114 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -186,12 +186,10 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 607FACF21AFB9204008FA782 /* Build configuration list for PBXNativeTarget "MFTAdaptiveTabBarController_Tests" */;
 			buildPhases = (
-				58BA0E0C644D4D2E010C11BC /* [CP] Check Pods Manifest.lock */,
+				1A5889FE3148BA6108852BAE /* [CP] Check Pods Manifest.lock */,
 				607FACE11AFB9204008FA782 /* Sources */,
 				607FACE21AFB9204008FA782 /* Frameworks */,
 				607FACE31AFB9204008FA782 /* Resources */,
-				FE19A05E8358B0441251EA4E /* [CP] Embed Pods Frameworks */,
-				DB9916F3A8730CB09B707E23 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -210,18 +208,18 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0720;
-				LastUpgradeCheck = 0800;
+				LastUpgradeCheck = 1020;
 				ORGANIZATIONNAME = CocoaPods;
 				TargetAttributes = {
 					607FACCF1AFB9204008FA782 = {
 						CreatedOnToolsVersion = 6.3.1;
 						DevelopmentTeam = TY457QWLH7;
-						LastSwiftMigration = 0800;
+						LastSwiftMigration = 1020;
 					};
 					607FACE41AFB9204008FA782 = {
 						CreatedOnToolsVersion = 6.3.1;
-						DevelopmentTeam = U4YZ3YB6S3;
-						LastSwiftMigration = 0800;
+						DevelopmentTeam = TY457QWLH7;
+						LastSwiftMigration = 1020;
 						TestTargetID = 607FACCF1AFB9204008FA782;
 					};
 				};
@@ -231,6 +229,7 @@
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
+				English,
 				en,
 				Base,
 			);
@@ -266,16 +265,20 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		58BA0E0C644D4D2E010C11BC /* [CP] Check Pods Manifest.lock */ = {
+		1A5889FE3148BA6108852BAE /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+			);
+			inputFileListPaths = (
 			);
 			inputPaths = (
 				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
 				"${PODS_ROOT}/Manifest.lock",
 			);
 			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
 			outputPaths = (
 				"$(DERIVED_FILE_DIR)/Pods-MFTAdaptiveTabBarController_Tests-checkManifestLockResult.txt",
 			);
@@ -284,31 +287,20 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		5FCF11E11542584F7BF3205F /* [CP] Copy Pods Resources */ = {
+		49B150505C9A51C3BC20EED2 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-MFTAdaptiveTabBarController_Example/Pods-MFTAdaptiveTabBarController_Example-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		98D2CE26613E43BA850070DF /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
+			inputFileListPaths = (
 			);
 			inputPaths = (
 				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
 				"${PODS_ROOT}/Manifest.lock",
 			);
 			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
 			outputPaths = (
 				"$(DERIVED_FILE_DIR)/Pods-MFTAdaptiveTabBarController_Example-checkManifestLockResult.txt",
 			);
@@ -317,54 +309,28 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		C9709BD4686192C5F1345BF9 /* [CP] Embed Pods Frameworks */ = {
+		F5F074F3372137EA62D5E114 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
+			inputFileListPaths = (
+			);
 			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-MFTAdaptiveTabBarController_Example/Pods-MFTAdaptiveTabBarController_Example-frameworks.sh",
+				"${PODS_ROOT}/Target Support Files/Pods-MFTAdaptiveTabBarController_Example/Pods-MFTAdaptiveTabBarController_Example-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/AppController/AppController.framework",
 				"${BUILT_PRODUCTS_DIR}/MFTAdaptiveTabBarController/MFTAdaptiveTabBarController.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+			);
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AppController.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MFTAdaptiveTabBarController.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-MFTAdaptiveTabBarController_Example/Pods-MFTAdaptiveTabBarController_Example-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		DB9916F3A8730CB09B707E23 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-MFTAdaptiveTabBarController_Tests/Pods-MFTAdaptiveTabBarController_Tests-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		FE19A05E8358B0441251EA4E /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-MFTAdaptiveTabBarController_Tests/Pods-MFTAdaptiveTabBarController_Tests-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-MFTAdaptiveTabBarController_Example/Pods-MFTAdaptiveTabBarController_Example-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -421,18 +387,27 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -456,7 +431,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -468,18 +443,27 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -496,7 +480,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
@@ -506,7 +490,7 @@
 		};
 		607FACF01AFB9204008FA782 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = AB3CFCD66662F0C482A1CC45 /* Pods-MFTAdaptiveTabBarController_Example.debug.xcconfig */;
+			baseConfigurationReference = ABDEB0B64BF16EA1F9A31201 /* Pods-MFTAdaptiveTabBarController_Example.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = TY457QWLH7;
@@ -515,14 +499,14 @@
 				MODULE_NAME = ExampleApp;
 				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.demo.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 3.0;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
 		607FACF11AFB9204008FA782 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 632FC4476023AB68D5E6BA4F /* Pods-MFTAdaptiveTabBarController_Example.release.xcconfig */;
+			baseConfigurationReference = 0DFBB499DACB9C5CEFE570BD /* Pods-MFTAdaptiveTabBarController_Example.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = TY457QWLH7;
@@ -531,16 +515,16 @@
 				MODULE_NAME = ExampleApp;
 				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.demo.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 3.0;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
 		};
 		607FACF31AFB9204008FA782 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 0404CDF871666CDBD4DE24CA /* Pods-MFTAdaptiveTabBarController_Tests.debug.xcconfig */;
+			baseConfigurationReference = 3369114EEB4A773DC5B9BA2C /* Pods-MFTAdaptiveTabBarController_Tests.debug.xcconfig */;
 			buildSettings = {
-				DEVELOPMENT_TEAM = U4YZ3YB6S3;
+				DEVELOPMENT_TEAM = TY457QWLH7;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
@@ -553,15 +537,15 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 3.0;
+				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
 		};
 		607FACF41AFB9204008FA782 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 154B6616AF2774E96A657D15 /* Pods-MFTAdaptiveTabBarController_Tests.release.xcconfig */;
+			baseConfigurationReference = 7FD39FC34F2B93F7F964F775 /* Pods-MFTAdaptiveTabBarController_Tests.release.xcconfig */;
 			buildSettings = {
-				DEVELOPMENT_TEAM = U4YZ3YB6S3;
+				DEVELOPMENT_TEAM = TY457QWLH7;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
@@ -570,7 +554,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 3.0;
+				SWIFT_VERSION = 5.0;
 			};
 			name = Release;
 		};

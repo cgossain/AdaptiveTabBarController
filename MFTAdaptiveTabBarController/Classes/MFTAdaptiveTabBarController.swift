@@ -38,25 +38,6 @@ open class MFTAdaptiveTabBarController: AppViewController {
     }
     
     open var selectedIndex: Int {
-        set {
-            if let controller = currentTabBarController as? UITabBarController {
-                var offset = 0
-                if let viewControllers = controller.viewControllers {
-                    for (idx, vc) in viewControllers.enumerated() {
-                        if vc is _AdaptivePlaceholderViewController {
-                            offset += 1
-                        }
-                        else if idx >= newValue + offset {
-                            break
-                        }
-                    }
-                }
-                controller.selectedIndex = newValue + offset
-            }
-            else if let controller = currentTabBarController as? MFTVerticalTabBarController {
-                controller.selectedIndex = newValue
-            }
-        }
         get {
             if let controller = currentTabBarController as? UITabBarController {
                 var offset = 0
@@ -77,6 +58,25 @@ open class MFTAdaptiveTabBarController: AppViewController {
             }
             else {
                 return 0
+            }
+        }
+        set {
+            if let controller = currentTabBarController as? UITabBarController {
+                var offset = 0
+                if let viewControllers = controller.viewControllers {
+                    for (idx, vc) in viewControllers.enumerated() {
+                        if vc is _AdaptivePlaceholderViewController {
+                            offset += 1
+                        }
+                        else if idx >= newValue + offset {
+                            break
+                        }
+                    }
+                }
+                controller.selectedIndex = newValue + offset
+            }
+            else if let controller = currentTabBarController as? MFTVerticalTabBarController {
+                controller.selectedIndex = newValue
             }
         }
     }
@@ -131,6 +131,7 @@ fileprivate extension MFTAdaptiveTabBarController {
             let tabBarController = MFTTabBarController()
             tabBarController.accessoryButtonDidExpandHandler = accessoryButtonDidExpandHandler
             tabBarController.delegate = self
+//            tabBarController.tabBar.isTranslucent = false
             
             if isCenterButtonEnabled {
                 tabBarController.enableAccessoryButton()

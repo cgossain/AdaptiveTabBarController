@@ -23,21 +23,21 @@
 
 import UIKit
 
-fileprivate let transitionSnapshotTag = 1999
-
 open class AppViewController: UIViewController {
+    private struct Metrics {
+        static let snapshotTag = 1999
+    }
     
     /// The view controller that is currently installed.
     open fileprivate(set) var installedViewController: UIViewController?
     
     
-    // MARK: - Overrides
-    
-    open override var childViewControllerForStatusBarStyle : UIViewController? {
+    // MARK: - Lifecycle
+    open override var childForStatusBarStyle : UIViewController? {
         return installedViewController
     }
     
-    open override var childViewControllerForStatusBarHidden : UIViewController? {
+    open override var childForStatusBarHidden : UIViewController? {
         return installedViewController
     }
     
@@ -57,8 +57,8 @@ open class AppViewController: UIViewController {
         super.viewWillLayoutSubviews()
         
         // force the window snapshot to stay on top; this is useful when other subviews are added during the transition (i.e. a presentation, split view master panel in portrait mode, etc.)
-        if let snapshot = view.window?.viewWithTag(transitionSnapshotTag) {
-            view.window?.bringSubview(toFront: snapshot)
+        if let snapshot = view.window?.viewWithTag(Metrics.snapshotTag) {
+            view.window?.bringSubviewToFront(snapshot)
         }
     }
 }
@@ -99,16 +99,14 @@ extension AppViewController {
 }
 
 fileprivate extension AppViewController {
-    
-    /// Technique #1: Transition is performed by resigning first responder, then snapshotting the entire window. The snapshot is placed on top of all other window subviews while
-    /// the underlying hierarchy is changed. Finally the snapshot is faded out, and removed to reveal the updated view hierarchy.
+    /// Technique #1: Transition is performed by resigning first responder, then snapshotting the entire window. The snapshot is placed on top of all
+    /// other window subviews while the underlying hierarchy is changed. Finally the snapshot is faded out, and removed to reveal the updated view hierarchy.
     func transitionBySnapshotting(from fromViewController: UIViewController, to toViewController: UIViewController, in window: UIWindow, duration: TimeInterval, delay: TimeInterval, completionHandler: (() -> Void)?) {
         // resign any active first responder before continuing
         window.resignCurrentFirstResponderIfNeeded {
-            
-            // take a snapshot of the window state
-            let snapshot = window.snapshotView(afterScreenUpdates: false)
-            snapshot?.tag = transitionSnapshotTag
+            // take a snapshot of the window state, allowing any updates to the UI to complete
+            let snapshot = window.snapshotView(afterScreenUpdates: true)
+            snapshot?.tag = Metrics.snapshotTag
             
             // cover the window with the snapshot
             if let snapshot = snapshot {
@@ -119,62 +117,81 @@ fileprivate extension AppViewController {
             let presentedTransitionViews = window.subviewsWithClassName("UITransitionView")
             presentedTransitionViews.forEach { $0.isHidden = true }
             
-            // dismiss the entire presented view controller hierarchy without animation
-            self.dismiss(animated: false, completion: nil)
-            
-            // notify the `fromViewController` is about to be removed
-            fromViewController.willMove(toParentViewController: nil)
-            
-            // add the `toViewController` as a child
-            self.addChildViewController(toViewController)
-            self.view.addSubview(toViewController.view)
-            
-            // fill the bounds
-            toViewController.view.translatesAutoresizingMaskIntoConstraints = false
-            toViewController.view.topAnchor.constraint(equalTo: self.view.topAnchor).isActive = true
-            toViewController.view.leadingAnchor.constraint(equalTo: self.view.leadingAnchor).isActive = true
-            toViewController.view.bottomAnchor.constraint(equalTo: self.view.bottomAnchor).isActive = true
-            toViewController.view.trailingAnchor.constraint(equalTo: self.view.trailingAnchor).isActive = true
-            
-            // update the current reference (needs to be updated for the `setNeedsStatusBarAppearanceUpdate()` call in the animation block)
-            self.installedViewController = toViewController
-            
-            // decontain the `fromViewController`
-            fromViewController.view.removeFromSuperview()
-            fromViewController.removeFromParentViewController()
-            
-            // finish containing the `toViewController`
-            toViewController.didMove(toParentViewController: self)
-            
-            // fade out the snapshot to reveal the `toView`; note that the small animation delay allows dismissed presented views to be removed and the hieararchy ready to go before fading out the screenshot view
-            UIView.animate(withDuration: duration, delay: delay, options: .transitionCrossDissolve, animations: {
-                // fade out the snapshot to reveal the update hierarchy
-                snapshot?.alpha = 0.0
+            // build the transition block
+            let performTransition = {
+                // notify the `fromViewController` is about to be removed
+                fromViewController.willMove(toParent: nil)
                 
-                // updating the status bar appearance change within the animation block will animate the status bar color change, if there is one
-                self.setNeedsStatusBarAppearanceUpdate()
+                // add the `toViewController` as a child
+                self.addChild(toViewController)
+                self.view.addSubview(toViewController.view)
                 
-            }, completion: { (finished) in
-                // remove the snapshot
-                snapshot?.removeFromSuperview()
+                // fill the bounds
+                toViewController.view.translatesAutoresizingMaskIntoConstraints = false
+                toViewController.view.topAnchor.constraint(equalTo: self.view.topAnchor).isActive = true
+                toViewController.view.leadingAnchor.constraint(equalTo: self.view.leadingAnchor).isActive = true
+                toViewController.view.bottomAnchor.constraint(equalTo: self.view.bottomAnchor).isActive = true
+                toViewController.view.trailingAnchor.constraint(equalTo: self.view.trailingAnchor).isActive = true
                 
-                // completion handler
-                completionHandler?()
-            })
+                // update the current reference (needs to be updated for the `setNeedsStatusBarAppearanceUpdate()` call in the animation block)
+                self.installedViewController = toViewController
+                
+                // decontain the `fromViewController`
+                fromViewController.view.removeFromSuperview()
+                fromViewController.removeFromParent()
+                
+                // finish containing the `toViewController`
+                toViewController.didMove(toParent: self)
+                
+                // fade out the snapshot to reveal the `toView`; note that the small animation delay allows dismissed presented views to be removed and the hieararchy ready to go before fading out the screenshot view
+                UIView.animate(withDuration: duration, delay: delay, options: .transitionCrossDissolve, animations: {
+                    // fade out the snapshot to reveal the update hierarchy
+                    snapshot?.alpha = 0.0
+                    
+                    // updating the status bar appearance change within the animation block will animate the status bar color change, if there is one
+                    self.setNeedsStatusBarAppearanceUpdate()
+                    
+                }, completion: { (finished) in
+                    // remove the snapshot
+                    snapshot?.removeFromSuperview()
+                    
+                    // completion handler
+                    completionHandler?()
+                })
+            }
             
+            // perform the transition
+            if self.presentedViewController != nil {
+                // dismiss the entire presented view controller hierarchy without animation
+                self.dismiss(animated: false, completion: nil)
+                
+                // wait for dismissal to complete to ensure any presented controllers relationships
+                // are severed before transitioning; note that I was previously doing this in the
+                // completion handler of the dismiss method, however at this time there seem to be
+                // a bug where the completion handler is not called upon dismissal completion, therefore
+                // I am instead waiting for a small delay of 300ms before performing the transition
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+                    performTransition()
+                }
+            }
+            else {
+                // no view controller has been presented, so the transition can be performed immediately
+                performTransition()
+            }
         }
     }
     
     /// Technique #2: Transition keeps the topmost UITransitionView visible, but hides all other ones (i.e. when there are multiple presentations overlayed). The topmost UITransitionView is faded out as the `toView` is faded in.
+    ///
+    /// - Note: This method is not currently being used. I've kept it for reference.
     func transitionByDismissing(from fromViewController: UIViewController, to toViewController: UIViewController, in window: UIWindow, duration: TimeInterval, delay: TimeInterval, completionHandler: (() -> Void)?) {
         // resign any active first responder before continuing
         window.resignCurrentFirstResponderIfNeeded {
-            
             // notify the `fromViewController` is about to be removed
-            fromViewController.willMove(toParentViewController: nil)
+            fromViewController.willMove(toParent: nil)
             
             // add the `toViewController` as a child
-            self.addChildViewController(toViewController)
+            self.addChild(toViewController)
             toViewController.view.alpha = 0.0
             self.view.addSubview(toViewController.view)
             
@@ -218,22 +235,21 @@ fileprivate extension AppViewController {
                 
                 // decontain the `fromViewController`
                 fromViewController.view.removeFromSuperview()
-                fromViewController.removeFromParentViewController()
+                fromViewController.removeFromParent()
                 
                 // finish containing the `toViewController`
-                toViewController.didMove(toParentViewController: self)
+                toViewController.didMove(toParent: self)
                 
                 // completion handler
                 completionHandler?()
             })
-            
         }
     }
     
     /// Immediately contains the specified view controller. This method will not perform a transition and does not decontain other child view controllers.
     func transitionWithoutAnimation(toViewController: UIViewController, completionHandler: (() -> Void)?) {
         // add the new controller as a child
-        addChildViewController(toViewController)
+        addChild(toViewController)
         view.addSubview(toViewController.view)
         
         // fill the bounds
@@ -250,7 +266,7 @@ fileprivate extension AppViewController {
         setNeedsStatusBarAppearanceUpdate()
         
         // simply finish containing the view controller
-        toViewController.didMove(toParentViewController: self)
+        toViewController.didMove(toParent: self)
         
         // completion handler
         completionHandler?()
@@ -259,10 +275,10 @@ fileprivate extension AppViewController {
     /// Transitions between the specified view controllers without dismissing presented view controllers.
     func transitionWithoutDismissingPresentedViewController(from fromViewController: UIViewController, to toViewController: UIViewController, in window: UIWindow, duration: TimeInterval, delay: TimeInterval, completionHandler: (() -> Void)?) {
         // notify the `fromViewController` is about to be removed
-        fromViewController.willMove(toParentViewController: nil)
+        fromViewController.willMove(toParent: nil)
         
         // add the `toViewController` as a child
-        self.addChildViewController(toViewController)
+        self.addChild(toViewController)
         toViewController.view.alpha = 0.0
         self.view.addSubview(toViewController.view)
         
@@ -287,10 +303,10 @@ fileprivate extension AppViewController {
         }, completion: { (finished) in
             // decontain the `fromViewController`
             fromViewController.view.removeFromSuperview()
-            fromViewController.removeFromParentViewController()
+            fromViewController.removeFromParent()
             
             // finish containing the `toViewController`
-            toViewController.didMove(toParentViewController: self)
+            toViewController.didMove(toParent: self)
             
             // completion handler
             completionHandler?()

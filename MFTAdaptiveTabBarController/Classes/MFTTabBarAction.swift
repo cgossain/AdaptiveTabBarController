@@ -28,7 +28,7 @@ class MFTTabBarActionView: UIView {
     
     fileprivate lazy var button: UIButton = {
         let button = UIButton(type: .custom)
-        button.setImage(self.action.image, for: UIControlState())
+        button.setImage(self.action.image, for: UIControl.State())
         button.addTarget(self, action: #selector(actionButtonTapped(_:)), for: .touchUpInside)
         return button
     }()

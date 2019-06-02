@@ -57,7 +57,6 @@ public protocol AppControllerInterfaceProviding {
 public class AppController {
     
     public struct Configuration {
-        
         /// The animation duration when transitionning between logged in/out states. A duration of zero indicates no animation should occur.
         public var transitionDuration: TimeInterval = 0.6
         
@@ -65,6 +64,7 @@ public class AppController {
         public var transitionDelay: TimeInterval = 0.0
         
         /// If `true`, and if there is a presented view controller, it is dismissed along with the interface transition. Defaults to `true`.
+        ///
         /// - Note: You generally would want this to be `true`, but you have the option to disable it if needed.
         public var dismissesPresentedViewControllerOnTransition = true
         
@@ -73,7 +73,6 @@ public class AppController {
             self.transitionDuration = transitionDuration
             self.dismissesPresentedViewControllerOnTransition = dismissesPresentedViewControllerOnTransition
         }
-        
     }
     
     /// The object that acts as the interface provider for the controller.

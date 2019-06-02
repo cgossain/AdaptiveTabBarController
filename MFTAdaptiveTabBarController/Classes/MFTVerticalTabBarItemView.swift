@@ -94,7 +94,7 @@ class MFTVerticalTabBarItemView: UIControl {
     // MARK: Constraints
     
     override var intrinsicContentSize : CGSize {
-        return CGSize(width: UIViewNoIntrinsicMetric, height: 72.0)
+        return CGSize(width: UIView.noIntrinsicMetric, height: 72.0)
     }
     
     // MARK: Methods (Private)

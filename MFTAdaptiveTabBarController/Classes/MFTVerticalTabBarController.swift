@@ -158,7 +158,7 @@ extension MFTVerticalTabBarController: MFTTabBarControllerDimmingViewDelegate {
         updateLayoutForCurrentCenterButtonState()
         
         UIView.animate(withDuration: 0.2, animations: {
-            self.accessoryButton.plusImageView.transform = CGAffineTransform(rotationAngle: CGFloat(45.0 * M_PI / 180.0))
+            self.accessoryButton.plusImageView.transform = CGAffineTransform(rotationAngle: CGFloat(45.0 * Double.pi / 180.0))
         }) 
     }
     

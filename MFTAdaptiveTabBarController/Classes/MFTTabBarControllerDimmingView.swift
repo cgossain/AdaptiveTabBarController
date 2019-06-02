@@ -222,7 +222,7 @@ open class MFTTabBarControllerDimmingView: UIView {
             }
             
             expandedAngleInDegrees += angleOffset
-            let expandedAngleInRadians = expandedAngleInDegrees * (M_PI / 180.0)
+            let expandedAngleInRadians = expandedAngleInDegrees * (Double.pi / 180.0)
             
             // lay out the action views equally spaced along an eliptical path
             let x = (1.0 * expansionRadius()) * cos(expandedAngleInRadians)
