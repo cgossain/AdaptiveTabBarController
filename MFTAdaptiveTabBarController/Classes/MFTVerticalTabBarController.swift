@@ -8,9 +8,9 @@
 
 import UIKit
 
+
 // _MFTTabBarContainerViewController
 //////////////////////////////////////////////////////////////////
-
 class _MFTTabBarContainerViewController: UIViewController {
     let tabBar = MFTVerticalTabBar()
     override func loadView() {
@@ -21,16 +21,13 @@ class _MFTTabBarContainerViewController: UIViewController {
 
 // MFTVerticalTabBarController
 //////////////////////////////////////////////////////////////////
-
 open class MFTVerticalTabBarController: UISplitViewController {
     
     open var didSelectViewControllerHandler: ((_ viewController: UIViewController) -> Void)?
     
     open var accessoryButtonDidExpandHandler: (() -> Void)?
     
-    open var selectedViewController: UIViewController? {
-        return tabBarViewControllers?[selectedIndex]
-    }
+    open var selectedViewController: UIViewController? { return tabBarViewControllers?[selectedIndex] }
     
     open var selectedIndex: Int = 0 {
         didSet {
@@ -51,23 +48,20 @@ open class MFTVerticalTabBarController: UISplitViewController {
                     itemViews.append(itemView)
                 }
             }
-            
             tabBarContainerViewController.tabBar.items = itemViews
             selectedIndex = 0 // select first view controller by default
         }
     }
     
-    fileprivate let tabBarContainerViewController: _MFTTabBarContainerViewController = {
-        let controller = _MFTTabBarContainerViewController()
-        return controller
-    }()
     
+    // MARK: - Private Properties
+    fileprivate let tabBarContainerViewController = _MFTTabBarContainerViewController()
     fileprivate let dimmingView = MFTTabBarControllerDimmingView()
     fileprivate var accessoryButtonEnabled = false
     fileprivate var accessoryButton = MFTAdaptiveTabBarCentreButton()
     
-    // MARK: Initialization
     
+    // MARK: - Lifecycle
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
         minimumPrimaryColumnWidth = 108.0
@@ -83,8 +77,6 @@ open class MFTVerticalTabBarController: UISplitViewController {
         preferredDisplayMode = .allVisible
         viewControllers = [tabBarContainerViewController]
     }
-    
-    // MARK: - View Lifecycle
     
     open override func viewDidLoad() {
         super.viewDidLoad()
@@ -113,8 +105,8 @@ open class MFTVerticalTabBarController: UISplitViewController {
         }, completion: nil)
     }
     
-    // MARK: - Public
     
+    // MARK: - Public
     open func enableAccessoryButton() {
         accessoryButtonEnabled = true
         dimmingView.delegate = self
@@ -134,10 +126,10 @@ open class MFTVerticalTabBarController: UISplitViewController {
     open func addTabBarAction(_ action: MFTTabBarAction) {
         dimmingView.addTabBarAction(action)
     }
-    
-    // MARK: - Private
-    
-    fileprivate func updateLayoutForCurrentCenterButtonState() {
+}
+
+fileprivate extension MFTVerticalTabBarController {
+    func updateLayoutForCurrentCenterButtonState() {
         if dimmingView.collapsed {
             dimmingView.removeFromSuperview()
         }
@@ -149,11 +141,9 @@ open class MFTVerticalTabBarController: UISplitViewController {
         accessoryButton.center = dimmingView.anchor
         view.addSubview(accessoryButton)
     }
-    
 }
 
 extension MFTVerticalTabBarController: MFTTabBarControllerDimmingViewDelegate {
-    
     func dimmingViewWillExpand(_ dimmingView: MFTTabBarControllerDimmingView) {
         updateLayoutForCurrentCenterButtonState()
         
@@ -175,5 +165,4 @@ extension MFTVerticalTabBarController: MFTTabBarControllerDimmingViewDelegate {
     func dimmingViewDidCollapse(_ dimmingView: MFTTabBarControllerDimmingView) {
         updateLayoutForCurrentCenterButtonState()
     }
-    
 }

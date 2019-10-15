@@ -91,6 +91,8 @@ open class MFTAdaptiveTabBarController: AppViewController {
         }
     }
     
+    
+    // MARK: - Private Properties
     fileprivate var tabBarControllerClass: UITabBarController.Type?
     fileprivate var currentTabBarController: UIViewController?
     fileprivate var registeredActions = [MFTTabBarAction]()
@@ -98,6 +100,10 @@ open class MFTAdaptiveTabBarController: AppViewController {
     
     
     // MARK: - Lifecycle
+    open override func viewDidLoad() {
+        super.viewDidLoad()
+        loadTabBarController(for: traitCollection)
+    }
     
     open override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
@@ -113,7 +119,6 @@ open class MFTAdaptiveTabBarController: AppViewController {
     
     
     // MARK: - Public
-    
     open func addTabBarAction(_ action: MFTTabBarAction) {
         registeredActions.append(action)
     }
@@ -121,7 +126,6 @@ open class MFTAdaptiveTabBarController: AppViewController {
 }
 
 fileprivate extension MFTAdaptiveTabBarController {
-    
     func loadTabBarController(for traitCollection: UITraitCollection) {
         let currentSelectedIndex = selectedIndex
         
@@ -143,14 +147,18 @@ fileprivate extension MFTAdaptiveTabBarController {
             
             // set the view controllers
             if let viewControllers = viewControllers {
-                var controllers = viewControllers
+                var mutableViewControllers = viewControllers
                 if isCenterButtonEnabled {
-                    if controllers.count == 2 || controllers.count == 4 {
+                    if mutableViewControllers.count == 2 || mutableViewControllers.count == 4 {
                         // insert a placeholder view controller to make room for the center button
-                        controllers.insert(_AdaptivePlaceholderViewController(), at: (controllers.count/2))
+                        mutableViewControllers.insert(_AdaptivePlaceholderViewController(), at: (mutableViewControllers.count/2))
                     }
                 }
-                tabBarController.viewControllers = controllers
+                
+                mutableViewControllers.forEach({ $0.removeFromParent() })
+                mutableViewControllers.forEach({ $0.removeFromParent() })
+                
+                tabBarController.viewControllers = mutableViewControllers
             }
             
             currentTabBarController = tabBarController
@@ -189,7 +197,6 @@ fileprivate extension MFTAdaptiveTabBarController {
 }
 
 extension MFTAdaptiveTabBarController: UITabBarControllerDelegate {
-    
     public func tabBarController(_ tabBarController: UITabBarController, shouldSelect viewController: UIViewController) -> Bool {
         return !(viewController is _AdaptivePlaceholderViewController) // prevent the placeholder view controller from beign selected
     }
@@ -197,5 +204,4 @@ extension MFTAdaptiveTabBarController: UITabBarControllerDelegate {
     public func tabBarController(_ tabBarController: UITabBarController, didSelect viewController: UIViewController) {
         delegate?.tabBarController(self, didSelectViewController: viewController)
     }
-    
 }
