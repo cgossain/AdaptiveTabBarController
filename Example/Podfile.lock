@@ -1,5 +1,5 @@
 PODS:
-  - AppController (0.7.0)
+  - AppController (0.7.2)
   - MFTAdaptiveTabBarController (1.0.0):
     - AppController
 
@@ -7,7 +7,7 @@ DEPENDENCIES:
   - MFTAdaptiveTabBarController (from `../`)
 
 SPEC REPOS:
-  https://github.com/cocoapods/specs.git:
+  trunk:
     - AppController
 
 EXTERNAL SOURCES:
@@ -15,9 +15,9 @@ EXTERNAL SOURCES:
     :path: "../"
 
 SPEC CHECKSUMS:
-  AppController: 468f3eb0d9cbe657c7d068a3f0bab39a92a61236
-  MFTAdaptiveTabBarController: 03d8f98a5921fa0a96ff0a2ffe0b2c8749dbf0be
+  AppController: 90974bfc961dba65c73fb675e1a57cc31c2a903d
+  MFTAdaptiveTabBarController: 99ec36dc72f44934a7534d27124c60e860cb7265
 
 PODFILE CHECKSUM: f36dbdffb231ba55c8e01596e86e6af8f8aad697
 
-COCOAPODS: 1.6.0
+COCOAPODS: 1.8.3

@@ -314,16 +314,12 @@
 			buildActionMask = 2147483647;
 			files = (
 			);
-			inputFileListPaths = (
-			);
 			inputPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-MFTAdaptiveTabBarController_Example/Pods-MFTAdaptiveTabBarController_Example-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/AppController/AppController.framework",
 				"${BUILT_PRODUCTS_DIR}/MFTAdaptiveTabBarController/MFTAdaptiveTabBarController.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-			);
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AppController.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MFTAdaptiveTabBarController.framework",
