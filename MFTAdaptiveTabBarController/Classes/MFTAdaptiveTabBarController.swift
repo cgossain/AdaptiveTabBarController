@@ -154,10 +154,6 @@ fileprivate extension MFTAdaptiveTabBarController {
                         mutableViewControllers.insert(_AdaptivePlaceholderViewController(), at: (mutableViewControllers.count/2))
                     }
                 }
-                
-                mutableViewControllers.forEach({ $0.removeFromParent() })
-                mutableViewControllers.forEach({ $0.removeFromParent() })
-                
                 tabBarController.viewControllers = mutableViewControllers
             }
             
