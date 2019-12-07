@@ -21,7 +21,6 @@ public struct MFTTabBarAction {
 }
 
 class MFTTabBarActionView: UIView {
-    
     var didTapHandler: (() -> Void)?
     
     let action: MFTTabBarAction

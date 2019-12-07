@@ -9,11 +9,6 @@
 import UIKit
 import AppController
 
-public enum AccessoryButtonPosition {
-    case bottomRight
-    case bottomCenter
-}
-
 private class _AdaptivePlaceholderViewController: UIViewController {}
 
 public protocol MFTAdaptiveTabBarControllerDelegate: NSObjectProtocol {
@@ -142,7 +137,7 @@ fileprivate extension MFTAdaptiveTabBarController {
             }
             
             for action in registeredActions {
-                tabBarController.addTabBarAction(action)
+                tabBarController.addAction(action)
             }
             
             // set the view controllers
@@ -175,7 +170,7 @@ fileprivate extension MFTAdaptiveTabBarController {
             }
             
             for action in registeredActions {
-                tabBarController.addTabBarAction(action)
+                tabBarController.addAction(action)
             }
             
             tabBarController.tabBarViewControllers = viewControllers

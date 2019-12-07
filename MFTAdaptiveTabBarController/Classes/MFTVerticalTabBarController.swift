@@ -8,19 +8,6 @@
 
 import UIKit
 
-
-// _MFTTabBarContainerViewController
-//////////////////////////////////////////////////////////////////
-class _MFTTabBarContainerViewController: UIViewController {
-    let tabBar = MFTVerticalTabBar()
-    override func loadView() {
-        self.view = tabBar
-    }
-}
-
-
-// MFTVerticalTabBarController
-//////////////////////////////////////////////////////////////////
 open class MFTVerticalTabBarController: UISplitViewController {
     
     open var didSelectViewControllerHandler: ((_ viewController: UIViewController) -> Void)?
@@ -55,10 +42,10 @@ open class MFTVerticalTabBarController: UISplitViewController {
     
     
     // MARK: - Private Properties
-    fileprivate let tabBarContainerViewController = _MFTTabBarContainerViewController()
-    fileprivate let dimmingView = MFTTabBarControllerDimmingView()
-    fileprivate var accessoryButtonEnabled = false
-    fileprivate var accessoryButton = MFTAdaptiveTabBarCentreButton()
+    private let dimmingView = MFTTabBarControllerDimmingView()
+    private var isAccessoryButtonEnabled = false
+    private var accessoryButton = MFTAdaptiveTabBarCentreButton()
+    private let tabBarContainerViewController = _MFTTabBarContainerViewController()
     
     
     // MARK: - Lifecycle
@@ -91,15 +78,15 @@ open class MFTVerticalTabBarController: UISplitViewController {
     open override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
         dimmingView.frame = view.bounds
-        if accessoryButtonEnabled {
-            updateLayoutForCurrentCenterButtonState()
+        if isAccessoryButtonEnabled {
+            updateLayoutForAccessoryButton()
         }
     }
     
     open override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         super.viewWillTransition(to: size, with: coordinator)
         coordinator.animate(alongsideTransition: { (context) in
-            if !self.dimmingView.collapsed {
+            if !self.dimmingView.isCollapsed {
                 self.dimmingView.moveActionViewsToExpandedPositions()
             }
         }, completion: nil)
@@ -108,44 +95,48 @@ open class MFTVerticalTabBarController: UISplitViewController {
     
     // MARK: - Public
     open func enableAccessoryButton() {
-        accessoryButtonEnabled = true
+        isAccessoryButtonEnabled = true
         dimmingView.delegate = self
-        dimmingView.position = .bottomRight
+        dimmingView.actionsLayoutMode = .linear
         
         accessoryButton.sizeToFit()
         accessoryButton.touchUpInsideHandler = { [unowned self] () -> Void in
-            if self.dimmingView.collapsed {
-                self.dimmingView.expand(true)
+            if self.dimmingView.isCollapsed {
+                self.dimmingView.expand(animated: true)
             }
             else {
-                self.dimmingView.collapse(true)
+                self.dimmingView.collapse(animated: true)
             }
         }
     }
     
-    open func addTabBarAction(_ action: MFTTabBarAction) {
-        dimmingView.addTabBarAction(action)
+    open func addAction(_ action: MFTTabBarAction) {
+        dimmingView.addAction(action)
     }
-}
-
-fileprivate extension MFTVerticalTabBarController {
-    func updateLayoutForCurrentCenterButtonState() {
-        if dimmingView.collapsed {
+    
+    
+    // MARK: - Private
+    private func updateLayoutForAccessoryButton() {
+        dimmingView.actionsAnchorView = accessoryButton
+        
+        if dimmingView.isCollapsed {
             dimmingView.removeFromSuperview()
         }
         else {
             view.addSubview(dimmingView)
         }
         
-        dimmingView.accessoryButtonSize = accessoryButton.intrinsicContentSize
-        accessoryButton.center = dimmingView.anchor
         view.addSubview(accessoryButton)
+        var x = view.bounds.maxX - accessoryButton.bounds.width/2 - 24
+        var y = view.bounds.maxY - accessoryButton.bounds.height/2 - 48
+        let locationInView = CGPoint(x: x, y: y)
+        accessoryButton.center = locationInView
     }
 }
 
 extension MFTVerticalTabBarController: MFTTabBarControllerDimmingViewDelegate {
     func dimmingViewWillExpand(_ dimmingView: MFTTabBarControllerDimmingView) {
-        updateLayoutForCurrentCenterButtonState()
+        updateLayoutForAccessoryButton()
         
         UIView.animate(withDuration: 0.2, animations: {
             self.accessoryButton.plusImageView.transform = CGAffineTransform(rotationAngle: CGFloat(45.0 * Double.pi / 180.0))
@@ -163,6 +154,13 @@ extension MFTVerticalTabBarController: MFTTabBarControllerDimmingViewDelegate {
     }
     
     func dimmingViewDidCollapse(_ dimmingView: MFTTabBarControllerDimmingView) {
-        updateLayoutForCurrentCenterButtonState()
+        updateLayoutForAccessoryButton()
+    }
+}
+
+class _MFTTabBarContainerViewController: UIViewController {
+    let tabBar = MFTVerticalTabBar()
+    override func loadView() {
+        self.view = tabBar
     }
 }
