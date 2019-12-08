@@ -1,5 +1,5 @@
 //
-//  MFTAdaptiveTabBarCentreButton.swift
+//  MFTAdaptiveTabBarCenterButton.swift
 //  Pods
 //
 //  Created by Christian Gossain on 2016-10-01.
