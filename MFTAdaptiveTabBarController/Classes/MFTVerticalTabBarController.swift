@@ -8,15 +8,15 @@
 
 import UIKit
 
-open class MFTVerticalTabBarController: UISplitViewController {
+final public class MFTVerticalTabBarController: UISplitViewController {
     
-    open var didSelectViewControllerHandler: ((_ viewController: UIViewController) -> Void)?
+    public var didSelectViewControllerHandler: ((_ viewController: UIViewController) -> Void)?
     
-    open var accessoryButtonDidExpandHandler: (() -> Void)?
+    public var accessoryButtonDidExpandHandler: (() -> Void)?
     
-    open var selectedViewController: UIViewController? { return tabBarViewControllers?[selectedIndex] }
+    public var selectedViewController: UIViewController? { return tabBarViewControllers?[selectedIndex] }
     
-    open var selectedIndex: Int = 0 {
+    public var selectedIndex: Int = 0 {
         didSet {
             if let viewController = tabBarViewControllers?[selectedIndex] {
                 showDetailViewController(viewController, sender: self)
@@ -25,7 +25,7 @@ open class MFTVerticalTabBarController: UISplitViewController {
         }
     }
     
-    open var tabBarViewControllers: [UIViewController]? {
+    public var tabBarViewControllers: [UIViewController]? {
         didSet {
             // convert to the tab bar item views
             var itemViews = [MFTVerticalTabBarItemView]()
@@ -65,7 +65,7 @@ open class MFTVerticalTabBarController: UISplitViewController {
         viewControllers = [tabBarContainerViewController]
     }
     
-    open override func viewDidLoad() {
+    public override func viewDidLoad() {
         super.viewDidLoad()
         tabBarContainerViewController.tabBar.didSelectItemHandler = { [unowned self] item in
             self.selectedIndex = item.index
@@ -75,7 +75,7 @@ open class MFTVerticalTabBarController: UISplitViewController {
         }
     }
     
-    open override func viewWillLayoutSubviews() {
+    public override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
         dimmingView.frame = view.bounds
         if isAccessoryButtonEnabled {
@@ -83,9 +83,10 @@ open class MFTVerticalTabBarController: UISplitViewController {
         }
     }
     
-    open override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+    public override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         super.viewWillTransition(to: size, with: coordinator)
         coordinator.animate(alongsideTransition: { (context) in
+            // if expanded, update the positions of the tab bar actions
             if !self.dimmingView.isCollapsed {
                 self.dimmingView.moveActionViewsToExpandedPositions()
             }
@@ -93,12 +94,15 @@ open class MFTVerticalTabBarController: UISplitViewController {
     }
     
     
-    // MARK: - Public
-    open func enableAccessoryButton() {
+    // MARK: - Internal
+    func addTabBarAction(_ action: MFTTabBarAction, condition: MFTAdaptiveTabBarController.ConditionHandler? = nil) {
+        dimmingView.addTabBarAction(action, condition: condition)
+    }
+    
+    func enableAccessoryButton() {
         isAccessoryButtonEnabled = true
         dimmingView.delegate = self
         dimmingView.actionsLayoutMode = .linear
-        
         accessoryButton.sizeToFit()
         accessoryButton.touchUpInsideHandler = { [unowned self] () -> Void in
             if self.dimmingView.isCollapsed {
@@ -108,10 +112,6 @@ open class MFTVerticalTabBarController: UISplitViewController {
                 self.dimmingView.collapse(animated: true)
             }
         }
-    }
-    
-    open func addAction(_ action: MFTTabBarAction) {
-        dimmingView.addAction(action)
     }
     
     

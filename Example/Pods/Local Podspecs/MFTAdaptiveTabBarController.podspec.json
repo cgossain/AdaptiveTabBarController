@@ -15,13 +15,11 @@
   "platforms": {
     "ios": "11.4"
   },
-  "swift_versions": "5.0",
   "source_files": "MFTAdaptiveTabBarController/Classes/**/*.swift",
   "resources": "MFTAdaptiveTabBarController/Assets/*.xcassets",
   "dependencies": {
     "AppController": [
 
     ]
-  },
-  "swift_version": "5.0"
+  }
 }

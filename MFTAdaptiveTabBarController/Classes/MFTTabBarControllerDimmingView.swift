@@ -43,7 +43,8 @@ open class MFTTabBarControllerDimmingView: UIView {
     
     
     // MARK: - Private Properties
-    fileprivate var actions = [MFTTabBarActionView]()
+    private var allActionViews: [MFTTabBarActionView] = []
+    private var showableActionViews: [MFTTabBarActionView] { return allActionViews.filter({ $0.canShow }) }
     
     
     // MARK: - Lifecycle
@@ -64,16 +65,16 @@ open class MFTTabBarControllerDimmingView: UIView {
     }
     
     
-    // MARK: - Public
-    open func addAction(_ action: MFTTabBarAction) {
-        let actionView = MFTTabBarActionView(action: action)
+    // MARK: - Internal
+    func addTabBarAction(_ action: MFTTabBarAction, condition: MFTAdaptiveTabBarController.ConditionHandler? = nil) {
+        let actionView = MFTTabBarActionView(action: action, condition: condition)
         actionView.didTapHandler = { [unowned self] in
             self.collapse(animated: true)
         }
-        actions.append(actionView)
+        allActionViews.append(actionView)
     }
     
-    open func collapse(animated: Bool) {
+    func collapse(animated: Bool) {
         willCollapse()
         if animated {
             UIView.animate(withDuration: 0.1, delay: 0.0, options: .curveLinear, animations: {
@@ -95,7 +96,7 @@ open class MFTTabBarControllerDimmingView: UIView {
         }
     }
     
-    open func expand(animated: Bool) {
+    func expand(animated: Bool) {
         willExpand()
         if animated {
             UIView.animate(withDuration: 0.1, delay: 0.0, options: .curveLinear, animations: {
@@ -119,20 +120,20 @@ open class MFTTabBarControllerDimmingView: UIView {
         }
     }
     
-    
-    // MARK: - Internal
     func moveActionViewsToExpandedPositions() {
-        for (idx, action) in self.actions.enumerated() {
-            addSubview(action)
-            action.center = expandedCenterPointForAction(action, at: idx)
-            action.alpha = 1.0
+        for (idx, actionView) in showableActionViews.enumerated() {
+            addSubview(actionView)
+            actionView.sizeToFit()
+            actionView.center = expandedCenterPointFor(actionView, at: idx)
+            actionView.alpha = 1.0
         }
     }
     
     func moveActionViewsToCollapsedPositions() {
-        for (idx, action) in self.actions.enumerated() {
-            action.center = collapsedCenterPointForAction(action, at: idx)
-            action.alpha = 0.0
+        for (idx, actionView) in allActionViews.enumerated() {
+            actionView.sizeToFit()
+            actionView.center = collapsedCenterPointFor(actionView, at: idx)
+            actionView.alpha = 0.0
         }
     }
     
@@ -158,18 +159,21 @@ open class MFTTabBarControllerDimmingView: UIView {
     }
     
     private func didCollapse() {
+        allActionViews.forEach {
+            $0.removeFromSuperview()
+        }
         isCollapsed = true
         delegate?.dimmingViewDidCollapse(self)
     }
     
-    private func collapsedCenterPointForAction(_ action: MFTTabBarActionView, at idx: Int) -> CGPoint {
+    private func collapsedCenterPointFor(_ action: MFTTabBarActionView, at idx: Int) -> CGPoint {
         guard let actionsAnchorView = actionsAnchorView, let superview = actionsAnchorView.superview else {
             return .zero
         }
         return convert(actionsAnchorView.center, from: superview)
     }
     
-    private func expandedCenterPointForAction(_ action: MFTTabBarActionView, at idx: Int) -> CGPoint {
+    private func expandedCenterPointFor(_ action: MFTTabBarActionView, at idx: Int) -> CGPoint {
         guard let actionsAnchorView = actionsAnchorView, let superview = actionsAnchorView.superview else {
             return .zero
         }
@@ -187,44 +191,48 @@ open class MFTTabBarControllerDimmingView: UIView {
             
             return CGPoint(x: actionsAnchorPoint.x + CGFloat(x), y: actionsAnchorPoint.y - CGFloat(y))
         case .arc:
-            let total = stride(from: 0, to: actions.count, by: 1)
-            let median = Double(total.sorted(by: <)[actions.count / 2])
+            let total = stride(from: 0, to: showableActionViews.count, by: 1)
+            let median = Double(total.sorted(by: <)[showableActionViews.count / 2])
             let range = angleRangeForArcLayout()
             let start = startAngleForArcLayout()
-            let incrementAngle = range / Double(actions.count - 1)
+            let incrementAngle = range / Double(showableActionViews.count - 1)
             let incrementIdx = Double(idx)
             var expandedAngleInDegrees = start - (incrementAngle*incrementIdx)
-
+            
             var angleOffset = 0.0
             if Int(median).isEven {
                 if (incrementIdx > 0 && incrementIdx < median) {
                     angleOffset -= 2.6 // larger number move item towards the center
                 }
-                else if (incrementIdx < Double(actions.count) && incrementIdx > median) {
+                else if (incrementIdx < Double(showableActionViews.count) && incrementIdx > median) {
                     angleOffset += 2.6 // larger number move item towards the center
                 }
             }
-
+            
             expandedAngleInDegrees += angleOffset
             let expandedAngleInRadians = expandedAngleInDegrees * (Double.pi / 180.0)
-
+            
             // lay out the action views equally spaced along an eliptical path
             let x = (1.0 * expansionRadiusForArcLayout()) * cos(expandedAngleInRadians)
             let y = (0.8 * expansionRadiusForArcLayout()) * sin(expandedAngleInRadians) + 28 // displace arc upwards
-
+            
             return CGPoint(x: actionsAnchorPoint.x + CGFloat(x), y: actionsAnchorPoint.y - CGFloat(y))
             
         default: // grid
-            let numberOfRows = Int(ceil(Double(actions.count) / Double(maximumItemsPerRow)))
+            let fittingSize = action.systemLayoutSizeFitting(UIView.layoutFittingCompressedSize)
+            
+            let numberOfRows = Int(ceil(Double(showableActionViews.count) / Double(maximumItemsPerRow)))
             var rowIdx = Int(floor(Double(idx) / Double(maximumItemsPerRow)))
-            var numberOfItemsInRow = rowIdx < (numberOfRows - 1) ? maximumItemsPerRow : (actions.count - (rowIdx * maximumItemsPerRow))
+            var numberOfItemsInRow = rowIdx < (numberOfRows - 1) ? maximumItemsPerRow : (showableActionViews.count - (rowIdx * maximumItemsPerRow))
             var itemIdxInRow = idx - (rowIdx * maximumItemsPerRow)
-            var totalHorizontalMargins = layoutMargins.left + layoutMargins.right + action.bounds.width
+            // note that by including the width of an item in the margins calculation (i.e. '+ fittingSize.width'), we ensure the margins are
+            // respected from the leading or training edges instead of from the center
+            var totalHorizontalMargins = layoutMargins.left + layoutMargins.right + fittingSize.width
             var interitemSpacing = (self.bounds.width-totalHorizontalMargins)/CGFloat(maximumItemsPerRow - 1)
             var numberOfItemsToReachMaxItemsInRow = maximumItemsPerRow - numberOfItemsInRow
             var xOfFirstItem = (actionsAnchorPoint.x - self.bounds.width/2) + totalHorizontalMargins/2 + CGFloat(numberOfItemsToReachMaxItemsInRow)*(interitemSpacing/2)
             
-            let rowHeight = action.bounds.height
+            let rowHeight = fittingSize.height
             let rowTotalVerticalMargins = CGFloat(36)
             let totalRowHeight = rowHeight + rowTotalVerticalMargins
             
@@ -248,7 +256,7 @@ open class MFTTabBarControllerDimmingView: UIView {
         let angle = 180 - startAngleForArcLayout()
         return 180 - (2*angle) // produces a range that is centered relative to the start angle
     }
-
+    
     private func startAngleForArcLayout() -> Double {
         return 160
     }

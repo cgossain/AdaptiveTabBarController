@@ -19,7 +19,7 @@ final public class MFTTabBarController: UITabBarController {
     private var accessoryButton = MFTAdaptiveTabBarCentreButton()
     
     
-    // MARK: - View Lifecycle
+    // MARK: - Lifecycle
     public override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
         dimmingView.frame = view.bounds
@@ -32,6 +32,7 @@ final public class MFTTabBarController: UITabBarController {
     public override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         super.viewWillTransition(to: size, with: coordinator)
         coordinator.animate(alongsideTransition: { (context) in
+            // if expanded, update the positions of the tab bar actions
             if !self.dimmingView.isCollapsed {
                 self.dimmingView.moveActionViewsToExpandedPositions()
             }
@@ -39,8 +40,12 @@ final public class MFTTabBarController: UITabBarController {
     }
     
     
-    // MARK: - Public
-    public func enableAccessoryButton() {
+    // MARK: - Internal
+    func addTabBarAction(_ action: MFTTabBarAction, condition: MFTAdaptiveTabBarController.ConditionHandler? = nil) {
+        dimmingView.addTabBarAction(action, condition: condition)
+    }
+    
+    func enableAccessoryButton() {
         isAccessoryButtonEnabled = true
         dimmingView.delegate = self
         dimmingView.actionsLayoutMode = .grid
@@ -54,10 +59,6 @@ final public class MFTTabBarController: UITabBarController {
                 self.dimmingView.collapse(animated: true)
             }
         }
-    }
-    
-    public func addAction(_ action: MFTTabBarAction) {
-        dimmingView.addAction(action)
     }
     
     

@@ -15,7 +15,17 @@ public protocol MFTAdaptiveTabBarControllerDelegate: NSObjectProtocol {
     func tabBarController(_ tabBarController: MFTAdaptiveTabBarController, didSelectViewController viewController: UIViewController)
 }
 
+class MFTTabBarActionRegistration {
+    let action: MFTTabBarAction
+    let condition: MFTAdaptiveTabBarController.ConditionHandler?
+    init(action: MFTTabBarAction, condition: MFTAdaptiveTabBarController.ConditionHandler? = nil) {
+        self.action = action
+        self.condition = condition
+    }
+}
+
 open class MFTAdaptiveTabBarController: AppViewController {
+    public typealias ConditionHandler = () -> Bool
     
     open var accessoryButtonDidExpandHandler: (() -> Void)?
     
@@ -79,19 +89,20 @@ open class MFTAdaptiveTabBarController: AppViewController {
     open var selectedViewController: UIViewController? {
         if let controller = currentTabBarController as? UITabBarController {
             return controller.selectedViewController
-        } else if let controller = currentTabBarController as? MFTVerticalTabBarController {
+        }
+        else if let controller = currentTabBarController as? MFTVerticalTabBarController {
             return controller.selectedViewController
-        } else {
+        }
+        else {
             return nil
         }
     }
     
     
     // MARK: - Private Properties
-    fileprivate var tabBarControllerClass: UITabBarController.Type?
     fileprivate var currentTabBarController: UIViewController?
-    fileprivate var registeredActions = [MFTTabBarAction]()
-    fileprivate var isCenterButtonEnabled: Bool { return registeredActions.count > 0 }
+    fileprivate var actionRegistrations = [MFTTabBarActionRegistration]()
+    fileprivate var isCenterButtonEnabled: Bool { return actionRegistrations.count > 0 }
     
     
     // MARK: - Lifecycle
@@ -114,8 +125,9 @@ open class MFTAdaptiveTabBarController: AppViewController {
     
     
     // MARK: - Public
-    open func addTabBarAction(_ action: MFTTabBarAction) {
-        registeredActions.append(action)
+    open func addTabBarAction(_ action: MFTTabBarAction, condition: MFTAdaptiveTabBarController.ConditionHandler? = nil) {
+        let registration = MFTTabBarActionRegistration(action: action, condition: condition)
+        actionRegistrations.append(registration)
     }
 
 }
@@ -130,14 +142,13 @@ fileprivate extension MFTAdaptiveTabBarController {
             let tabBarController = MFTTabBarController()
             tabBarController.accessoryButtonDidExpandHandler = accessoryButtonDidExpandHandler
             tabBarController.delegate = self
-//            tabBarController.tabBar.isTranslucent = false
             
             if isCenterButtonEnabled {
                 tabBarController.enableAccessoryButton()
             }
             
-            for action in registeredActions {
-                tabBarController.addAction(action)
+            for registration in actionRegistrations {
+                tabBarController.addTabBarAction(registration.action, condition: registration.condition)
             }
             
             // set the view controllers
@@ -169,8 +180,8 @@ fileprivate extension MFTAdaptiveTabBarController {
                 tabBarController.enableAccessoryButton()
             }
             
-            for action in registeredActions {
-                tabBarController.addAction(action)
+            for registration in actionRegistrations {
+                tabBarController.addTabBarAction(registration.action, condition: registration.condition)
             }
             
             tabBarController.tabBarViewControllers = viewControllers

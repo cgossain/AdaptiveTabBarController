@@ -7,47 +7,48 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		1CCE5BB9812E4B764FD4E69403113DDC /* MFTVerticalTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E579B7F99533DD0D93D0558D0AA24AF /* MFTVerticalTabBarController.swift */; };
-		227A9E07D69CE3EE4C8FA66CD5DF016B /* MFTAdaptiveTabBarController-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 614FD4BB25A7807963D3434C9B7D6951 /* MFTAdaptiveTabBarController-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		005510898C080A041E310E9336C60F52 /* MFTTabBarActionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06A91B6239EFD56D62170A81AFB35675 /* MFTTabBarActionView.swift */; };
+		1652122466E0B9F85654A24C5BCB74A4 /* MFTAdaptiveTabBarController-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 3B084442C032C18D9A01309958166022 /* MFTAdaptiveTabBarController-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		246768ABEA0311F28AA04FEDBD67E2CB /* Pods-MFTAdaptiveTabBarController_Tests-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = C5A2A25FD8D365E38022A52AF6304CE1 /* Pods-MFTAdaptiveTabBarController_Tests-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		254E0F8A286FA88A4FFD0E38C573769C /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4E225937F395CE4D8B448AC8B87C7B1 /* Foundation.framework */; };
 		274DE61B64AD51ABA2588089C456B391 /* Pods-MFTAdaptiveTabBarController_Example-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A3251E2B231744F4B0D2D04CEB96FE9 /* Pods-MFTAdaptiveTabBarController_Example-dummy.m */; };
-		2D82925EAF3E49FAB4DD78A2D1AE470D /* MFTVerticalTabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 229730CF35D9D430F6C963BC35D866C9 /* MFTVerticalTabBar.swift */; };
+		28EF5BDC078FE31C4D92BF7661A9E38C /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4E225937F395CE4D8B448AC8B87C7B1 /* Foundation.framework */; };
+		297698584D847D4DEE6FAE2D97ABBCA2 /* MFTTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAEB8885FC8B3ECFB0BA5F5492B3843A /* MFTTabBarController.swift */; };
+		2C684D73A274348068F7625C4D922704 /* MFTTabBarAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 411848545EB445C5D58F0C4C6C041EB7 /* MFTTabBarAction.swift */; };
+		2E0EEE73236C5355994AE5A733C71370 /* MFTAdaptiveTabBarCenterButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23EBCF9956A4AA95589DBC81D45A068B /* MFTAdaptiveTabBarCenterButton.swift */; };
 		364744AFD592C28477889CD8DDA406FC /* Pods-MFTAdaptiveTabBarController_Example-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = B2BCE605F9FB48AF1A568F9D42ACF835 /* Pods-MFTAdaptiveTabBarController_Example-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		423F2F9F9ABE2D30FC958B08CB78CE80 /* MFTAdaptiveTabBarCentreButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF203709CBAB6FC7527834714211A03C /* MFTAdaptiveTabBarCentreButton.swift */; };
-		471542834BC9B2EF26868B0E2FF3998E /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BC461F35207E9C2ABF515880E4A34B4E /* Media.xcassets */; };
 		5D407F3B4658A2E07A7514067FDC810F /* AppController-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = AFEEF3A7E6F4003197B8E2F6DDF31191 /* AppController-dummy.m */; };
 		5F8D79CEF6FF8CE143E180565C61B341 /* AppController-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = D7397166D712F3ECC6266146CD21500B /* AppController-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		6523CE07A09BF5163AF83B034C2C83E2 /* MFTTabBarAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = B02E9252516A0CB7C975E5C56B3D9D4C /* MFTTabBarAction.swift */; };
-		8403F16907E2F34C0BB89E898E1628FE /* MFTTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24A215AB763BCA86F5C2CB5A2BD931A8 /* MFTTabBarController.swift */; };
+		64DFBA0EB23A64920C92AA9DBF4073DE /* MFTTabBarControllerDimmingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE08597B7528CF816AA237FB2409AF59 /* MFTTabBarControllerDimmingView.swift */; };
+		7A7D8CE97336FF59BBFB880818EB5302 /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D09A7A5CB0ADD4E89AC026DD11B69088 /* Media.xcassets */; };
+		81BFEA21D91A5CDDC19C4B681ADC9F60 /* MFTAdaptiveTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91B66693ACE57599269023F729CC60EE /* MFTAdaptiveTabBarController.swift */; };
 		9B97395BBDCB6F87BD09B54DB9D71DCE /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4E225937F395CE4D8B448AC8B87C7B1 /* Foundation.framework */; };
-		A073D1F20661C0E4727017E1145A5CEC /* MFTVerticalTabBarItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11E552364D6154A32D808AFF3D023932 /* MFTVerticalTabBarItemView.swift */; };
+		A9B30EB21D1B1E05A37B3AE6EF844072 /* MFTVerticalTabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = F86865025CAB2A1B944F0A0D09C507CC /* MFTVerticalTabBar.swift */; };
+		BFDD67619C3E7435C692B46E81655CE1 /* MFTVerticalTabBarItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A8C8A3A38564A0712CA960D1C833764 /* MFTVerticalTabBarItemView.swift */; };
 		C05323D29FE248982AE74116E051160A /* AppController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F512A26A97D3596B512A9DF5C01D9E3C /* AppController.swift */; };
 		C3001F94A0AA8DC373C389D4ADEF335E /* StoryboardInterfaceProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 282AE206BA9D05C2E9A429270FC9F3F1 /* StoryboardInterfaceProvider.swift */; };
 		CF32B70D96145317428D4AA2813B0908 /* Pods-MFTAdaptiveTabBarController_Tests-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 890555E5D1FE5A12B6A032461F067357 /* Pods-MFTAdaptiveTabBarController_Tests-dummy.m */; };
 		D701FC4E8E8D230E79C8BF6FF4A1DAA0 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4E225937F395CE4D8B448AC8B87C7B1 /* Foundation.framework */; };
-		D744264458B1534491484DDAABB8BC90 /* MFTAdaptiveTabBarController-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 03A0AE62988C1A0C5F770DE608762970 /* MFTAdaptiveTabBarController-dummy.m */; };
-		ED40C80C5D6D410139BBE46B1054EC5B /* MFTAdaptiveTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC0088E2885D1217A16BAA94EB2D7D2A /* MFTAdaptiveTabBarController.swift */; };
-		ED5EAFF94D65768B0DB9B588B7E1EF7C /* MFTTabBarControllerDimmingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB593FE9D2D9CFB8D43BD1B4173F3A18 /* MFTTabBarControllerDimmingView.swift */; };
-		F854784F3074925CA19E67536F94E474 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4E225937F395CE4D8B448AC8B87C7B1 /* Foundation.framework */; };
-		F9750EA80751E7A2E6A67D3BDF0C771B /* AppController.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7236CF280316A08A9F997EA83E9EDB9D /* AppController.framework */; };
+		E1810D3F9E19385F21F823188E1F3190 /* MFTAdaptiveTabBarController-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = BA541E427D1D79C60ED661661A9C0F66 /* MFTAdaptiveTabBarController-dummy.m */; };
+		E586F3920B7E838FAEEA713AEF33A1C2 /* MFTVerticalTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E92CF2F1152A8FEFA7E18D32BC1B70DF /* MFTVerticalTabBarController.swift */; };
+		EABE7BEE401167933CF337C2627D0D19 /* AppController.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7236CF280316A08A9F997EA83E9EDB9D /* AppController.framework */; };
 		FE24E571FC10C07F3020194C242BF126 /* AppViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CADEC177D99D93894C4FE80EC24760E4 /* AppViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		041918836CC3E79EA654966376025F43 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = BFDFE7DC352907FC980B868725387E98 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 32EDB090FC7910219DD5F2CB33844B3A;
+			remoteInfo = AppController;
+		};
 		1CEC1BB109A62E2BE0E0E2FA17B1BB63 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = BFDFE7DC352907FC980B868725387E98 /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = 8A99912A575FE6E45EE1956C63E6D527;
 			remoteInfo = MFTAdaptiveTabBarController;
-		};
-		7C43ADE0FB3B2401BC8EAF694A66732C /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = BFDFE7DC352907FC980B868725387E98 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 32EDB090FC7910219DD5F2CB33844B3A;
-			remoteInfo = AppController;
 		};
 		866DFCBC2CC72FBC2725FCA58A9AE4C5 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -66,69 +67,61 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		03A0AE62988C1A0C5F770DE608762970 /* MFTAdaptiveTabBarController-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "MFTAdaptiveTabBarController-dummy.m"; sourceTree = "<group>"; };
-		04ED39DEBFDFC73D1F5E7C3C3785536E /* MFTAdaptiveTabBarController-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "MFTAdaptiveTabBarController-Info.plist"; sourceTree = "<group>"; };
-		0E579B7F99533DD0D93D0558D0AA24AF /* MFTVerticalTabBarController.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = MFTVerticalTabBarController.swift; path = MFTAdaptiveTabBarController/Classes/MFTVerticalTabBarController.swift; sourceTree = "<group>"; };
-		11E552364D6154A32D808AFF3D023932 /* MFTVerticalTabBarItemView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = MFTVerticalTabBarItemView.swift; path = MFTAdaptiveTabBarController/Classes/MFTVerticalTabBarItemView.swift; sourceTree = "<group>"; };
-		13087436EE47D641FE34CAF51D83B07E /* MFTAdaptiveTabBarController-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "MFTAdaptiveTabBarController-prefix.pch"; sourceTree = "<group>"; };
+		06A91B6239EFD56D62170A81AFB35675 /* MFTTabBarActionView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = MFTTabBarActionView.swift; path = MFTAdaptiveTabBarController/Classes/MFTTabBarActionView.swift; sourceTree = "<group>"; };
+		184CCAB2C4FAA8F3DBE4250FE217C4F3 /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; path = README.md; sourceTree = "<group>"; };
 		1CD51B2F91252E5676BA457E6D48A86A /* Pods-MFTAdaptiveTabBarController_Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-MFTAdaptiveTabBarController_Tests.release.xcconfig"; sourceTree = "<group>"; };
-		2191098492190E7A9F3242F8F00D19ED /* MFTAdaptiveTabBarController.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = MFTAdaptiveTabBarController.modulemap; sourceTree = "<group>"; };
-		229730CF35D9D430F6C963BC35D866C9 /* MFTVerticalTabBar.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = MFTVerticalTabBar.swift; path = MFTAdaptiveTabBarController/Classes/MFTVerticalTabBar.swift; sourceTree = "<group>"; };
-		24A215AB763BCA86F5C2CB5A2BD931A8 /* MFTTabBarController.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = MFTTabBarController.swift; path = MFTAdaptiveTabBarController/Classes/MFTTabBarController.swift; sourceTree = "<group>"; };
+		23EBCF9956A4AA95589DBC81D45A068B /* MFTAdaptiveTabBarCenterButton.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = MFTAdaptiveTabBarCenterButton.swift; path = MFTAdaptiveTabBarController/Classes/MFTAdaptiveTabBarCenterButton.swift; sourceTree = "<group>"; };
 		282AE206BA9D05C2E9A429270FC9F3F1 /* StoryboardInterfaceProvider.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = StoryboardInterfaceProvider.swift; path = AppController/Classes/StoryboardInterfaceProvider.swift; sourceTree = "<group>"; };
 		2BB775793B392E4D764E41D5A4BBB225 /* Pods-MFTAdaptiveTabBarController_Tests.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-MFTAdaptiveTabBarController_Tests.modulemap"; sourceTree = "<group>"; };
 		2DD617642E6D112BDEB7F58BFAA89A9A /* Pods-MFTAdaptiveTabBarController_Example-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-MFTAdaptiveTabBarController_Example-Info.plist"; sourceTree = "<group>"; };
 		3A3251E2B231744F4B0D2D04CEB96FE9 /* Pods-MFTAdaptiveTabBarController_Example-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-MFTAdaptiveTabBarController_Example-dummy.m"; sourceTree = "<group>"; };
+		3B084442C032C18D9A01309958166022 /* MFTAdaptiveTabBarController-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "MFTAdaptiveTabBarController-umbrella.h"; sourceTree = "<group>"; };
 		3B250D348AC426F50AEFEDAC7370C123 /* Pods-MFTAdaptiveTabBarController_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-MFTAdaptiveTabBarController_Example.release.xcconfig"; sourceTree = "<group>"; };
+		411848545EB445C5D58F0C4C6C041EB7 /* MFTTabBarAction.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = MFTTabBarAction.swift; path = MFTAdaptiveTabBarController/Classes/MFTTabBarAction.swift; sourceTree = "<group>"; };
+		41CA6BFBEED3780A09A9E9060CABDC90 /* MFTAdaptiveTabBarController-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "MFTAdaptiveTabBarController-Info.plist"; sourceTree = "<group>"; };
 		44097B927079C34F3A215F3761477056 /* AppController-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "AppController-Info.plist"; sourceTree = "<group>"; };
 		56FB688957E75F781DE6D5F8B5129139 /* Pods-MFTAdaptiveTabBarController_Example.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-MFTAdaptiveTabBarController_Example.modulemap"; sourceTree = "<group>"; };
 		5B1C02DB0F8C1ECC77F16FC74297765F /* Pods-MFTAdaptiveTabBarController_Tests-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-MFTAdaptiveTabBarController_Tests-Info.plist"; sourceTree = "<group>"; };
-		5E7505C9EAAFE3892AAB652E7DBEB958 /* MFTAdaptiveTabBarController.podspec */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; lastKnownFileType = text; path = MFTAdaptiveTabBarController.podspec; sourceTree = "<group>"; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		5E86B15A5A86A5CD3A2BB6295BDC4C32 /* AppController-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "AppController-prefix.pch"; sourceTree = "<group>"; };
 		5FA2B0B08225C0D591F13FF68A8060F8 /* AppController.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = AppController.modulemap; sourceTree = "<group>"; };
-		614FD4BB25A7807963D3434C9B7D6951 /* MFTAdaptiveTabBarController-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "MFTAdaptiveTabBarController-umbrella.h"; sourceTree = "<group>"; };
+		63FA98C000E0C6FA5C8F3D5E15CB077F /* MFTAdaptiveTabBarController-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "MFTAdaptiveTabBarController-prefix.pch"; sourceTree = "<group>"; };
+		6A8C8A3A38564A0712CA960D1C833764 /* MFTVerticalTabBarItemView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = MFTVerticalTabBarItemView.swift; path = MFTAdaptiveTabBarController/Classes/MFTVerticalTabBarItemView.swift; sourceTree = "<group>"; };
+		6B59841A8A8B00F88B4E0E4EE8B91AB2 /* MFTAdaptiveTabBarController.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = MFTAdaptiveTabBarController.modulemap; sourceTree = "<group>"; };
 		7236CF280316A08A9F997EA83E9EDB9D /* AppController.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = AppController.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		81CD3CAD5ED59A727A47C9DFFFDE2F27 /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; path = README.md; sourceTree = "<group>"; };
 		84B207E1B9F8E8DA031931994D806328 /* Pods-MFTAdaptiveTabBarController_Example-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-MFTAdaptiveTabBarController_Example-acknowledgements.markdown"; sourceTree = "<group>"; };
 		890555E5D1FE5A12B6A032461F067357 /* Pods-MFTAdaptiveTabBarController_Tests-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-MFTAdaptiveTabBarController_Tests-dummy.m"; sourceTree = "<group>"; };
 		8DB7607A936E1E905E06F566C2EDCD39 /* Pods-MFTAdaptiveTabBarController_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-MFTAdaptiveTabBarController_Example.debug.xcconfig"; sourceTree = "<group>"; };
+		90053B0D505C77360BCB11BCF12556EE /* MFTAdaptiveTabBarController.podspec */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; lastKnownFileType = text; path = MFTAdaptiveTabBarController.podspec; sourceTree = "<group>"; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		91B66693ACE57599269023F729CC60EE /* MFTAdaptiveTabBarController.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = MFTAdaptiveTabBarController.swift; path = MFTAdaptiveTabBarController/Classes/MFTAdaptiveTabBarController.swift; sourceTree = "<group>"; };
 		9AFF8E1D91FD48A88631141057AD0C7B /* AppController.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = AppController.framework; path = AppController.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		9CC8EB44B7503F4E73E962D94E4BD1CD /* MFTAdaptiveTabBarController.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = MFTAdaptiveTabBarController.xcconfig; sourceTree = "<group>"; };
 		9D940727FF8FB9C785EB98E56350EF41 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
-		AC0088E2885D1217A16BAA94EB2D7D2A /* MFTAdaptiveTabBarController.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = MFTAdaptiveTabBarController.swift; path = MFTAdaptiveTabBarController/Classes/MFTAdaptiveTabBarController.swift; sourceTree = "<group>"; };
+		9DBB469BA7A34120A519A272F3541778 /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; path = LICENSE; sourceTree = "<group>"; };
+		AE08597B7528CF816AA237FB2409AF59 /* MFTTabBarControllerDimmingView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = MFTTabBarControllerDimmingView.swift; path = MFTAdaptiveTabBarController/Classes/MFTTabBarControllerDimmingView.swift; sourceTree = "<group>"; };
 		AFEEF3A7E6F4003197B8E2F6DDF31191 /* AppController-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "AppController-dummy.m"; sourceTree = "<group>"; };
-		B02E9252516A0CB7C975E5C56B3D9D4C /* MFTTabBarAction.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = MFTTabBarAction.swift; path = MFTAdaptiveTabBarController/Classes/MFTTabBarAction.swift; sourceTree = "<group>"; };
 		B0CEA91DF731D3E8AFCA20F5D7B644AF /* Pods-MFTAdaptiveTabBarController_Tests-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-MFTAdaptiveTabBarController_Tests-acknowledgements.plist"; sourceTree = "<group>"; };
 		B2BCE605F9FB48AF1A568F9D42ACF835 /* Pods-MFTAdaptiveTabBarController_Example-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-MFTAdaptiveTabBarController_Example-umbrella.h"; sourceTree = "<group>"; };
-		B43C47EBB1CFD39D7F4952FD2D99B14E /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; path = LICENSE; sourceTree = "<group>"; };
-		BC461F35207E9C2ABF515880E4A34B4E /* Media.xcassets */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = folder.assetcatalog; name = Media.xcassets; path = MFTAdaptiveTabBarController/Assets/Media.xcassets; sourceTree = "<group>"; };
+		BA541E427D1D79C60ED661661A9C0F66 /* MFTAdaptiveTabBarController-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "MFTAdaptiveTabBarController-dummy.m"; sourceTree = "<group>"; };
 		C4E225937F395CE4D8B448AC8B87C7B1 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS12.2.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
 		C5A2A25FD8D365E38022A52AF6304CE1 /* Pods-MFTAdaptiveTabBarController_Tests-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-MFTAdaptiveTabBarController_Tests-umbrella.h"; sourceTree = "<group>"; };
 		CADEC177D99D93894C4FE80EC24760E4 /* AppViewController.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = AppViewController.swift; path = AppController/Classes/AppViewController.swift; sourceTree = "<group>"; };
 		CB4D79D0C94F55FC30FD051642054745 /* Pods-MFTAdaptiveTabBarController_Tests-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-MFTAdaptiveTabBarController_Tests-acknowledgements.markdown"; sourceTree = "<group>"; };
-		CB593FE9D2D9CFB8D43BD1B4173F3A18 /* MFTTabBarControllerDimmingView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = MFTTabBarControllerDimmingView.swift; path = MFTAdaptiveTabBarController/Classes/MFTTabBarControllerDimmingView.swift; sourceTree = "<group>"; };
+		D09A7A5CB0ADD4E89AC026DD11B69088 /* Media.xcassets */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = folder.assetcatalog; name = Media.xcassets; path = MFTAdaptiveTabBarController/Assets/Media.xcassets; sourceTree = "<group>"; };
 		D4762FF0CAEF7C5E842ADFD6832DB4E7 /* Pods_MFTAdaptiveTabBarController_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_MFTAdaptiveTabBarController_Tests.framework; path = "Pods-MFTAdaptiveTabBarController_Tests.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D7397166D712F3ECC6266146CD21500B /* AppController-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "AppController-umbrella.h"; sourceTree = "<group>"; };
 		DAA599461A961564D2E073D87D530B0A /* MFTAdaptiveTabBarController.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = MFTAdaptiveTabBarController.framework; path = MFTAdaptiveTabBarController.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E3A0274E3F383F0C936BEA7560C85830 /* Pods_MFTAdaptiveTabBarController_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_MFTAdaptiveTabBarController_Example.framework; path = "Pods-MFTAdaptiveTabBarController_Example.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E43A794A065A4DD56F3BCB7CDAA6BA64 /* Pods-MFTAdaptiveTabBarController_Example-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-MFTAdaptiveTabBarController_Example-acknowledgements.plist"; sourceTree = "<group>"; };
+		E92CF2F1152A8FEFA7E18D32BC1B70DF /* MFTVerticalTabBarController.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = MFTVerticalTabBarController.swift; path = MFTAdaptiveTabBarController/Classes/MFTVerticalTabBarController.swift; sourceTree = "<group>"; };
+		EAF4F7CF554347F77676792E91843123 /* MFTAdaptiveTabBarController.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = MFTAdaptiveTabBarController.xcconfig; sourceTree = "<group>"; };
 		EC4E048F9A5FAB386EE3FDEE73350215 /* Pods-MFTAdaptiveTabBarController_Example-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-MFTAdaptiveTabBarController_Example-frameworks.sh"; sourceTree = "<group>"; };
 		F32DEEBB84AC07B2646393523B1D0E99 /* AppController.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = AppController.xcconfig; sourceTree = "<group>"; };
 		F512A26A97D3596B512A9DF5C01D9E3C /* AppController.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = AppController.swift; path = AppController/Classes/AppController.swift; sourceTree = "<group>"; };
 		F52AA500C1FF81DD8AE0D5E64EE50ACC /* Pods-MFTAdaptiveTabBarController_Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-MFTAdaptiveTabBarController_Tests.debug.xcconfig"; sourceTree = "<group>"; };
-		FF203709CBAB6FC7527834714211A03C /* MFTAdaptiveTabBarCentreButton.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = MFTAdaptiveTabBarCentreButton.swift; path = MFTAdaptiveTabBarController/Classes/MFTAdaptiveTabBarCentreButton.swift; sourceTree = "<group>"; };
+		F86865025CAB2A1B944F0A0D09C507CC /* MFTVerticalTabBar.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = MFTVerticalTabBar.swift; path = MFTAdaptiveTabBarController/Classes/MFTVerticalTabBar.swift; sourceTree = "<group>"; };
+		FAEB8885FC8B3ECFB0BA5F5492B3843A /* MFTTabBarController.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = MFTTabBarController.swift; path = MFTAdaptiveTabBarController/Classes/MFTTabBarController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		20600785C152B12CC32E119635874A49 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				F9750EA80751E7A2E6A67D3BDF0C771B /* AppController.framework in Frameworks */,
-				F854784F3074925CA19E67536F94E474 /* Foundation.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		21CEF1F40F528E65640CCDE94FCB3991 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -153,21 +146,26 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		F7764E0B364893F509C2D26AED623FE2 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				EABE7BEE401167933CF337C2627D0D19 /* AppController.framework in Frameworks */,
+				28EF5BDC078FE31C4D92BF7661A9E38C /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		17D7CD1B58E2145F2ED48FE836296366 /* Support Files */ = {
+		132F141BFDF61455B5AD0E1ED2B9FB58 /* Pod */ = {
 			isa = PBXGroup;
 			children = (
-				2191098492190E7A9F3242F8F00D19ED /* MFTAdaptiveTabBarController.modulemap */,
-				9CC8EB44B7503F4E73E962D94E4BD1CD /* MFTAdaptiveTabBarController.xcconfig */,
-				03A0AE62988C1A0C5F770DE608762970 /* MFTAdaptiveTabBarController-dummy.m */,
-				04ED39DEBFDFC73D1F5E7C3C3785536E /* MFTAdaptiveTabBarController-Info.plist */,
-				13087436EE47D641FE34CAF51D83B07E /* MFTAdaptiveTabBarController-prefix.pch */,
-				614FD4BB25A7807963D3434C9B7D6951 /* MFTAdaptiveTabBarController-umbrella.h */,
+				9DBB469BA7A34120A519A272F3541778 /* LICENSE */,
+				90053B0D505C77360BCB11BCF12556EE /* MFTAdaptiveTabBarController.podspec */,
+				184CCAB2C4FAA8F3DBE4250FE217C4F3 /* README.md */,
 			);
-			name = "Support Files";
-			path = "Example/Pods/Target Support Files/MFTAdaptiveTabBarController";
+			name = Pod;
 			sourceTree = "<group>";
 		};
 		23EE31FCDBFC083731187D92DFC55158 /* AppController */ = {
@@ -242,14 +240,6 @@
 			path = "Target Support Files/Pods-MFTAdaptiveTabBarController_Tests";
 			sourceTree = "<group>";
 		};
-		79FC6628EA101439C428C7A3107863BC /* Development Pods */ = {
-			isa = PBXGroup;
-			children = (
-				7C8648ADDE5FCB6458EA63687DA1EB0D /* MFTAdaptiveTabBarController */,
-			);
-			name = "Development Pods";
-			sourceTree = "<group>";
-		};
 		7B2F47372CC27E60A1CD1A3547B751FC /* Targets Support Files */ = {
 			isa = PBXGroup;
 			children = (
@@ -259,23 +249,12 @@
 			name = "Targets Support Files";
 			sourceTree = "<group>";
 		};
-		7C8648ADDE5FCB6458EA63687DA1EB0D /* MFTAdaptiveTabBarController */ = {
+		83469DD0AAA7BD70143AF1F2DA914C25 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				FF203709CBAB6FC7527834714211A03C /* MFTAdaptiveTabBarCentreButton.swift */,
-				AC0088E2885D1217A16BAA94EB2D7D2A /* MFTAdaptiveTabBarController.swift */,
-				B02E9252516A0CB7C975E5C56B3D9D4C /* MFTTabBarAction.swift */,
-				24A215AB763BCA86F5C2CB5A2BD931A8 /* MFTTabBarController.swift */,
-				CB593FE9D2D9CFB8D43BD1B4173F3A18 /* MFTTabBarControllerDimmingView.swift */,
-				229730CF35D9D430F6C963BC35D866C9 /* MFTVerticalTabBar.swift */,
-				0E579B7F99533DD0D93D0558D0AA24AF /* MFTVerticalTabBarController.swift */,
-				11E552364D6154A32D808AFF3D023932 /* MFTVerticalTabBarItemView.swift */,
-				BDDFF9C1C844FC5BAA8E30719BFE1379 /* Pod */,
-				A2ACBBEAAA62790C4D3E5DB6A2AAD86A /* Resources */,
-				17D7CD1B58E2145F2ED48FE836296366 /* Support Files */,
+				D09A7A5CB0ADD4E89AC026DD11B69088 /* Media.xcassets */,
 			);
-			name = MFTAdaptiveTabBarController;
-			path = ../..;
+			name = Resources;
 			sourceTree = "<group>";
 		};
 		8E2DADD9DBE88F1B7A75C8EF737B3862 /* Support Files */ = {
@@ -292,29 +271,39 @@
 			path = "../Target Support Files/AppController";
 			sourceTree = "<group>";
 		};
-		A2ACBBEAAA62790C4D3E5DB6A2AAD86A /* Resources */ = {
+		97ABF991ACE62680D2B6FB0EAE4D25B8 /* MFTAdaptiveTabBarController */ = {
 			isa = PBXGroup;
 			children = (
-				BC461F35207E9C2ABF515880E4A34B4E /* Media.xcassets */,
+				23EBCF9956A4AA95589DBC81D45A068B /* MFTAdaptiveTabBarCenterButton.swift */,
+				91B66693ACE57599269023F729CC60EE /* MFTAdaptiveTabBarController.swift */,
+				411848545EB445C5D58F0C4C6C041EB7 /* MFTTabBarAction.swift */,
+				06A91B6239EFD56D62170A81AFB35675 /* MFTTabBarActionView.swift */,
+				FAEB8885FC8B3ECFB0BA5F5492B3843A /* MFTTabBarController.swift */,
+				AE08597B7528CF816AA237FB2409AF59 /* MFTTabBarControllerDimmingView.swift */,
+				F86865025CAB2A1B944F0A0D09C507CC /* MFTVerticalTabBar.swift */,
+				E92CF2F1152A8FEFA7E18D32BC1B70DF /* MFTVerticalTabBarController.swift */,
+				6A8C8A3A38564A0712CA960D1C833764 /* MFTVerticalTabBarItemView.swift */,
+				132F141BFDF61455B5AD0E1ED2B9FB58 /* Pod */,
+				83469DD0AAA7BD70143AF1F2DA914C25 /* Resources */,
+				F63FD0F46315C6890BB2361212B0B1F6 /* Support Files */,
 			);
-			name = Resources;
+			name = MFTAdaptiveTabBarController;
+			path = ../..;
 			sourceTree = "<group>";
 		};
-		BDDFF9C1C844FC5BAA8E30719BFE1379 /* Pod */ = {
+		BEFE2CC5399FE3D924BCA8A8EBB12CEA /* Development Pods */ = {
 			isa = PBXGroup;
 			children = (
-				B43C47EBB1CFD39D7F4952FD2D99B14E /* LICENSE */,
-				5E7505C9EAAFE3892AAB652E7DBEB958 /* MFTAdaptiveTabBarController.podspec */,
-				81CD3CAD5ED59A727A47C9DFFFDE2F27 /* README.md */,
+				97ABF991ACE62680D2B6FB0EAE4D25B8 /* MFTAdaptiveTabBarController */,
 			);
-			name = Pod;
+			name = "Development Pods";
 			sourceTree = "<group>";
 		};
 		CF1408CF629C7361332E53B88F7BD30C = {
 			isa = PBXGroup;
 			children = (
 				9D940727FF8FB9C785EB98E56350EF41 /* Podfile */,
-				79FC6628EA101439C428C7A3107863BC /* Development Pods */,
+				BEFE2CC5399FE3D924BCA8A8EBB12CEA /* Development Pods */,
 				D6D69871AA08CC6572294E65A8089E60 /* Frameworks */,
 				49F472EBB279758450E2EB5CC5A68F77 /* Pods */,
 				725E97800EC872FE2BF5C7B0D32A72C5 /* Products */,
@@ -329,6 +318,20 @@
 				441540985C0245E6B524A81807497521 /* iOS */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		F63FD0F46315C6890BB2361212B0B1F6 /* Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				6B59841A8A8B00F88B4E0E4EE8B91AB2 /* MFTAdaptiveTabBarController.modulemap */,
+				EAF4F7CF554347F77676792E91843123 /* MFTAdaptiveTabBarController.xcconfig */,
+				BA541E427D1D79C60ED661661A9C0F66 /* MFTAdaptiveTabBarController-dummy.m */,
+				41CA6BFBEED3780A09A9E9060CABDC90 /* MFTAdaptiveTabBarController-Info.plist */,
+				63FA98C000E0C6FA5C8F3D5E15CB077F /* MFTAdaptiveTabBarController-prefix.pch */,
+				3B084442C032C18D9A01309958166022 /* MFTAdaptiveTabBarController-umbrella.h */,
+			);
+			name = "Support Files";
+			path = "Example/Pods/Target Support Files/MFTAdaptiveTabBarController";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -358,11 +361,11 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		CE903A4D08E60F8F3725A514171109F2 /* Headers */ = {
+		61F70D192B1ED435C9C0ADAD8593E7AD /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				227A9E07D69CE3EE4C8FA66CD5DF016B /* MFTAdaptiveTabBarController-umbrella.h in Headers */,
+				1652122466E0B9F85654A24C5BCB74A4 /* MFTAdaptiveTabBarController-umbrella.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -409,17 +412,17 @@
 		};
 		8A99912A575FE6E45EE1956C63E6D527 /* MFTAdaptiveTabBarController */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = DD60B66838E3858A29FB9883E66127AC /* Build configuration list for PBXNativeTarget "MFTAdaptiveTabBarController" */;
+			buildConfigurationList = 7CC20539D74CB003FB52A1BD01898B54 /* Build configuration list for PBXNativeTarget "MFTAdaptiveTabBarController" */;
 			buildPhases = (
-				CE903A4D08E60F8F3725A514171109F2 /* Headers */,
-				F26159B9FC0F9477DE9F88CDBC6A82BD /* Sources */,
-				20600785C152B12CC32E119635874A49 /* Frameworks */,
-				FB3E1E9616B6D7C9C2E3BC8873B4E140 /* Resources */,
+				61F70D192B1ED435C9C0ADAD8593E7AD /* Headers */,
+				438E3A88ABE2E59F0F9897645B5916C9 /* Sources */,
+				F7764E0B364893F509C2D26AED623FE2 /* Frameworks */,
+				40D9DB8514808689F9ECABEA8C7BF6E1 /* Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				44BC5DB16457FEC5B156169424E0932D /* PBXTargetDependency */,
+				795EC32D0A0A681B3C8A52AF86F36DF5 /* PBXTargetDependency */,
 			);
 			name = MFTAdaptiveTabBarController;
 			productName = MFTAdaptiveTabBarController;
@@ -476,6 +479,14 @@
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		40D9DB8514808689F9ECABEA8C7BF6E1 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7A7D8CE97336FF59BBFB880818EB5302 /* Media.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		4DD518DCE28AF8B11140BB398B3CC0BF /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -494,14 +505,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		FB3E1E9616B6D7C9C2E3BC8873B4E140 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				471542834BC9B2EF26868B0E2FF3998E /* Media.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -527,27 +530,28 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		438E3A88ABE2E59F0F9897645B5916C9 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2E0EEE73236C5355994AE5A733C71370 /* MFTAdaptiveTabBarCenterButton.swift in Sources */,
+				E1810D3F9E19385F21F823188E1F3190 /* MFTAdaptiveTabBarController-dummy.m in Sources */,
+				81BFEA21D91A5CDDC19C4B681ADC9F60 /* MFTAdaptiveTabBarController.swift in Sources */,
+				2C684D73A274348068F7625C4D922704 /* MFTTabBarAction.swift in Sources */,
+				005510898C080A041E310E9336C60F52 /* MFTTabBarActionView.swift in Sources */,
+				297698584D847D4DEE6FAE2D97ABBCA2 /* MFTTabBarController.swift in Sources */,
+				64DFBA0EB23A64920C92AA9DBF4073DE /* MFTTabBarControllerDimmingView.swift in Sources */,
+				A9B30EB21D1B1E05A37B3AE6EF844072 /* MFTVerticalTabBar.swift in Sources */,
+				E586F3920B7E838FAEEA713AEF33A1C2 /* MFTVerticalTabBarController.swift in Sources */,
+				BFDD67619C3E7435C692B46E81655CE1 /* MFTVerticalTabBarItemView.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		A29B21994423D4F0882EA282AC3EAFB3 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				CF32B70D96145317428D4AA2813B0908 /* Pods-MFTAdaptiveTabBarController_Tests-dummy.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		F26159B9FC0F9477DE9F88CDBC6A82BD /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				423F2F9F9ABE2D30FC958B08CB78CE80 /* MFTAdaptiveTabBarCentreButton.swift in Sources */,
-				D744264458B1534491484DDAABB8BC90 /* MFTAdaptiveTabBarController-dummy.m in Sources */,
-				ED40C80C5D6D410139BBE46B1054EC5B /* MFTAdaptiveTabBarController.swift in Sources */,
-				6523CE07A09BF5163AF83B034C2C83E2 /* MFTTabBarAction.swift in Sources */,
-				8403F16907E2F34C0BB89E898E1628FE /* MFTTabBarController.swift in Sources */,
-				ED5EAFF94D65768B0DB9B588B7E1EF7C /* MFTTabBarControllerDimmingView.swift in Sources */,
-				2D82925EAF3E49FAB4DD78A2D1AE470D /* MFTVerticalTabBar.swift in Sources */,
-				1CCE5BB9812E4B764FD4E69403113DDC /* MFTVerticalTabBarController.swift in Sources */,
-				A073D1F20661C0E4727017E1145A5CEC /* MFTVerticalTabBarItemView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -560,17 +564,17 @@
 			target = 333E4E43E0B8355F61260E92A67A3AF4 /* Pods-MFTAdaptiveTabBarController_Example */;
 			targetProxy = 866DFCBC2CC72FBC2725FCA58A9AE4C5 /* PBXContainerItemProxy */;
 		};
-		44BC5DB16457FEC5B156169424E0932D /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = AppController;
-			target = 32EDB090FC7910219DD5F2CB33844B3A /* AppController */;
-			targetProxy = 7C43ADE0FB3B2401BC8EAF694A66732C /* PBXContainerItemProxy */;
-		};
 		76428A593DEC4F904F6A190374C8FAD1 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = AppController;
 			target = 32EDB090FC7910219DD5F2CB33844B3A /* AppController */;
 			targetProxy = C28FDCC79312CAE0EB0D7A308B06FD85 /* PBXContainerItemProxy */;
+		};
+		795EC32D0A0A681B3C8A52AF86F36DF5 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = AppController;
+			target = 32EDB090FC7910219DD5F2CB33844B3A /* AppController */;
+			targetProxy = 041918836CC3E79EA654966376025F43 /* PBXContainerItemProxy */;
 		};
 		B0DFB81F0802DD2576186EF7FA795104 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -712,9 +716,9 @@
 			};
 			name = Release;
 		};
-		608BBB41D37FD3710BEA431FFE8CBA1C /* Debug */ = {
+		62A057865619412A021FCCCB54564764 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 9CC8EB44B7503F4E73E962D94E4BD1CD /* MFTAdaptiveTabBarController.xcconfig */;
+			baseConfigurationReference = EAF4F7CF554347F77676792E91843123 /* MFTAdaptiveTabBarController.xcconfig */;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				CLANG_ENABLE_OBJC_WEAK = NO;
@@ -740,10 +744,11 @@
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
 			};
-			name = Debug;
+			name = Release;
 		};
 		73B08326536ABB141AE36EA46E15E399 /* Debug */ = {
 			isa = XCBuildConfiguration;
@@ -812,40 +817,6 @@
 				VERSION_INFO_PREFIX = "";
 			};
 			name = Debug;
-		};
-		96235C760058E3E8E4E0C6F58FF6568E /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 9CC8EB44B7503F4E73E962D94E4BD1CD /* MFTAdaptiveTabBarController.xcconfig */;
-			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
-				CLANG_ENABLE_OBJC_WEAK = NO;
-				CODE_SIGN_IDENTITY = "";
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				CURRENT_PROJECT_VERSION = 1;
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				GCC_PREFIX_HEADER = "Target Support Files/MFTAdaptiveTabBarController/MFTAdaptiveTabBarController-prefix.pch";
-				INFOPLIST_FILE = "Target Support Files/MFTAdaptiveTabBarController/MFTAdaptiveTabBarController-Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 11.4;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MODULEMAP_FILE = "Target Support Files/MFTAdaptiveTabBarController/MFTAdaptiveTabBarController.modulemap";
-				PRODUCT_MODULE_NAME = MFTAdaptiveTabBarController;
-				PRODUCT_NAME = MFTAdaptiveTabBarController;
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VALIDATE_PRODUCT = YES;
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Release;
 		};
 		97A79249FECCF1CD4ED38ED21AE5EAB7 /* Release */ = {
 			isa = XCBuildConfiguration;
@@ -981,6 +952,39 @@
 			};
 			name = Debug;
 		};
+		ABE2552E3646B5C1BE00295813112975 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = EAF4F7CF554347F77676792E91843123 /* MFTAdaptiveTabBarController.xcconfig */;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GCC_PREFIX_HEADER = "Target Support Files/MFTAdaptiveTabBarController/MFTAdaptiveTabBarController-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/MFTAdaptiveTabBarController/MFTAdaptiveTabBarController-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 11.4;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MODULEMAP_FILE = "Target Support Files/MFTAdaptiveTabBarController/MFTAdaptiveTabBarController.modulemap";
+				PRODUCT_MODULE_NAME = MFTAdaptiveTabBarController;
+				PRODUCT_NAME = MFTAdaptiveTabBarController;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -1011,20 +1015,20 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
+		7CC20539D74CB003FB52A1BD01898B54 /* Build configuration list for PBXNativeTarget "MFTAdaptiveTabBarController" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				ABE2552E3646B5C1BE00295813112975 /* Debug */,
+				62A057865619412A021FCCCB54564764 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		A2B74234863A7CFA420AF48D82B4F70F /* Build configuration list for PBXNativeTarget "Pods-MFTAdaptiveTabBarController_Tests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				73B08326536ABB141AE36EA46E15E399 /* Debug */,
 				5A0AA02C56D15460066AC26EF5BC686E /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		DD60B66838E3858A29FB9883E66127AC /* Build configuration list for PBXNativeTarget "MFTAdaptiveTabBarController" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				608BBB41D37FD3710BEA431FFE8CBA1C /* Debug */,
-				96235C760058E3E8E4E0C6F58FF6568E /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

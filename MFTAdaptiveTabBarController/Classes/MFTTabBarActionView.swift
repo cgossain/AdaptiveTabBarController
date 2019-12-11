@@ -10,12 +10,18 @@ import UIKit
 class MFTTabBarActionView: UIView {
     let action: MFTTabBarAction
     
+    let condition: MFTAdaptiveTabBarController.ConditionHandler?
+    
     var didTapHandler: (() -> Void)?
+    
+    /// Indicates if the item should be shown.
+    var canShow: Bool { return condition?() ?? true }
     
     
     // MARK: - Private Properties
     private lazy var button: UIButton = {
         let button = UIButton(type: .custom)
+        button.showsTouchWhenHighlighted = true
         button.setImage(self.action.image, for: .normal)
         button.addTarget(self, action: #selector(MFTTabBarActionView.buttonTapped(_:)), for: .touchUpInside)
         return button
@@ -27,14 +33,16 @@ class MFTTabBarActionView: UIView {
         label.text = self.action.title
         label.textColor = .white
         label.textAlignment = .center
+        label.numberOfLines = 1
         return label
     }()
     
     
     // MARK: - Lifecycle
-    public init(action: MFTTabBarAction) {
+    public init(action: MFTTabBarAction, condition: MFTAdaptiveTabBarController.ConditionHandler? = nil) {
         self.action = action
-        super.init(frame: CGRect(x: 0, y: 0, width: 70, height: 70))
+        self.condition = condition
+        super.init(frame: .zero)
         self.commonInit()
     }
     
@@ -43,22 +51,29 @@ class MFTTabBarActionView: UIView {
     }
     
     private func commonInit() {
-        let stackView = UIStackView(arrangedSubviews: [button, titleLabel])
+        let diameter: CGFloat = 56
+        button.layer.cornerRadius = diameter/2
+        button.backgroundColor = .white
+        let flexibleStackView = UIStackView(arrangedSubviews: [button])
+        flexibleStackView.axis = .vertical
+        flexibleStackView.alignment = .center
+        
+        let stackView = UIStackView(arrangedSubviews: [flexibleStackView, titleLabel])
         stackView.axis = .vertical
+        stackView.spacing = 4
         addSubview(stackView)
         stackView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([stackView.topAnchor.constraint(equalTo: topAnchor),
                                      stackView.trailingAnchor.constraint(equalTo: trailingAnchor),
                                      stackView.bottomAnchor.constraint(equalTo: bottomAnchor),
-                                     stackView.leadingAnchor.constraint(equalTo: leadingAnchor)])
+                                     stackView.leadingAnchor.constraint(equalTo: leadingAnchor),
+                                     button.widthAnchor.constraint(equalToConstant: diameter),
+                                     button.heightAnchor.constraint(equalToConstant: diameter)])
     }
     
     override func sizeThatFits(_ size: CGSize) -> CGSize {
-        return CGSize(width: 70, height: 70)
-    }
-    
-    override var intrinsicContentSize: CGSize {
-        return CGSize(width: 70, height: 70)
+        let fittingSize = systemLayoutSizeFitting(UIView.layoutFittingCompressedSize)
+        return fittingSize
     }
     
     
