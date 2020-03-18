@@ -11,7 +11,8 @@ Pod::Spec.new do |s|
   s.license          = 'MIT'
   s.author           = { 'Christian Gossain' => 'cgossain@gmail.com' }
   s.source           = { :git => 'https://github.com/cgossain/MFTAdaptiveTabBarController.git', :tag => s.version.to_s }
-  s.platform         = :ios, '11.4'
+  s.swift_versions   = ['5.0']
+  s.ios.deployment_target = '11.4'
   s.source_files = 'MFTAdaptiveTabBarController/Classes/**/*.swift'
   s.resource = 'MFTAdaptiveTabBarController/Assets/*.xcassets'
   s.dependency 'AppController'
