@@ -30,15 +30,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         adaptiveTabBarViewController.viewControllers = [vc1, vc2]
                 
-        adaptiveTabBarViewController.addTabBarAction(MFTTabBarAction(image: UIImage(named: "tab-barcode-action")!, title: "Action 1", handler: {
+        adaptiveTabBarViewController.addTabBarAction(MFTTabBarAction(title: "Action 1", image: UIImage(named: "tab-barcode-action")!, handler: {
             
         }))
         
-        adaptiveTabBarViewController.addTabBarAction(MFTTabBarAction(image: UIImage(named: "tab-barcode-action")!, title: "Action 2", handler: {
+        adaptiveTabBarViewController.addTabBarAction(MFTTabBarAction(title: "Action 2", image: UIImage(named: "tab-barcode-action")!, handler: {
             
         }))
         
-        adaptiveTabBarViewController.addTabBarAction(MFTTabBarAction(image: UIImage(named: "tab-barcode-action")!, title: "Action 3", handler: {
+        adaptiveTabBarViewController.addTabBarAction(MFTTabBarAction(title: "Action 3", image: UIImage(named: "tab-barcode-action")!, handler: {
             
         }))
         
