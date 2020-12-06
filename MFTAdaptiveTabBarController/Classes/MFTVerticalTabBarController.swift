@@ -49,16 +49,23 @@ final public class MFTVerticalTabBarController: UISplitViewController {
     
     
     // MARK: - Lifecycle
-    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
-        super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
-        minimumPrimaryColumnWidth = 108.0
-        maximumPrimaryColumnWidth = 108.0
-        preferredDisplayMode = .allVisible
-        viewControllers = [tabBarContainerViewController]
+    @available(iOS 14.0, *)
+    public override init(style: UISplitViewController.Style) {
+        super.init(style: .unspecified)
+        commonInit()
     }
     
-    required public init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
+    public override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
+        super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
+        commonInit()
+    }
+    
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+        commonInit()
+    }
+    
+    private func commonInit() {
         minimumPrimaryColumnWidth = 108.0
         maximumPrimaryColumnWidth = 108.0
         preferredDisplayMode = .allVisible
