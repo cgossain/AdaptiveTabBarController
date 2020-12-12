@@ -60,7 +60,7 @@ open class MFTTabBarControllerDimmingView: UIView {
     
     private func commonInit() {
         backgroundColor = UIColor.black.withAlphaComponent(0.8)
-        directionalLayoutMargins = NSDirectionalEdgeInsets(top: 0, leading: 44, bottom: 0, trailing: 44)
+        directionalLayoutMargins = NSDirectionalEdgeInsets(top: 0, leading: 36, bottom: 0, trailing: 36)
         addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(MFTTabBarControllerDimmingView.backgroundTappedGesture(_:))))
     }
     
@@ -77,13 +77,13 @@ open class MFTTabBarControllerDimmingView: UIView {
     func collapse(animated: Bool) {
         willCollapse()
         if animated {
-            UIView.animate(withDuration: 0.1, delay: 0.0, options: .curveLinear, animations: {
+            UIView.animate(withDuration: 0.15, delay: 0.0, options: .curveEaseInOut, animations: {
                 // move the items to their collapsed positions
                 self.moveActionViewsToCollapsedPositions()
                 
             }, completion: { (finished) in
                 // fade out the dimming view
-                UIView.animate(withDuration: 0.1, delay: 0.0, options: .curveLinear, animations: {
+                UIView.animate(withDuration: 0.1, delay: 0.0, options: .curveEaseInOut, animations: {
                     self.alpha = 0.0
                     
                 }, completion: { (finished) in
@@ -91,15 +91,12 @@ open class MFTTabBarControllerDimmingView: UIView {
                 })
             })
         }
-        else {
-            // non animated
-        }
     }
     
     func expand(animated: Bool) {
         willExpand()
         if animated {
-            UIView.animate(withDuration: 0.1, delay: 0.0, options: .curveLinear, animations: {
+            UIView.animate(withDuration: 0.15, delay: 0.0, options: .curveEaseInOut, animations: {
                 self.alpha = 1.0
             }, completion: { (finished) in
                 // make sure the items begin at their collapsed positions
@@ -114,9 +111,6 @@ open class MFTTabBarControllerDimmingView: UIView {
                     self.didExpand()
                 })
             })
-        }
-        else {
-            // non animated
         }
     }
     
@@ -214,7 +208,7 @@ open class MFTTabBarControllerDimmingView: UIView {
             
             // lay out the action views equally spaced along an eliptical path
             let x = (1.0 * expansionRadiusForArcLayout()) * cos(expandedAngleInRadians)
-            let y = (0.8 * expansionRadiusForArcLayout()) * sin(expandedAngleInRadians) + 28 // displace arc upwards
+            let y = (0.8 * expansionRadiusForArcLayout()) * sin(expandedAngleInRadians) + 24 // displace arc upwards
             
             return CGPoint(x: actionsAnchorPoint.x + CGFloat(x), y: actionsAnchorPoint.y - CGFloat(y))
             
@@ -233,7 +227,7 @@ open class MFTTabBarControllerDimmingView: UIView {
             var xOfFirstItem = (actionsAnchorPoint.x - self.bounds.width/2) + totalHorizontalMargins/2 + CGFloat(numberOfItemsToReachMaxItemsInRow)*(interitemSpacing/2)
             
             let rowHeight = fittingSize.height
-            let rowTotalVerticalMargins = CGFloat(36)
+            let rowTotalVerticalMargins = CGFloat(24)
             let totalRowHeight = rowHeight + rowTotalVerticalMargins
             
             var x = xOfFirstItem + CGFloat(itemIdxInRow) * interitemSpacing
