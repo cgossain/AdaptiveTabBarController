@@ -1,6 +1,6 @@
 PODS:
   - AppController (0.7.2)
-  - MFTAdaptiveTabBarController (1.2.1):
+  - MFTAdaptiveTabBarController (1.2.2):
     - AppController
 
 DEPENDENCIES:
@@ -16,7 +16,7 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   AppController: 90974bfc961dba65c73fb675e1a57cc31c2a903d
-  MFTAdaptiveTabBarController: a9077d46f5780232612fb3fd9fe9c8c1bf6189e8
+  MFTAdaptiveTabBarController: ed5eba3cddee984c2293f427316991de73a13261
 
 PODFILE CHECKSUM: e41f5c11b441f37e16a83fcdb9fab1c650a2b84f
 

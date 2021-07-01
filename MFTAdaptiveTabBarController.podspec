@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name             = 'MFTAdaptiveTabBarController'
-  s.version          = '1.2.1'
+  s.version          = '1.2.2'
   s.summary          = 'An adaptive view controller that adapts between a compact and regualar version of a tab bar controller.'
   s.description      = <<-DESC
                        The MFTAdaptiveTabBarController offers an adaptive view controller that can be installed as the root view controller of an application.
