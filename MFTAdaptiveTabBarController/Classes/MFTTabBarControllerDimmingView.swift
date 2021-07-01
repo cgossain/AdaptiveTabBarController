@@ -39,7 +39,7 @@ open class MFTTabBarControllerDimmingView: UIView {
     
     private(set) var isCollapsed = true
     
-    var maximumItemsPerRow = 3
+    var maximumItemsPerRow = 2
     
     
     // MARK: - Private Properties
@@ -184,6 +184,27 @@ open class MFTTabBarControllerDimmingView: UIView {
             let y = incrementSpacing * (incrementIdx + 1.0)
             
             return CGPoint(x: actionsAnchorPoint.x + CGFloat(x), y: actionsAnchorPoint.y - CGFloat(y))
+            
+        case .grid:
+            let fittingSize = action.systemLayoutSizeFitting(UIView.layoutFittingCompressedSize)
+            
+            let numberOfRows = Int(ceil(Double(showableActionViews.count) / Double(maximumItemsPerRow)))
+            var rowIdx = Int(floor(Double(idx) / Double(maximumItemsPerRow)))
+//            var numberOfItemsInRow = rowIdx < (numberOfRows - 1) ? maximumItemsPerRow : (showableActionViews.count - (rowIdx * maximumItemsPerRow))
+            var itemIdxInRow = idx - (rowIdx * maximumItemsPerRow)
+            var interitemSpacing = CGFloat(44)
+            
+            let columnWidth = fittingSize.width
+            let totalColumnWidth = columnWidth + interitemSpacing
+            
+            let rowHeight = fittingSize.height
+            let totalRowHeight = rowHeight + interitemSpacing
+            
+            var x = actionsAnchorPoint.x - CGFloat(itemIdxInRow) * totalColumnWidth
+            var y = totalRowHeight * CGFloat(numberOfRows - 1 - rowIdx) + totalRowHeight
+            
+            return CGPoint(x: x, y: actionsAnchorPoint.y - CGFloat(y))
+            
         case .arc:
             let total = stride(from: 0, to: showableActionViews.count, by: 1)
             let median = Double(total.sorted(by: <)[showableActionViews.count / 2])
@@ -211,29 +232,6 @@ open class MFTTabBarControllerDimmingView: UIView {
             let y = (0.8 * expansionRadiusForArcLayout()) * sin(expandedAngleInRadians) + 24 // displace arc upwards
             
             return CGPoint(x: actionsAnchorPoint.x + CGFloat(x), y: actionsAnchorPoint.y - CGFloat(y))
-            
-        default: // grid
-            let fittingSize = action.systemLayoutSizeFitting(UIView.layoutFittingCompressedSize)
-            
-            let numberOfRows = Int(ceil(Double(showableActionViews.count) / Double(maximumItemsPerRow)))
-            var rowIdx = Int(floor(Double(idx) / Double(maximumItemsPerRow)))
-            var numberOfItemsInRow = rowIdx < (numberOfRows - 1) ? maximumItemsPerRow : (showableActionViews.count - (rowIdx * maximumItemsPerRow))
-            var itemIdxInRow = idx - (rowIdx * maximumItemsPerRow)
-            // note that by including the width of an item in the margins calculation (i.e. '+ fittingSize.width'), we ensure the margins are
-            // respected from the leading or training edges instead of from the center
-            var totalHorizontalMargins = layoutMargins.left + layoutMargins.right + fittingSize.width
-            var interitemSpacing = (self.bounds.width-totalHorizontalMargins)/CGFloat(maximumItemsPerRow - 1)
-            var numberOfItemsToReachMaxItemsInRow = maximumItemsPerRow - numberOfItemsInRow
-            var xOfFirstItem = (actionsAnchorPoint.x - self.bounds.width/2) + totalHorizontalMargins/2 + CGFloat(numberOfItemsToReachMaxItemsInRow)*(interitemSpacing/2)
-            
-            let rowHeight = fittingSize.height
-            let rowTotalVerticalMargins = CGFloat(24)
-            let totalRowHeight = rowHeight + rowTotalVerticalMargins
-            
-            var x = xOfFirstItem + CGFloat(itemIdxInRow) * interitemSpacing
-            var y = totalRowHeight * CGFloat(numberOfRows - 1 - rowIdx) + totalRowHeight
-            
-            return CGPoint(x: x, y: actionsAnchorPoint.y - CGFloat(y))
         }
     }
     
