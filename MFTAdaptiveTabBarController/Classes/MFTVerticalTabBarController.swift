@@ -109,7 +109,7 @@ final public class MFTVerticalTabBarController: UISplitViewController {
     func enableAccessoryButton() {
         isAccessoryButtonEnabled = true
         dimmingView.delegate = self
-        dimmingView.actionsLayoutMode = .grid
+        dimmingView.actionsLayoutMode = .gridTrailing(2)
         accessoryButton.sizeToFit()
         accessoryButton.touchUpInsideHandler = { [unowned self] () -> Void in
             if self.dimmingView.isCollapsed {

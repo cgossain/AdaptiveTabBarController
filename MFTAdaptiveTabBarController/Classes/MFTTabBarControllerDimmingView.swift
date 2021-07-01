@@ -21,28 +21,31 @@ protocol MFTTabBarControllerDimmingViewDelegate: NSObjectProtocol {
 open class MFTTabBarControllerDimmingView: UIView {
     public enum ActionsLayoutMode {
         case linear
-        case grid
+        case gridCentered(_ maximumItemsPerRow: Int)
+        case gridTrailing(_ maximumItemsPerRow: Int)
         case arc
     }
     
     /// The layout mode to use when expanding the tab bar actions.
     ///
     /// Tab bar actions will be layed out accoding to this mode, centered around the specified `actionsAnchorPoint`.
-    open var actionsLayoutMode: ActionsLayoutMode = .grid
+    open var actionsLayoutMode: ActionsLayoutMode = .linear
     
     /// The view around which the tab bar actions will be layed out.
     open var actionsAnchorView: UIView?
     
     
     // MARK: - Internal Properties
+    
+    /// The delegate.
     weak var delegate: MFTTabBarControllerDimmingViewDelegate?
     
+    /// Indicates if the action buttons are in the collapsed state or not.
     private(set) var isCollapsed = true
-    
-    var maximumItemsPerRow = 2
     
     
     // MARK: - Private Properties
+    
     private var allActionViews: [MFTTabBarActionView] = []
     private var showableActionViews: [MFTTabBarActionView] { return allActionViews.filter({ $0.canShow }) }
     
@@ -185,14 +188,35 @@ open class MFTTabBarControllerDimmingView: UIView {
             
             return CGPoint(x: actionsAnchorPoint.x + CGFloat(x), y: actionsAnchorPoint.y - CGFloat(y))
             
-        case .grid:
+        case .gridCentered(let maximumItemsPerRow):
             let fittingSize = action.systemLayoutSizeFitting(UIView.layoutFittingCompressedSize)
             
             let numberOfRows = Int(ceil(Double(showableActionViews.count) / Double(maximumItemsPerRow)))
-            var rowIdx = Int(floor(Double(idx) / Double(maximumItemsPerRow)))
-//            var numberOfItemsInRow = rowIdx < (numberOfRows - 1) ? maximumItemsPerRow : (showableActionViews.count - (rowIdx * maximumItemsPerRow))
-            var itemIdxInRow = idx - (rowIdx * maximumItemsPerRow)
-            var interitemSpacing = CGFloat(44)
+            let rowIdx = Int(floor(Double(idx) / Double(maximumItemsPerRow)))
+            let numberOfItemsInRow = rowIdx < (numberOfRows - 1) ? maximumItemsPerRow : (showableActionViews.count - (rowIdx * maximumItemsPerRow))
+            let itemIdxInRow = idx - (rowIdx * maximumItemsPerRow)
+            
+            let totalHorizontalMargins = layoutMargins.left + layoutMargins.right + fittingSize.width
+            let interitemSpacingHorizontal = (self.bounds.width-totalHorizontalMargins)/CGFloat(maximumItemsPerRow - 1)
+            let numberOfItemsToReachMaxItemsInRow = maximumItemsPerRow - numberOfItemsInRow
+            let xOriginOfFirstItemInRow = (actionsAnchorPoint.x - self.bounds.width/2) + totalHorizontalMargins/2 + CGFloat(numberOfItemsToReachMaxItemsInRow)*(interitemSpacingHorizontal/2)
+            
+            let interitemSpacingVertical = CGFloat(24)
+            let rowHeight = fittingSize.height
+            let totalRowHeight = rowHeight + interitemSpacingVertical
+            
+            let x = xOriginOfFirstItemInRow + CGFloat(itemIdxInRow) * interitemSpacingHorizontal
+            let y = totalRowHeight * CGFloat(numberOfRows - 1 - rowIdx) + totalRowHeight
+            
+            return CGPoint(x: x, y: actionsAnchorPoint.y - CGFloat(y))
+            
+        case .gridTrailing(let maximumItemsPerRow):
+            let fittingSize = action.systemLayoutSizeFitting(UIView.layoutFittingCompressedSize)
+            
+            let numberOfRows = Int(ceil(Double(showableActionViews.count) / Double(maximumItemsPerRow)))
+            let rowIdx = Int(floor(Double(idx) / Double(maximumItemsPerRow)))
+            let itemIdxInRow = idx - (rowIdx * maximumItemsPerRow)
+            let interitemSpacing = CGFloat(44)
             
             let columnWidth = fittingSize.width
             let totalColumnWidth = columnWidth + interitemSpacing
@@ -200,8 +224,8 @@ open class MFTTabBarControllerDimmingView: UIView {
             let rowHeight = fittingSize.height
             let totalRowHeight = rowHeight + interitemSpacing
             
-            var x = actionsAnchorPoint.x - CGFloat(itemIdxInRow) * totalColumnWidth
-            var y = totalRowHeight * CGFloat(numberOfRows - 1 - rowIdx) + totalRowHeight
+            let x = actionsAnchorPoint.x - CGFloat(itemIdxInRow) * totalColumnWidth
+            let y = totalRowHeight * CGFloat(numberOfRows - 1 - rowIdx) + totalRowHeight
             
             return CGPoint(x: x, y: actionsAnchorPoint.y - CGFloat(y))
             

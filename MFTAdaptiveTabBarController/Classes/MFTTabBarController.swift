@@ -48,7 +48,7 @@ final public class MFTTabBarController: UITabBarController {
     func enableAccessoryButton() {
         isAccessoryButtonEnabled = true
         dimmingView.delegate = self
-        dimmingView.actionsLayoutMode = .grid
+        dimmingView.actionsLayoutMode = .gridCentered(3)
         
         accessoryButton.sizeToFit()
         accessoryButton.touchUpInsideHandler = { [unowned self] () -> Void in
