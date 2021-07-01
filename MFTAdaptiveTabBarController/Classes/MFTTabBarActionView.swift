@@ -54,21 +54,35 @@ class MFTTabBarActionView: UIView {
         let diameter: CGFloat = 56
         button.layer.cornerRadius = diameter/2
         button.backgroundColor = .white
-        let flexibleStackView = UIStackView(arrangedSubviews: [button])
-        flexibleStackView.axis = .vertical
-        flexibleStackView.alignment = .center
         
-        let stackView = UIStackView(arrangedSubviews: [flexibleStackView, titleLabel])
-        stackView.axis = .vertical
-        stackView.spacing = 4
-        addSubview(stackView)
-        stackView.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([stackView.topAnchor.constraint(equalTo: topAnchor),
-                                     stackView.trailingAnchor.constraint(equalTo: trailingAnchor),
-                                     stackView.bottomAnchor.constraint(equalTo: bottomAnchor),
-                                     stackView.leadingAnchor.constraint(equalTo: leadingAnchor),
-                                     button.widthAnchor.constraint(equalToConstant: diameter),
-                                     button.heightAnchor.constraint(equalToConstant: diameter)])
+        addSubview(button)
+        addSubview(titleLabel)
+        
+        button.translatesAutoresizingMaskIntoConstraints = false
+        titleLabel.translatesAutoresizingMaskIntoConstraints = false
+        
+        NSLayoutConstraint.activate([
+            button.topAnchor.constraint(equalTo: topAnchor),
+            button.trailingAnchor.constraint(equalTo: trailingAnchor),
+            button.leadingAnchor.constraint(equalTo: leadingAnchor),
+            button.bottomAnchor.constraint(equalTo: titleLabel.topAnchor, constant: -4),
+            button.widthAnchor.constraint(equalToConstant: diameter),
+            button.heightAnchor.constraint(equalToConstant: diameter),
+            titleLabel.bottomAnchor.constraint(equalTo: bottomAnchor),
+            titleLabel.centerXAnchor.constraint(equalTo: centerXAnchor)
+        ])
+        
+        // show "new" badge
+        if action.isNew {
+            let newBadge = MFTTabBarActionViewNewBadge()
+            newBadge.tintColor = .systemBlue
+            addSubview(newBadge)
+            newBadge.translatesAutoresizingMaskIntoConstraints = false
+            NSLayoutConstraint.activate([
+                newBadge.topAnchor.constraint(equalTo: button.topAnchor, constant: -4),
+                newBadge.trailingAnchor.constraint(equalTo: button.trailingAnchor, constant: 4)
+            ])
+        }
     }
     
     override func sizeThatFits(_ size: CGSize) -> CGSize {
@@ -81,5 +95,48 @@ class MFTTabBarActionView: UIView {
     @objc private func buttonTapped(_ sender: UIButton) {
         action.handler()
         didTapHandler?()
+    }
+}
+
+private class MFTTabBarActionViewNewBadge: UIView {
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        commonInit()
+    }
+    
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+        commonInit()
+    }
+    
+    private func commonInit() {
+        let bundle = Bundle(for: MFTTabBarActionView.classForCoder())
+        let newBadgeImage = UIImage(named: "tab-bar-action-badge-new", in: bundle, compatibleWith: nil)?.withRenderingMode(.alwaysTemplate)
+        let newBadgeImageView = UIImageView(image: newBadgeImage)
+        addSubview(newBadgeImageView)
+        newBadgeImageView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            newBadgeImageView.topAnchor.constraint(equalTo: topAnchor),
+            newBadgeImageView.trailingAnchor.constraint(equalTo: trailingAnchor),
+            newBadgeImageView.bottomAnchor.constraint(equalTo: bottomAnchor),
+            newBadgeImageView.leadingAnchor.constraint(equalTo: leadingAnchor),
+            newBadgeImageView.widthAnchor.constraint(equalToConstant: 22),
+            newBadgeImageView.heightAnchor.constraint(equalToConstant: 22),
+        ])
+        
+        let newLabel = UILabel()
+        newLabel.text = "NEW"
+        newLabel.textAlignment = .center
+        newLabel.textColor = .white
+        newLabel.font = UIFont.boldSystemFont(ofSize: 8)
+        newLabel.adjustsFontSizeToFitWidth = true
+        addSubview(newLabel)
+        newLabel.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            newLabel.centerYAnchor.constraint(equalTo: newBadgeImageView.centerYAnchor),
+            newLabel.trailingAnchor.constraint(equalTo: trailingAnchor),
+            newLabel.leadingAnchor.constraint(equalTo: leadingAnchor)
+        ])
     }
 }

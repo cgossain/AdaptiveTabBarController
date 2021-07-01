@@ -15,14 +15,20 @@ public struct MFTTabBarAction {
     }
     
     public let style: Style
+    
     public let title: String
+    
     public let image: UIImage
+    
     public let handler: (() -> Void)
     
-    public init(title: String, image: UIImage, style: Style = .dark, handler: @escaping (() -> Void)) {
+    public var isNew = false
+    
+    public init(title: String, image: UIImage, style: Style = .dark, isNew: Bool = false, handler: @escaping (() -> Void)) {
         self.style = style
         self.title = title
         self.image = image
+        self.isNew = isNew
         self.handler = handler
     }
 }
