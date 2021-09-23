@@ -150,6 +150,14 @@ extension MFTAdaptiveTabBarController {
             
             // set the view controllers
             if let viewControllers = viewControllers {
+                // cleanup: remove from old hierarchy
+                viewControllers.forEach { (vc) in
+                    vc.willMove(toParent: nil)
+                    vc.view.removeFromSuperview()
+                    vc.removeFromParent()
+                }
+                
+                // inject dummy view controller behind the center button if enabled
                 var mutableViewControllers = viewControllers
                 if isCenterButtonEnabled {
                     if mutableViewControllers.count == 2 || mutableViewControllers.count == 4 {
@@ -181,7 +189,18 @@ extension MFTAdaptiveTabBarController {
                 tabBarController.addTabBarAction(registration.action, condition: registration.condition)
             }
             
-            tabBarController.tabBarViewControllers = viewControllers
+            // set the view controllers
+            if let viewControllers = viewControllers {
+                // cleanup: remove from old hierarchy
+                viewControllers.forEach { (vc) in
+                    vc.willMove(toParent: nil)
+                    vc.view.removeFromSuperview()
+                    vc.removeFromParent()
+                }
+                
+                tabBarController.tabBarViewControllers = viewControllers
+            }
+            
             currentTabBarController = tabBarController
             
             // transition
