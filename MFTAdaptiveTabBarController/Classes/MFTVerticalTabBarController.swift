@@ -139,8 +139,8 @@ extension MFTVerticalTabBarController {
         }
         
         view.addSubview(accessoryButton)
-        var x = view.bounds.maxX - accessoryButton.bounds.width/2 - 24
-        var y = view.bounds.maxY - accessoryButton.bounds.height/2 - 48
+        let x = view.bounds.maxX - accessoryButton.bounds.width/2 - 24
+        let y = view.bounds.maxY - accessoryButton.bounds.height/2 - 48
         let locationInView = CGPoint(x: x, y: y)
         accessoryButton.center = locationInView
     }
