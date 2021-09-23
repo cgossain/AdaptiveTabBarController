@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|
   s.name             = 'AdaptiveTabBarController'
   s.version          = '2.3.0'
-  s.summary          = 'A UITabBarController replacement that includes support for a floating action button in the tab bar, and adaptivity between compact and regualar trait environments on iOS, written in Swift.'
+  s.summary          = 'A UITabBarController replacement with support for floating action button and adaptivity between trait environments on iOS, written in Swift.'
   s.description      = <<-DESC
   The AdaptiveTabBarController is an adaptive view controller that can be installed as 
   the root view controller of your application. It provides a floating action button which
