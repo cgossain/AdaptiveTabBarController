@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name             = 'MFTAdaptiveTabBarController'
-  s.version          = '1.2.2'
+  s.version          = '2.3.0'
   s.summary          = 'An adaptive view controller that adapts between a compact and regualar version of a tab bar controller.'
   s.description      = <<-DESC
                        The MFTAdaptiveTabBarController offers an adaptive view controller that can be installed as the root view controller of an application.
@@ -11,7 +11,7 @@ Pod::Spec.new do |s|
   s.license          = 'MIT'
   s.author           = { 'Christian Gossain' => 'cgossain@gmail.com' }
   s.source           = { :git => 'https://github.com/cgossain/MFTAdaptiveTabBarController.git', :tag => s.version.to_s }
-  s.swift_versions   = ['5.0']
+  s.swift_version    = '5.0'
   s.ios.deployment_target = '11.4'
   s.source_files = 'MFTAdaptiveTabBarController/Classes/**/*.swift'
   s.resource = 'MFTAdaptiveTabBarController/Assets/*.xcassets'
