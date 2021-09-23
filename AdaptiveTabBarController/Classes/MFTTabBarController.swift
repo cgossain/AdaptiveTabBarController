@@ -101,16 +101,16 @@ extension MFTTabBarController {
             dimmingView.removeFromSuperview()
             tabBar.addSubview(accessoryButton)
             
-            var x = tabBar.bounds.midX
-            var y = accessoryButton.bounds.height/2 - 7
+            let x = tabBar.bounds.midX
+            let y = accessoryButton.bounds.height/2 - 7
             let locationInTabBar = CGPoint(x: x, y: y)
             accessoryButton.center = locationInTabBar
         }
         else {
             view.addSubview(dimmingView)
             view.addSubview(accessoryButton)
-            var x = dimmingView.bounds.midX
-            var y = dimmingView.bounds.maxY - tabBar.bounds.height + accessoryButton.bounds.height/2 - 7
+            let x = dimmingView.bounds.midX
+            let y = dimmingView.bounds.maxY - tabBar.bounds.height + accessoryButton.bounds.height/2 - 7
             let locationInDimmingView = CGPoint(x: x, y: y)
             let locationInView = view.convert(locationInDimmingView, from: dimmingView)
             accessoryButton.center = locationInView
