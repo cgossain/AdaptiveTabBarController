@@ -9,12 +9,6 @@
 import Foundation
 
 public struct MFTTabBarAction {
-    public enum Style {
-        case dark
-        case light
-    }
-    
-    public let style: Style
     
     public let title: String
     
@@ -24,8 +18,7 @@ public struct MFTTabBarAction {
     
     public var isNew = false
     
-    public init(title: String, image: UIImage, style: Style = .dark, isNew: Bool = false, handler: @escaping (() -> Void)) {
-        self.style = style
+    public init(title: String, image: UIImage, isNew: Bool = false, handler: @escaping (() -> Void)) {
         self.title = title
         self.image = image
         self.isNew = isNew
