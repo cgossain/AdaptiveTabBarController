@@ -24,9 +24,6 @@
 
 import UIKit
 
-private let MFTExpansionRadiusCompact = 135.0
-private let MFTExpansionRadiusRegular = 200.0
-
 extension Int {
     fileprivate var isEven: Bool {
         return self % 2 == 0
@@ -41,6 +38,11 @@ protocol TabBarControllerDimmingViewDelegate: NSObjectProtocol {
 }
 
 final public class TabBarControllerDimmingView: UIView {
+    private struct ArcLayoutMetrics {
+        static let expansionRadiusCompact = 135.0
+        static let expansionRadiusRegular = 200.0
+    }
+    
     public enum ActionsLayoutMode {
         case linear
         case gridCentered(_ maximumItemsPerRow: Int)
@@ -289,9 +291,9 @@ extension TabBarControllerDimmingView {
     private func expansionRadiusForArcLayout() -> Double {
         switch traitCollection.horizontalSizeClass {
         case .compact:
-            return MFTExpansionRadiusCompact
+            return TabBarControllerDimmingView.ArcLayoutMetrics.expansionRadiusCompact
         default:
-            return MFTExpansionRadiusRegular
+            return TabBarControllerDimmingView.ArcLayoutMetrics.expansionRadiusRegular
         }
     }
     
