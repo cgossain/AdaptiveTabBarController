@@ -11,6 +11,12 @@ import UIKit
 private let MFTExpansionRadiusCompact = 135.0
 private let MFTExpansionRadiusRegular = 200.0
 
+extension Int {
+    fileprivate var isEven: Bool {
+        return self % 2 == 0
+    }
+}
+
 protocol MFTTabBarControllerDimmingViewDelegate: NSObjectProtocol {
     func dimmingViewWillExpand(_ dimmingView: MFTTabBarControllerDimmingView)
     func dimmingViewDidExpand(_ dimmingView: MFTTabBarControllerDimmingView)
@@ -18,7 +24,7 @@ protocol MFTTabBarControllerDimmingViewDelegate: NSObjectProtocol {
     func dimmingViewDidCollapse(_ dimmingView: MFTTabBarControllerDimmingView)
 }
 
-open class MFTTabBarControllerDimmingView: UIView {
+final public class MFTTabBarControllerDimmingView: UIView {
     public enum ActionsLayoutMode {
         case linear
         case gridCentered(_ maximumItemsPerRow: Int)
@@ -29,13 +35,13 @@ open class MFTTabBarControllerDimmingView: UIView {
     /// The layout mode to use when expanding the tab bar actions.
     ///
     /// Tab bar actions will be layed out accoding to this mode, centered around the specified `actionsAnchorPoint`.
-    open var actionsLayoutMode: ActionsLayoutMode = .linear
+    public var actionsLayoutMode: ActionsLayoutMode = .linear
     
     /// The view around which the tab bar actions will be layed out.
-    open var actionsAnchorView: UIView?
+    public var actionsAnchorView: UIView?
     
     
-    // MARK: - Internal Properties
+    // MARK: - Internal
     
     /// The delegate.
     weak var delegate: MFTTabBarControllerDimmingViewDelegate?
@@ -51,6 +57,7 @@ open class MFTTabBarControllerDimmingView: UIView {
     
     
     // MARK: - Lifecycle
+    
     override public init(frame: CGRect) {
         super.init(frame: frame)
         commonInit()
@@ -67,8 +74,11 @@ open class MFTTabBarControllerDimmingView: UIView {
         addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(MFTTabBarControllerDimmingView.backgroundTappedGesture(_:))))
     }
     
-    
+}
+
+extension MFTTabBarControllerDimmingView {
     // MARK: - Internal
+    
     func addTabBarAction(_ action: MFTTabBarAction, condition: MFTAdaptiveTabBarController.ConditionHandler? = nil) {
         let actionView = MFTTabBarActionView(action: action, condition: condition)
         actionView.didTapHandler = { [unowned self] in
@@ -133,15 +143,16 @@ open class MFTTabBarControllerDimmingView: UIView {
             actionView.alpha = 0.0
         }
     }
-    
-    
-    // MARK: - Actions
-    @objc private func backgroundTappedGesture(_ sender: UITapGestureRecognizer) {
+}
+
+extension MFTTabBarControllerDimmingView {
+    @objc
+    private func backgroundTappedGesture(_ sender: UITapGestureRecognizer) {
         collapse(animated: true)
     }
-    
-    
-    // MARK: - Private
+}
+
+extension MFTTabBarControllerDimmingView {
     private func willExpand() {
         isCollapsed = false
         delegate?.dimmingViewWillExpand(self)
@@ -275,11 +286,5 @@ open class MFTTabBarControllerDimmingView: UIView {
     
     private func startAngleForArcLayout() -> Double {
         return 160
-    }
-}
-
-private extension Int {
-    var isEven: Bool {
-        return self % 2 == 0
     }
 }

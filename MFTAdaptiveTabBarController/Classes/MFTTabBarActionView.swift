@@ -7,11 +7,17 @@
 
 import UIKit
 
-class MFTTabBarActionView: UIView {
+final class MFTTabBarActionView: UIView {
+    
+    /// The action.
     let action: MFTTabBarAction
     
+    /// The condition that determines if the action should be shown or not.
+    ///
+    /// This called whenever used by the `canShow` property is used.
     let condition: MFTAdaptiveTabBarController.ConditionHandler?
     
+    /// Called when the button is tapped.
     var didTapHandler: (() -> Void)?
     
     /// Indicates if the item should be shown.
@@ -19,6 +25,7 @@ class MFTTabBarActionView: UIView {
     
     
     // MARK: - Private Properties
+    
     private lazy var button: UIButton = {
         let button = UIButton(type: .custom)
         button.showsTouchWhenHighlighted = true
@@ -39,6 +46,7 @@ class MFTTabBarActionView: UIView {
     
     
     // MARK: - Lifecycle
+    
     public init(action: MFTTabBarAction, condition: MFTAdaptiveTabBarController.ConditionHandler? = nil) {
         self.action = action
         self.condition = condition
@@ -90,53 +98,12 @@ class MFTTabBarActionView: UIView {
         return fittingSize
     }
     
-    
-    // MARK: - Private
-    @objc private func buttonTapped(_ sender: UIButton) {
-        action.handler()
-        didTapHandler?()
-    }
 }
 
-private class MFTTabBarActionViewNewBadge: UIView {
-    
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        commonInit()
-    }
-    
-    required init?(coder: NSCoder) {
-        super.init(coder: coder)
-        commonInit()
-    }
-    
-    private func commonInit() {
-        let bundle = Bundle(for: MFTTabBarActionView.classForCoder())
-        let newBadgeImage = UIImage(named: "tab-bar-action-badge-new", in: bundle, compatibleWith: nil)?.withRenderingMode(.alwaysTemplate)
-        let newBadgeImageView = UIImageView(image: newBadgeImage)
-        addSubview(newBadgeImageView)
-        newBadgeImageView.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            newBadgeImageView.topAnchor.constraint(equalTo: topAnchor),
-            newBadgeImageView.trailingAnchor.constraint(equalTo: trailingAnchor),
-            newBadgeImageView.bottomAnchor.constraint(equalTo: bottomAnchor),
-            newBadgeImageView.leadingAnchor.constraint(equalTo: leadingAnchor),
-            newBadgeImageView.widthAnchor.constraint(equalToConstant: 22),
-            newBadgeImageView.heightAnchor.constraint(equalToConstant: 22),
-        ])
-        
-        let newLabel = UILabel()
-        newLabel.text = "NEW"
-        newLabel.textAlignment = .center
-        newLabel.textColor = .white
-        newLabel.font = UIFont.boldSystemFont(ofSize: 8)
-        newLabel.adjustsFontSizeToFitWidth = true
-        addSubview(newLabel)
-        newLabel.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            newLabel.centerYAnchor.constraint(equalTo: newBadgeImageView.centerYAnchor),
-            newLabel.trailingAnchor.constraint(equalTo: trailingAnchor),
-            newLabel.leadingAnchor.constraint(equalTo: leadingAnchor)
-        ])
+extension MFTTabBarActionView {
+    @objc
+    private func buttonTapped(_ sender: UIButton) {
+        action.handler()
+        didTapHandler?()
     }
 }

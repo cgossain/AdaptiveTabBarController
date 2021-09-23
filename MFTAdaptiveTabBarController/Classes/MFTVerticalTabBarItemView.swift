@@ -8,30 +8,35 @@
 
 import UIKit
 
-class MFTVerticalTabBarItemView: UIControl {
-    
-    fileprivate var tabBarItem: UITabBarItem?
+final class MFTVerticalTabBarItemView: UIControl {
     
     var index: Int = 0
     
     override var isSelected: Bool {
-        didSet { self.updateSelection() }
+        didSet {
+            updateSelection()
+        }
     }
     
     override var isHighlighted: Bool {
-        didSet { self.updateSelection() }
+        didSet {
+            updateSelection()
+        }
     }
     
-    fileprivate let iconImageView: UIImageView = {
+    
+    // MARK: - Private Properties
+    
+    private let iconImageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.translatesAutoresizingMaskIntoConstraints = false
+        
         imageView.isUserInteractionEnabled = false
         return imageView
     }()
     
-    fileprivate let titleLabel: UILabel = {
+    private let titleLabel: UILabel = {
         let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
+        
         label.isUserInteractionEnabled = false
         label.textAlignment = .center
         label.font = UIFont.systemFont(ofSize: 12.0)
@@ -39,14 +44,16 @@ class MFTVerticalTabBarItemView: UIControl {
         return label
     }()
     
-    fileprivate let containerView: UIView = {
+    private let containerView: UIView = {
         let container = UIView()
-        container.translatesAutoresizingMaskIntoConstraints = false
         container.isUserInteractionEnabled = false
         return container
     }()
     
-    // MARK: Initialization
+    private var tabBarItem: UITabBarItem?
+    
+    
+    // MARK: - Lifecycle
     
     init(tabBarItem item: UITabBarItem) {
         tabBarItem = item
@@ -71,8 +78,13 @@ class MFTVerticalTabBarItemView: UIControl {
     
     private func commonInit() {
         addSubview(containerView)
+        containerView.translatesAutoresizingMaskIntoConstraints = false
+        
         containerView.addSubview(iconImageView)
+        iconImageView.translatesAutoresizingMaskIntoConstraints = false
+        
         containerView.addSubview(titleLabel)
+        titleLabel.translatesAutoresizingMaskIntoConstraints = false
         
         // constraints
         containerView.centerYAnchor.constraint(equalTo: self.centerYAnchor).isActive = true
@@ -91,25 +103,22 @@ class MFTVerticalTabBarItemView: UIControl {
 //        containerView.layer.borderWidth = 1.0
     }
     
-    // MARK: Constraints
-    
     override var intrinsicContentSize : CGSize {
         return CGSize(width: UIView.noIntrinsicMetric, height: 72.0)
     }
     
-    // MARK: Methods (Private)
-    
+    override func tintColorDidChange() {
+        super.tintColorDidChange()
+        iconImageView.tintColor = tintColor
+        titleLabel.highlightedTextColor = tintColor
+    }
+
+}
+
+extension MFTVerticalTabBarItemView {
     private func updateSelection() {
         let isSelected = self.isSelected || self.isHighlighted
         iconImageView.isHighlighted = isSelected
         titleLabel.isHighlighted = isSelected
     }
-    
-    // MARK: - Overrides
-    
-    override func tintColorDidChange() {
-        iconImageView.tintColor = tintColor
-        titleLabel.highlightedTextColor = tintColor
-    }
-
 }

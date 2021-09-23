@@ -8,7 +8,7 @@
 
 import UIKit
 
-class MFTVerticalTabBar: UIView {
+final class MFTVerticalTabBar: UIView {
     
     var didSelectItemHandler: ((MFTVerticalTabBarItemView) -> Void)?
     
@@ -85,15 +85,16 @@ class MFTVerticalTabBar: UIView {
     
 }
 
-fileprivate extension MFTVerticalTabBar {
-    @objc func tabBarItemTouched(_ item: MFTVerticalTabBarItemView) {
+extension MFTVerticalTabBar {
+    @objc
+    private func tabBarItemTouched(_ item: MFTVerticalTabBarItemView) {
         selectedItemIndex = item.index
         didSelectItemHandler?(item)
     }
 }
 
-fileprivate extension MFTVerticalTabBar {
-    func tabBarItemAtIndex(_ index: Int) -> MFTVerticalTabBarItemView? {
+extension MFTVerticalTabBar {
+    private func tabBarItemAtIndex(_ index: Int) -> MFTVerticalTabBarItemView? {
         var item: MFTVerticalTabBarItemView?
         if let unwrappedItems = items {
             for i in unwrappedItems {

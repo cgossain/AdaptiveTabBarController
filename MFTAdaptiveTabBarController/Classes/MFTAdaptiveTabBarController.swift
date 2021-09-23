@@ -9,21 +9,15 @@
 import UIKit
 import AppController
 
-private class _AdaptivePlaceholderViewController: UIViewController {}
-
 public protocol MFTAdaptiveTabBarControllerDelegate: NSObjectProtocol {
     func tabBarController(_ tabBarController: MFTAdaptiveTabBarController, didSelectViewController viewController: UIViewController)
 }
 
-class MFTTabBarActionRegistration {
-    let action: MFTTabBarAction
-    let condition: MFTAdaptiveTabBarController.ConditionHandler?
-    init(action: MFTTabBarAction, condition: MFTAdaptiveTabBarController.ConditionHandler? = nil) {
-        self.action = action
-        self.condition = condition
-    }
-}
+/// _AdaptivePlaceholderViewController is a dummy view controller used to
+/// add untapable tab item behind the circular center accessory button.
+private class _AdaptivePlaceholderViewController: UIViewController {}
 
+/// MFTAdaptiveTabBarController is a tab bar view controller that adapts between compact and regular size environments.
 open class MFTAdaptiveTabBarController: AppViewController {
     public typealias ConditionHandler = () -> Bool
     
@@ -100,12 +94,14 @@ open class MFTAdaptiveTabBarController: AppViewController {
     
     
     // MARK: - Private Properties
-    fileprivate var currentTabBarController: UIViewController?
-    fileprivate var actionRegistrations = [MFTTabBarActionRegistration]()
-    fileprivate var isCenterButtonEnabled: Bool { return actionRegistrations.count > 0 }
+    
+    private var currentTabBarController: UIViewController?
+    private var actionRegistrations = [MFTTabBarActionRegistration]()
+    private var isCenterButtonEnabled: Bool { return actionRegistrations.count > 0 }
     
     
     // MARK: - Lifecycle
+    
     open override func viewDidLoad() {
         super.viewDidLoad()
         loadTabBarController(for: traitCollection)
@@ -125,6 +121,7 @@ open class MFTAdaptiveTabBarController: AppViewController {
     
     
     // MARK: - Public
+    
     open func addTabBarAction(_ action: MFTTabBarAction, condition: MFTAdaptiveTabBarController.ConditionHandler? = nil) {
         let registration = MFTTabBarActionRegistration(action: action, condition: condition)
         actionRegistrations.append(registration)
@@ -132,8 +129,8 @@ open class MFTAdaptiveTabBarController: AppViewController {
 
 }
 
-fileprivate extension MFTAdaptiveTabBarController {
-    func loadTabBarController(for traitCollection: UITraitCollection) {
+extension MFTAdaptiveTabBarController {
+    private func loadTabBarController(for traitCollection: UITraitCollection) {
         let currentSelectedIndex = selectedIndex
         
         // load the correct tab bar controller based on the horizontal environment
@@ -195,7 +192,6 @@ fileprivate extension MFTAdaptiveTabBarController {
         // select/reselect the previously loaded view controller
         selectedIndex = currentSelectedIndex
     }
-    
 }
 
 extension MFTAdaptiveTabBarController: UITabBarControllerDelegate {
