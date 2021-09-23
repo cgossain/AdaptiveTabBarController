@@ -1,0 +1,6 @@
+framework module Pods_AdaptiveTabBarController_Example {
+  umbrella header "Pods-AdaptiveTabBarController_Example-umbrella.h"
+
+  export *
+  module * { export * }
+}

@@ -1,12 +1,13 @@
-platform :ios, '11.4'
 use_frameworks!
 
-target 'MFTAdaptiveTabBarController_Example' do
-  pod 'MFTAdaptiveTabBarController', :path => '../'
+platform :ios, '11.4'
 
-  target 'MFTAdaptiveTabBarController_Tests' do
+target 'AdaptiveTabBarController_Example' do
+  pod 'AdaptiveTabBarController', :path => '../'
+
+  target 'AdaptiveTabBarController_Tests' do
     inherit! :search_paths
 
-
+    
   end
 end
