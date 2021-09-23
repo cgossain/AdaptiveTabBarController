@@ -1,5 +1,5 @@
 //
-//  MFTTabBarController.swift
+//  TabBarController.swift
 //
 //  Copyright (c) 2021 Christian Gossain
 //
@@ -24,7 +24,7 @@
 
 import UIKit
 
-final public class MFTTabBarController: UITabBarController {
+final public class TabBarController: UITabBarController {
     
     /// Called after the accessory button has finished its expansion animation.
     var accessoryButtonDidExpandHandler: (() -> Void)?
@@ -32,8 +32,8 @@ final public class MFTTabBarController: UITabBarController {
     
     // MARK: - Private Properties
     
-    private let dimmingView = MFTTabBarControllerDimmingView()
-    private let accessoryButton = MFTAdaptiveTabBarCenterButton()
+    private let dimmingView = TabBarControllerDimmingView()
+    private let accessoryButton = AdaptiveTabBarCenterButton()
     private var isAccessoryButtonEnabled = false
     
     
@@ -69,10 +69,10 @@ final public class MFTTabBarController: UITabBarController {
     
 }
 
-extension MFTTabBarController {
+extension TabBarController {
     // MARK: - Internal
     
-    func addTabBarAction(_ action: MFTTabBarAction, condition: MFTAdaptiveTabBarController.ConditionHandler? = nil) {
+    func addTabBarAction(_ action: TabBarAction, condition: AdaptiveTabBarController.ConditionHandler? = nil) {
         dimmingView.addTabBarAction(action, condition: condition)
     }
     
@@ -93,7 +93,7 @@ extension MFTTabBarController {
     }
 }
 
-extension MFTTabBarController {
+extension TabBarController {
     private func updateLayoutForAccessoryButton() {
         dimmingView.actionsAnchorView = accessoryButton
         
@@ -118,25 +118,25 @@ extension MFTTabBarController {
     }
 }
 
-extension MFTTabBarController: MFTTabBarControllerDimmingViewDelegate {
-    func dimmingViewWillExpand(_ dimmingView: MFTTabBarControllerDimmingView) {
+extension TabBarController: TabBarControllerDimmingViewDelegate {
+    func dimmingViewWillExpand(_ dimmingView: TabBarControllerDimmingView) {
         updateLayoutForAccessoryButton()
         UIView.animate(withDuration: 0.2, animations: {
             self.accessoryButton.transform = CGAffineTransform(rotationAngle: CGFloat(45.0 * Double.pi / 180.0))
         })
     }
     
-    func dimmingViewDidExpand(_ dimmingView: MFTTabBarControllerDimmingView) {
+    func dimmingViewDidExpand(_ dimmingView: TabBarControllerDimmingView) {
         accessoryButtonDidExpandHandler?()
     }
     
-    func dimmingViewWillCollapse(_ dimmingView: MFTTabBarControllerDimmingView) {
+    func dimmingViewWillCollapse(_ dimmingView: TabBarControllerDimmingView) {
         UIView.animate(withDuration: 0.2, animations: {
             self.accessoryButton.transform = .identity
         })
     }
     
-    func dimmingViewDidCollapse(_ dimmingView: MFTTabBarControllerDimmingView) {
+    func dimmingViewDidCollapse(_ dimmingView: TabBarControllerDimmingView) {
         updateLayoutForAccessoryButton()
     }
 }

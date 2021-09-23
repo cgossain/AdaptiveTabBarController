@@ -1,5 +1,5 @@
 //
-//  MFTAdaptiveTabBarController.swift
+//  AdaptiveTabBarController.swift
 //
 //  Copyright (c) 2021 Christian Gossain
 //
@@ -25,28 +25,28 @@
 import UIKit
 import AppController
 
-public protocol MFTAdaptiveTabBarControllerDelegate: NSObjectProtocol {
-    func tabBarController(_ tabBarController: MFTAdaptiveTabBarController, didSelectViewController viewController: UIViewController)
+public protocol AdaptiveTabBarControllerDelegate: NSObjectProtocol {
+    func tabBarController(_ tabBarController: AdaptiveTabBarController, didSelectViewController viewController: UIViewController)
 }
 
 /// _AdaptivePlaceholderViewController is a dummy view controller used to
 /// add untapable tab item behind the circular center accessory button.
 private class _AdaptivePlaceholderViewController: UIViewController {}
 
-/// MFTAdaptiveTabBarController is a tab bar view controller that adapts between compact and regular size environments.
-open class MFTAdaptiveTabBarController: AppViewController {
+/// AdaptiveTabBarController is a tab bar view controller that adapts between compact and regular size environments.
+open class AdaptiveTabBarController: AppViewController {
     public typealias ConditionHandler = () -> Bool
     
     open var accessoryButtonDidExpandHandler: (() -> Void)?
     
-    open weak var delegate: MFTAdaptiveTabBarControllerDelegate?
+    open weak var delegate: AdaptiveTabBarControllerDelegate?
     
     open var viewControllers: [UIViewController]? {
         didSet {
             if let controller = currentTabBarController as? UITabBarController {
                 controller.viewControllers = viewControllers
             }
-            else if let controller = currentTabBarController as? MFTVerticalTabBarController {
+            else if let controller = currentTabBarController as? VerticalTabBarController {
                 controller.tabBarViewControllers = viewControllers
             }
         }
@@ -68,7 +68,7 @@ open class MFTAdaptiveTabBarController: AppViewController {
                 }
                 return controller.selectedIndex - offset
             }
-            else if let controller = currentTabBarController as? MFTVerticalTabBarController {
+            else if let controller = currentTabBarController as? VerticalTabBarController {
                 return controller.selectedIndex
             }
             else {
@@ -90,7 +90,7 @@ open class MFTAdaptiveTabBarController: AppViewController {
                 }
                 controller.selectedIndex = newValue + offset
             }
-            else if let controller = currentTabBarController as? MFTVerticalTabBarController {
+            else if let controller = currentTabBarController as? VerticalTabBarController {
                 controller.selectedIndex = newValue
             }
         }
@@ -100,7 +100,7 @@ open class MFTAdaptiveTabBarController: AppViewController {
         if let controller = currentTabBarController as? UITabBarController {
             return controller.selectedViewController
         }
-        else if let controller = currentTabBarController as? MFTVerticalTabBarController {
+        else if let controller = currentTabBarController as? VerticalTabBarController {
             return controller.selectedViewController
         }
         else {
@@ -112,7 +112,7 @@ open class MFTAdaptiveTabBarController: AppViewController {
     // MARK: - Private Properties
     
     private var currentTabBarController: UIViewController?
-    private var actionRegistrations = [MFTTabBarActionRegistration]()
+    private var actionRegistrations = [TabBarActionRegistration]()
     private var isCenterButtonEnabled: Bool { return actionRegistrations.count > 0 }
     
     
@@ -138,21 +138,21 @@ open class MFTAdaptiveTabBarController: AppViewController {
     
     // MARK: - Public
     
-    open func addTabBarAction(_ action: MFTTabBarAction, condition: MFTAdaptiveTabBarController.ConditionHandler? = nil) {
-        let registration = MFTTabBarActionRegistration(action: action, condition: condition)
+    open func addTabBarAction(_ action: TabBarAction, condition: AdaptiveTabBarController.ConditionHandler? = nil) {
+        let registration = TabBarActionRegistration(action: action, condition: condition)
         actionRegistrations.append(registration)
     }
 
 }
 
-extension MFTAdaptiveTabBarController {
+extension AdaptiveTabBarController {
     private func loadTabBarController(for traitCollection: UITraitCollection) {
         let currentSelectedIndex = selectedIndex
         
         // load the correct tab bar controller based on the horizontal environment
         switch traitCollection.horizontalSizeClass {
         case .compact:
-            let tabBarController = MFTTabBarController()
+            let tabBarController = TabBarController()
             tabBarController.accessoryButtonDidExpandHandler = accessoryButtonDidExpandHandler
             tabBarController.delegate = self
             
@@ -191,7 +191,7 @@ extension MFTAdaptiveTabBarController {
             transition(to: tabBarController, configuration: configuration, completionHandler: nil)
             
         default:
-            let tabBarController = MFTVerticalTabBarController()
+            let tabBarController = VerticalTabBarController()
             tabBarController.accessoryButtonDidExpandHandler = accessoryButtonDidExpandHandler
             tabBarController.didSelectViewControllerHandler = { [unowned self] viewController in
                 self.delegate?.tabBarController(self, didSelectViewController: viewController)
@@ -229,7 +229,7 @@ extension MFTAdaptiveTabBarController {
     }
 }
 
-extension MFTAdaptiveTabBarController: UITabBarControllerDelegate {
+extension AdaptiveTabBarController: UITabBarControllerDelegate {
     public func tabBarController(_ tabBarController: UITabBarController, shouldSelect viewController: UIViewController) -> Bool {
         return !(viewController is _AdaptivePlaceholderViewController) // prevent the placeholder view controller from beign selected
     }

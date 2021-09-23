@@ -1,5 +1,5 @@
 //
-//  MFTVerticalTabBarItemView.swift
+//  VerticalTabBarItemView.swift
 //
 //  Copyright (c) 2021 Christian Gossain
 //
@@ -24,7 +24,7 @@
 
 import UIKit
 
-final class MFTVerticalTabBarItemView: UIControl {
+final class VerticalTabBarItemView: UIControl {
     
     var index: Int = 0
     
@@ -131,7 +131,7 @@ final class MFTVerticalTabBarItemView: UIControl {
 
 }
 
-extension MFTVerticalTabBarItemView {
+extension VerticalTabBarItemView {
     private func updateSelection() {
         let isSelected = self.isSelected || self.isHighlighted
         iconImageView.isHighlighted = isSelected

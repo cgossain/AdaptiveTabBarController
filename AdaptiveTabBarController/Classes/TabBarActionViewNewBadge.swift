@@ -1,5 +1,5 @@
 //
-//  MFTTabBarActionViewNewBadge.swift
+//  TabBarActionViewNewBadge.swift
 //
 //  Copyright (c) 2021 Christian Gossain
 //
@@ -24,7 +24,7 @@
 
 import UIKit
 
-final class MFTTabBarActionViewNewBadge: UIView {
+final class TabBarActionViewNewBadge: UIView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -37,7 +37,7 @@ final class MFTTabBarActionViewNewBadge: UIView {
     }
     
     private func commonInit() {
-        let bundle = Bundle(for: MFTTabBarActionView.classForCoder())
+        let bundle = Bundle(for: TabBarActionView.classForCoder())
         let newBadgeImage = UIImage(named: "tab-bar-action-badge-new", in: bundle, compatibleWith: nil)?.withRenderingMode(.alwaysTemplate)
         let newBadgeImageView = UIImageView(image: newBadgeImage)
         addSubview(newBadgeImageView)

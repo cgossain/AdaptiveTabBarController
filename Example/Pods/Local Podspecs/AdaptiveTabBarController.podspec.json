@@ -1,8 +1,8 @@
 {
   "name": "AdaptiveTabBarController",
   "version": "2.3.0",
-  "summary": "A tab bar view controller that adapts between a compact and regualar trait environments for iOS, written in Swift.",
-  "description": "The AdaptiveTabBarController is an adaptive view controller that can be installed as \nthe root view controller of your application. It uses the built in UITabBarController \nwhile in a compact trait environment, and a custom built vertical tab bar controller \nwhile in a regular trait environment. The controller automatically adapts between \nthe two as the trait environemtn changes (e.g. split screen adjustments on iPad)",
+  "summary": "A UITabBarController replacement that includes support for a floating action button in the tab bar, and adaptivity between compact and regualar trait environments on iOS, written in Swift.",
+  "description": "The AdaptiveTabBarController is an adaptive view controller that can be installed as \nthe root view controller of your application. It provides a floating action button which\ncan have actions presented when tapped. It uses the built in UITabBarController while in\na compact trait environment, and a custom built vertical tab bar controller while in a\nregular trait environment. The controller automatically adapts between the two as the\ntrait environemtn changes (e.g. split screen adjustments on iPad)",
   "homepage": "https://github.com/cgossain/AdaptiveTabBarController",
   "license": {
     "type": "MIT",

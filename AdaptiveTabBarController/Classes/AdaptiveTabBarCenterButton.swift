@@ -1,5 +1,5 @@
 //
-//  MFTAdaptiveTabBarCenterButton.swift
+//  AdaptiveTabBarCenterButton.swift
 //
 //  Copyright (c) 2021 Christian Gossain
 //
@@ -24,7 +24,7 @@
 
 import UIKit
 
-final class MFTAdaptiveTabBarCenterButton: UIView {
+final class AdaptiveTabBarCenterButton: UIView {
     
     /// Called when the receiver is tapped.
     var touchUpInsideHandler: (() -> Void)?
@@ -71,7 +71,7 @@ final class MFTAdaptiveTabBarCenterButton: UIView {
         bottomAnchor.constraint(equalTo: overlayButton.bottomAnchor).isActive = true
         trailingAnchor.constraint(equalTo: overlayButton.trailingAnchor).isActive = true
         
-        overlayButton.addTarget(self, action: #selector(MFTAdaptiveTabBarCenterButton.overlayButtonTapped(_:)), for: .touchUpInside)
+        overlayButton.addTarget(self, action: #selector(AdaptiveTabBarCenterButton.overlayButtonTapped(_:)), for: .touchUpInside)
     }
     
     override var intrinsicContentSize: CGSize {
@@ -84,7 +84,7 @@ final class MFTAdaptiveTabBarCenterButton: UIView {
     
 }
 
-extension MFTAdaptiveTabBarCenterButton {
+extension AdaptiveTabBarCenterButton {
     @objc
     private func overlayButtonTapped(_ sender: UIButton) {
         touchUpInsideHandler?()

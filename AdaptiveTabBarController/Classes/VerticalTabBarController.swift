@@ -1,5 +1,5 @@
 //
-//  MFTVerticalTabBarController.swift
+//  VerticalTabBarController.swift
 //
 //  Copyright (c) 2021 Christian Gossain
 //
@@ -24,7 +24,7 @@
 
 import UIKit
 
-final public class MFTVerticalTabBarController: UISplitViewController {
+final public class VerticalTabBarController: UISplitViewController {
     
     public var accessoryButtonDidExpandHandler: (() -> Void)?
     
@@ -44,10 +44,10 @@ final public class MFTVerticalTabBarController: UISplitViewController {
     public var tabBarViewControllers: [UIViewController]? {
         didSet {
             // convert to the tab bar item views
-            var itemViews = [MFTVerticalTabBarItemView]()
+            var itemViews = [VerticalTabBarItemView]()
             if let unwrappedViewControllers = tabBarViewControllers {
                 for vc in unwrappedViewControllers {
-                    let itemView = MFTVerticalTabBarItemView(tabBarItem: vc.tabBarItem)
+                    let itemView = VerticalTabBarItemView(tabBarItem: vc.tabBarItem)
                     itemViews.append(itemView)
                 }
             }
@@ -59,8 +59,8 @@ final public class MFTVerticalTabBarController: UISplitViewController {
     
     // MARK: - Private Properties
     
-    private let dimmingView = MFTTabBarControllerDimmingView()
-    private var accessoryButton = MFTAdaptiveTabBarCenterButton()
+    private let dimmingView = TabBarControllerDimmingView()
+    private var accessoryButton = AdaptiveTabBarCenterButton()
     private let tabBarContainerViewController = _MFTTabBarContainerViewController()
     private var isAccessoryButtonEnabled = false
     
@@ -120,10 +120,10 @@ final public class MFTVerticalTabBarController: UISplitViewController {
     
 }
 
-extension MFTVerticalTabBarController {
+extension VerticalTabBarController {
     // MARK: - Internal
     
-    func addTabBarAction(_ action: MFTTabBarAction, condition: MFTAdaptiveTabBarController.ConditionHandler? = nil) {
+    func addTabBarAction(_ action: TabBarAction, condition: AdaptiveTabBarController.ConditionHandler? = nil) {
         dimmingView.addTabBarAction(action, condition: condition)
     }
     
@@ -143,7 +143,7 @@ extension MFTVerticalTabBarController {
     }
 }
 
-extension MFTVerticalTabBarController {
+extension VerticalTabBarController {
     private func updateLayoutForAccessoryButton() {
         dimmingView.actionsAnchorView = accessoryButton
         
@@ -162,8 +162,8 @@ extension MFTVerticalTabBarController {
     }
 }
 
-extension MFTVerticalTabBarController: MFTTabBarControllerDimmingViewDelegate {
-    func dimmingViewWillExpand(_ dimmingView: MFTTabBarControllerDimmingView) {
+extension VerticalTabBarController: TabBarControllerDimmingViewDelegate {
+    func dimmingViewWillExpand(_ dimmingView: TabBarControllerDimmingView) {
         updateLayoutForAccessoryButton()
         
         UIView.animate(withDuration: 0.2, animations: {
@@ -171,23 +171,23 @@ extension MFTVerticalTabBarController: MFTTabBarControllerDimmingViewDelegate {
         })
     }
     
-    func dimmingViewDidExpand(_ dimmingView: MFTTabBarControllerDimmingView) {
+    func dimmingViewDidExpand(_ dimmingView: TabBarControllerDimmingView) {
         accessoryButtonDidExpandHandler?()
     }
     
-    func dimmingViewWillCollapse(_ dimmingView: MFTTabBarControllerDimmingView) {
+    func dimmingViewWillCollapse(_ dimmingView: TabBarControllerDimmingView) {
         UIView.animate(withDuration: 0.2, animations: { 
             self.accessoryButton.transform = .identity
         }) 
     }
     
-    func dimmingViewDidCollapse(_ dimmingView: MFTTabBarControllerDimmingView) {
+    func dimmingViewDidCollapse(_ dimmingView: TabBarControllerDimmingView) {
         updateLayoutForAccessoryButton()
     }
 }
 
 class _MFTTabBarContainerViewController: UIViewController {
-    let tabBar = MFTVerticalTabBar()
+    let tabBar = VerticalTabBar()
     override func loadView() {
         self.view = tabBar
     }

@@ -1,5 +1,5 @@
 //
-//  MFTTabBarActionView.swift
+//  TabBarActionView.swift
 //
 //  Copyright (c) 2021 Christian Gossain
 //
@@ -24,15 +24,15 @@
 
 import UIKit
 
-final class MFTTabBarActionView: UIView {
+final class TabBarActionView: UIView {
     
     /// The action.
-    let action: MFTTabBarAction
+    let action: TabBarAction
     
     /// The condition that determines if the action should be shown or not.
     ///
     /// This called whenever used by the `canShow` property is used.
-    let condition: MFTAdaptiveTabBarController.ConditionHandler?
+    let condition: AdaptiveTabBarController.ConditionHandler?
     
     /// Called when the button is tapped.
     var didTapHandler: (() -> Void)?
@@ -47,7 +47,7 @@ final class MFTTabBarActionView: UIView {
         let button = UIButton(type: .custom)
         button.showsTouchWhenHighlighted = true
         button.setImage(self.action.image, for: .normal)
-        button.addTarget(self, action: #selector(MFTTabBarActionView.buttonTapped(_:)), for: .touchUpInside)
+        button.addTarget(self, action: #selector(TabBarActionView.buttonTapped(_:)), for: .touchUpInside)
         return button
     }()
     
@@ -64,7 +64,7 @@ final class MFTTabBarActionView: UIView {
     
     // MARK: - Lifecycle
     
-    public init(action: MFTTabBarAction, condition: MFTAdaptiveTabBarController.ConditionHandler? = nil) {
+    public init(action: TabBarAction, condition: AdaptiveTabBarController.ConditionHandler? = nil) {
         self.action = action
         self.condition = condition
         super.init(frame: .zero)
@@ -99,7 +99,7 @@ final class MFTTabBarActionView: UIView {
         
         // show "new" badge
         if action.isNew {
-            let newBadge = MFTTabBarActionViewNewBadge()
+            let newBadge = TabBarActionViewNewBadge()
             newBadge.tintColor = .systemBlue
             addSubview(newBadge)
             newBadge.translatesAutoresizingMaskIntoConstraints = false
@@ -117,7 +117,7 @@ final class MFTTabBarActionView: UIView {
     
 }
 
-extension MFTTabBarActionView {
+extension TabBarActionView {
     @objc
     private func buttonTapped(_ sender: UIButton) {
         action.handler()

@@ -1,5 +1,5 @@
 //
-//  MFTVerticalTabBar.swift
+//  VerticalTabBar.swift
 //
 //  Copyright (c) 2021 Christian Gossain
 //
@@ -24,11 +24,11 @@
 
 import UIKit
 
-final class MFTVerticalTabBar: UIView {
+final class VerticalTabBar: UIView {
     
-    var didSelectItemHandler: ((MFTVerticalTabBarItemView) -> Void)?
+    var didSelectItemHandler: ((VerticalTabBarItemView) -> Void)?
     
-    var items: [MFTVerticalTabBarItemView]? {
+    var items: [VerticalTabBarItemView]? {
         willSet {
             if let unwrappedItems = items {
                 for item in unwrappedItems {
@@ -41,7 +41,7 @@ final class MFTVerticalTabBar: UIView {
                 for (idx, item) in unwrappedItems.enumerated() {
                     item.translatesAutoresizingMaskIntoConstraints = false
                     item.index = idx
-                    item.addTarget(self, action: #selector(MFTVerticalTabBar.tabBarItemTouched(_:)), for: .touchDown)
+                    item.addTarget(self, action: #selector(VerticalTabBar.tabBarItemTouched(_:)), for: .touchDown)
                     addSubview(item)
                 }
             }
@@ -81,7 +81,7 @@ final class MFTVerticalTabBar: UIView {
     
     override func updateConstraints() {
         if let unwrappedItems = items {
-            var previousItem: MFTVerticalTabBarItemView?
+            var previousItem: VerticalTabBarItemView?
             for (idx, item) in unwrappedItems.enumerated() {
                 item.leadingAnchor.constraint(equalTo: self.leadingAnchor).isActive = true
                 item.trailingAnchor.constraint(equalTo: self.trailingAnchor).isActive = true
@@ -101,17 +101,17 @@ final class MFTVerticalTabBar: UIView {
     
 }
 
-extension MFTVerticalTabBar {
+extension VerticalTabBar {
     @objc
-    private func tabBarItemTouched(_ item: MFTVerticalTabBarItemView) {
+    private func tabBarItemTouched(_ item: VerticalTabBarItemView) {
         selectedItemIndex = item.index
         didSelectItemHandler?(item)
     }
 }
 
-extension MFTVerticalTabBar {
-    private func tabBarItemAtIndex(_ index: Int) -> MFTVerticalTabBarItemView? {
-        var item: MFTVerticalTabBarItemView?
+extension VerticalTabBar {
+    private func tabBarItemAtIndex(_ index: Int) -> VerticalTabBarItemView? {
+        var item: VerticalTabBarItemView?
         if let unwrappedItems = items {
             for i in unwrappedItems {
                 if i.index == index {

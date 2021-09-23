@@ -18,7 +18,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         
-        let adaptiveTabBarViewController = MFTAdaptiveTabBarController()
+        let adaptiveTabBarViewController = AdaptiveTabBarController()
         
         let vc1 = UIViewController()
         vc1.view.backgroundColor = UIColor.red
@@ -30,15 +30,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         adaptiveTabBarViewController.viewControllers = [vc1, vc2]
                 
-        adaptiveTabBarViewController.addTabBarAction(MFTTabBarAction(title: "Action 1", image: UIImage(named: "book-selected")!, handler: {
+        adaptiveTabBarViewController.addTabBarAction(TabBarAction(title: "Action 1", image: UIImage(named: "book-selected")!, handler: {
             
         }))
         
-        adaptiveTabBarViewController.addTabBarAction(MFTTabBarAction(title: "Action 2", image: UIImage(named: "book-selected")!, handler: {
+        adaptiveTabBarViewController.addTabBarAction(TabBarAction(title: "Action 2", image: UIImage(named: "book-selected")!, handler: {
             
         }))
         
-        adaptiveTabBarViewController.addTabBarAction(MFTTabBarAction(title: "Action 3", image: UIImage(named: "book-selected")!, handler: {
+        adaptiveTabBarViewController.addTabBarAction(TabBarAction(title: "Action 3", image: UIImage(named: "book-selected")!, handler: {
             
         }))
         

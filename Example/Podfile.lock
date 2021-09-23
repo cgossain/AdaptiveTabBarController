@@ -15,7 +15,7 @@ EXTERNAL SOURCES:
     :path: "../"
 
 SPEC CHECKSUMS:
-  AdaptiveTabBarController: 26b1393c5e669af97fcb84b51fa5453037d2e2f1
+  AdaptiveTabBarController: 8a1b65e93875abd2d556377095b5077a0fa577b3
   AppController: a4a2b45a9b3920bbecddf91c965d8477a87937e4
 
 PODFILE CHECKSUM: baccf7d7170b6fb64ea8b673b6d25827e31327e7

@@ -1,5 +1,5 @@
 //
-//  MFTTabBarAction.swift
+//  TabBarAction.swift
 //
 //  Copyright (c) 2021 Christian Gossain
 //
@@ -24,7 +24,7 @@
 
 import Foundation
 
-public struct MFTTabBarAction {
+public struct TabBarAction {
     
     public let title: String
     

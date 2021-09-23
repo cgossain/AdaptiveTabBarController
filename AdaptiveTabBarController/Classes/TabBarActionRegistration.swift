@@ -1,5 +1,5 @@
 //
-//  MFTTabBarActionRegistration.swift
+//  TabBarActionRegistration.swift
 //
 //  Copyright (c) 2021 Christian Gossain
 //
@@ -24,15 +24,15 @@
 
 import Foundation
 
-final class MFTTabBarActionRegistration {
+final class TabBarActionRegistration {
     /// The action.
-    let action: MFTTabBarAction
+    let action: TabBarAction
     
     /// The condition.
-    let condition: MFTAdaptiveTabBarController.ConditionHandler?
+    let condition: AdaptiveTabBarController.ConditionHandler?
     
     /// Creates and returns a new action registration.
-    init(action: MFTTabBarAction, condition: MFTAdaptiveTabBarController.ConditionHandler? = nil) {
+    init(action: TabBarAction, condition: AdaptiveTabBarController.ConditionHandler? = nil) {
         self.action = action
         self.condition = condition
     }

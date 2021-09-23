@@ -1,5 +1,5 @@
 //
-//  MFTTabBarControllerDimmingView.swift
+//  TabBarControllerDimmingView.swift
 //
 //  Copyright (c) 2021 Christian Gossain
 //
@@ -33,14 +33,14 @@ extension Int {
     }
 }
 
-protocol MFTTabBarControllerDimmingViewDelegate: NSObjectProtocol {
-    func dimmingViewWillExpand(_ dimmingView: MFTTabBarControllerDimmingView)
-    func dimmingViewDidExpand(_ dimmingView: MFTTabBarControllerDimmingView)
-    func dimmingViewWillCollapse(_ dimmingView: MFTTabBarControllerDimmingView)
-    func dimmingViewDidCollapse(_ dimmingView: MFTTabBarControllerDimmingView)
+protocol TabBarControllerDimmingViewDelegate: NSObjectProtocol {
+    func dimmingViewWillExpand(_ dimmingView: TabBarControllerDimmingView)
+    func dimmingViewDidExpand(_ dimmingView: TabBarControllerDimmingView)
+    func dimmingViewWillCollapse(_ dimmingView: TabBarControllerDimmingView)
+    func dimmingViewDidCollapse(_ dimmingView: TabBarControllerDimmingView)
 }
 
-final public class MFTTabBarControllerDimmingView: UIView {
+final public class TabBarControllerDimmingView: UIView {
     public enum ActionsLayoutMode {
         case linear
         case gridCentered(_ maximumItemsPerRow: Int)
@@ -60,7 +60,7 @@ final public class MFTTabBarControllerDimmingView: UIView {
     // MARK: - Internal
     
     /// The delegate.
-    weak var delegate: MFTTabBarControllerDimmingViewDelegate?
+    weak var delegate: TabBarControllerDimmingViewDelegate?
     
     /// Indicates if the action buttons are in the collapsed state or not.
     private(set) var isCollapsed = true
@@ -68,8 +68,8 @@ final public class MFTTabBarControllerDimmingView: UIView {
     
     // MARK: - Private Properties
     
-    private var allActionViews: [MFTTabBarActionView] = []
-    private var showableActionViews: [MFTTabBarActionView] { return allActionViews.filter({ $0.canShow }) }
+    private var allActionViews: [TabBarActionView] = []
+    private var showableActionViews: [TabBarActionView] { return allActionViews.filter({ $0.canShow }) }
     
     
     // MARK: - Lifecycle
@@ -87,16 +87,16 @@ final public class MFTTabBarControllerDimmingView: UIView {
     private func commonInit() {
         backgroundColor = UIColor.black.withAlphaComponent(0.8)
         directionalLayoutMargins = NSDirectionalEdgeInsets(top: 0, leading: 36, bottom: 0, trailing: 36)
-        addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(MFTTabBarControllerDimmingView.backgroundTappedGesture(_:))))
+        addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(TabBarControllerDimmingView.backgroundTappedGesture(_:))))
     }
     
 }
 
-extension MFTTabBarControllerDimmingView {
+extension TabBarControllerDimmingView {
     // MARK: - Internal
     
-    func addTabBarAction(_ action: MFTTabBarAction, condition: MFTAdaptiveTabBarController.ConditionHandler? = nil) {
-        let actionView = MFTTabBarActionView(action: action, condition: condition)
+    func addTabBarAction(_ action: TabBarAction, condition: AdaptiveTabBarController.ConditionHandler? = nil) {
+        let actionView = TabBarActionView(action: action, condition: condition)
         actionView.didTapHandler = { [unowned self] in
             self.collapse(animated: true)
         }
@@ -161,14 +161,14 @@ extension MFTTabBarControllerDimmingView {
     }
 }
 
-extension MFTTabBarControllerDimmingView {
+extension TabBarControllerDimmingView {
     @objc
     private func backgroundTappedGesture(_ sender: UITapGestureRecognizer) {
         collapse(animated: true)
     }
 }
 
-extension MFTTabBarControllerDimmingView {
+extension TabBarControllerDimmingView {
     private func willExpand() {
         isCollapsed = false
         delegate?.dimmingViewWillExpand(self)
@@ -190,14 +190,14 @@ extension MFTTabBarControllerDimmingView {
         delegate?.dimmingViewDidCollapse(self)
     }
     
-    private func collapsedCenterPointFor(_ action: MFTTabBarActionView, at idx: Int) -> CGPoint {
+    private func collapsedCenterPointFor(_ action: TabBarActionView, at idx: Int) -> CGPoint {
         guard let actionsAnchorView = actionsAnchorView, let superview = actionsAnchorView.superview else {
             return .zero
         }
         return convert(actionsAnchorView.center, from: superview)
     }
     
-    private func expandedCenterPointFor(_ action: MFTTabBarActionView, at idx: Int) -> CGPoint {
+    private func expandedCenterPointFor(_ action: TabBarActionView, at idx: Int) -> CGPoint {
         guard let actionsAnchorView = actionsAnchorView, let superview = actionsAnchorView.superview else {
             return .zero
         }
