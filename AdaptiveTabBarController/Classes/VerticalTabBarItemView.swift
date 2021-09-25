@@ -45,14 +45,12 @@ final class VerticalTabBarItemView: UIControl {
     
     private let iconImageView: UIImageView = {
         let imageView = UIImageView()
-        
         imageView.isUserInteractionEnabled = false
         return imageView
     }()
     
     private let titleLabel: UILabel = {
         let label = UILabel()
-        
         label.isUserInteractionEnabled = false
         label.textAlignment = .center
         label.font = UIFont.systemFont(ofSize: 12.0)

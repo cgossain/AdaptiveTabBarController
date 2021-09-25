@@ -45,11 +45,12 @@ final class AdaptiveTabBarCenterButton: UIView {
     }
     
     required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+        super.init(coder: aDecoder)
+        commonInit()
     }
     
     private func commonInit() {
-        let circleImage = UIImage(named: "tab-bar-centre-button", in: .lib, compatibleWith: nil)?.withRenderingMode(.alwaysTemplate)
+        let circleImage = UIImage(named: "tab-bar-center-button-circle", in: .lib, compatibleWith: nil)?.withRenderingMode(.alwaysTemplate)
         overlayButton.setBackgroundImage(circleImage, for: .normal)
         overlayButton.layer.cornerRadius = preferredSize.width / 2
         overlayButton.layer.borderColor = UIColor.white.cgColor
@@ -57,7 +58,7 @@ final class AdaptiveTabBarCenterButton: UIView {
         overlayButton.translatesAutoresizingMaskIntoConstraints = false
         addSubview(overlayButton)
         
-        let plusImage = UIImage(named: "tab-bar-centre-button-plus", in: .lib, compatibleWith: nil)?.withRenderingMode(.alwaysTemplate)
+        let plusImage = UIImage(named: "tab-bar-center-button-plus", in: .lib, compatibleWith: nil)?.withRenderingMode(.alwaysTemplate)
         plusImageView.image = plusImage
         plusImageView.tintColor = .white
         plusImageView.translatesAutoresizingMaskIntoConstraints = false

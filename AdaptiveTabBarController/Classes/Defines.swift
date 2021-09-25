@@ -13,7 +13,7 @@ import Foundation
 extension Bundle {
     /// Returns the bundle object for the `AdaptiveTabBarController` library.
     static var lib: Bundle {
-        let bundlePath = Bundle(for: AdaptiveTabBarController.self).path(forResource: "AdaptiveTabBarController", ofType: "bundle")
+        let bundlePath = Bundle(for: AdaptiveTabBarController.self).path(forResource: "LibAssets", ofType: "bundle")
         let bundle = Bundle(path: bundlePath!)
         return bundle!
     }
