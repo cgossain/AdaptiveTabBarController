@@ -1,7 +1,7 @@
 PODS:
-  - AdaptiveTabBarController (2.3.0):
+  - AdaptiveTabBarController (2.3.2):
     - AppController
-  - AppController (0.6.3)
+  - AppController (0.7.2)
 
 DEPENDENCIES:
   - AdaptiveTabBarController (from `../`)
@@ -15,9 +15,9 @@ EXTERNAL SOURCES:
     :path: "../"
 
 SPEC CHECKSUMS:
-  AdaptiveTabBarController: 8a1b65e93875abd2d556377095b5077a0fa577b3
-  AppController: a4a2b45a9b3920bbecddf91c965d8477a87937e4
+  AdaptiveTabBarController: 7e3866cb876b9d4a02283cac81a4f562bf29c955
+  AppController: 90974bfc961dba65c73fb675e1a57cc31c2a903d
 
 PODFILE CHECKSUM: baccf7d7170b6fb64ea8b673b6d25827e31327e7
 
-COCOAPODS: 1.11.0
+COCOAPODS: 1.11.2
