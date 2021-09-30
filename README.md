@@ -1,8 +1,10 @@
 # AdaptiveTabBarController
 
-AdaptiveTabBarController is a UITabBarController replacement that includes support for a floating action button in the tab bar, and adaptivity between compact and regualar trait environments on iOS, written in Swift.
+AdaptiveTabBarController is a UITabBarController replacement that includes support for a floating action button in the tab bar, and adaptivity between compact and regular trait environments on iOS, written in Swift.
 
 The included example project showcases the core functionality of this library.
+
+![Split Screen & Rotation Adaptivity](./Example/split-screen-and-rotation-adaptivity.gif)
 
 [![CI Status](https://img.shields.io/travis/cgossain/AdaptiveTabBarController.svg?style=flat)](https://travis-ci.org/cgossain/AdaptiveTabBarController)
 [![Version](https://img.shields.io/cocoapods/v/AdaptiveTabBarController.svg?style=flat)](https://cocoapods.org/pods/AdaptiveTabBarController)

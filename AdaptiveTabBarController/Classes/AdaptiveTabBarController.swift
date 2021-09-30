@@ -29,8 +29,8 @@ public protocol AdaptiveTabBarControllerDelegate: NSObjectProtocol {
     func tabBarController(_ tabBarController: AdaptiveTabBarController, didSelectViewController viewController: UIViewController)
 }
 
-/// _AdaptivePlaceholderViewController is a dummy view controller used to
-/// add untapable tab item behind the circular center accessory button.
+/// The _AdaptivePlaceholderViewController is a dummy view controller used to
+/// add an untapable tab item behind the circular center accessory button.
 private class _AdaptivePlaceholderViewController: UIViewController {}
 
 /// AdaptiveTabBarController is a tab bar view controller that adapts between compact and regular size environments.

@@ -1,21 +1,21 @@
 # AppController
 
-[![CI Status](http://img.shields.io/travis/Christian Gossain/AppController.svg?style=flat)](https://travis-ci.org/Christian Gossain/AppController)
-[![Version](https://img.shields.io/cocoapods/v/AppController.svg?style=flat)](http://cocoapods.org/pods/AppController)
-[![License](https://img.shields.io/cocoapods/l/AppController.svg?style=flat)](http://cocoapods.org/pods/AppController)
-[![Platform](https://img.shields.io/cocoapods/p/AppController.svg?style=flat)](http://cocoapods.org/pods/AppController)
+AppController was originaly inspired by the architecture described in [this blog post](http://dev.teeps.org/blog/2015/3/27/how-to-architect-your-ios-app).
 
-## Introduction
+The AppController is a lightweight controller for managing transitions between "unauthenticated" and "authenticated" interfaces on iOS. Many apps implement this lazily by presenting an authentication sheet above the main app interface. This is fine for some applications, however if you're looking for something more robust, the structure implemented by AppController offers a clean and clear separation of concerns between interfaces for each authentication state. It manages interface transitions using Apple approved view controller containment API, and removes the unused view hierarchy from memory once the transition is complete. 
 
-This project was originaly inspired by the architecture described in [this blog post](http://dev.teeps.org/blog/2015/3/27/how-to-architect-your-ios-app).
+By keeping your "unauthenticated"  and "authenticated" view hierarchies completely separate, you can write cleaner code and build more compelling onboarding experiences.
 
-The purpose of the AppController is to cleanup the code required to manage transitioning between `logged out` and `logged in` interfaces using proper iOS view controller containment. It supports programatically loading your view controllers, and also offers a convenience initializer to load your interfaces from a storyboard file.
+The included example project showcases the core functionality of this library.
 
-The controller is easy to use. Just create an instance of the controller (typically in the AppDelegate), give it a reference to your application window, and the controller takes care of the rest. After the initial load you simply call `AppController.login()` or `AppController.logout()` to transition to the desired interface (i.e. on an auth state change notification).
+[![CI Status](https://img.shields.io/travis/cgossain/AppController.svg?style=flat)](https://travis-ci.org/cgossain/AppController)
+[![Version](https://img.shields.io/cocoapods/v/AppController.svg?style=flat)](https://cocoapods.org/pods/AppController)
+[![License](https://img.shields.io/cocoapods/l/AppController.svg?style=flat)](https://cocoapods.org/pods/AppController)
+[![Platform](https://img.shields.io/cocoapods/p/AppController.svg?style=flat)](https://cocoapods.org/pods/AppController)
 
 ## Requirements
-* iOS 9.3+
-* Swift 3.0+
+* iOS 10.3
+* Swift 5.0
 
 ## Installation
 
@@ -28,7 +28,10 @@ pod "AppController"
 
 ## Usage
 
-Create an interface provider:
+### AppControllerInterfaceProviding
+
+`AppControllerInterfaceProviding` is a protocol that vends your view hierarchies for the `unauthenticated` and `authenticated` states. It also provides configuration settings for the transition.
+
 ```
 class MyAwesomeInterfaceProvider: AppControllerInterfaceProviding {
 
@@ -56,10 +59,20 @@ class MyAwesomeInterfaceProvider: AppControllerInterfaceProviding {
     }
 
 }
-
 ```
 
-Create the AppController instance and install its `rootViewController` as the `rootViewController` of your main window:
+### AppViewController
+
+`AppViewController` is a custom container view controller where transitions between your `unauthenticated` and `authenticated` states are performed.
+
+You do not need to interact with this view controller directly.
+
+### AppController
+
+`AppController` is the object that manages the entire transition. 
+
+You create an instance of AppController, and then call its `installRootViewController(in:)` method passing in your window object. This installs an instance of `AppViewController` (that is managed by the AppController) as the root view controller of your window object.
+
 ```
 import UIKit
 import AppController
@@ -109,17 +122,22 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 }
 ```
 
-Transition to "logged in" interface:
+### Performing the Transitions
+
+Transition to the `authenticated` view hierarchy:
+
 ```
 AppController.login()
 ```
 
-Transition to "logged out" interface:
+Transition to the `unauthenticated` view hierarchy:
+
 ```
 AppController.logout()
 ```
 
-## Storyboard Support
+### Storyboard Support
+
 If you use a storyboard file, you can easily configure the AppController to use it. Just ensure the `initialViewController` is an `AppViewController`, and add Storyboard IDs for you're "logged out" and "logged in" interfaces contained in storyboard file.
 
 ```
@@ -132,7 +150,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
 
     lazy var appController: AppController = {
-        return AppController(storyboardName: "Main", loggedOutInterfaceID: "<Storyboad ID of "logged out" view controller>", loggedInInterfaceID: "<Storyboad ID of "logged in" view controller>")
+        return AppController(storyboardName: "Main", loggedOutInterfaceID: "<Storyboad ID of `unauthenticated` view hierarchy>", loggedInInterfaceID: "<Storyboad ID of `authenticated` view hierarchy>")
     }()
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
