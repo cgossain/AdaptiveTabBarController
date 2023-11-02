@@ -38,37 +38,20 @@ final class TabBarActionView: UIView {
     var didTapHandler: (() -> Void)?
     
     /// Indicates if the item should be shown.
-    var canShow: Bool { return condition?() ?? true }
+    var canShow: Bool {
+        condition?() ?? true
+    }
     
+    // MARK: - Init
     
-    // MARK: - Private Properties
-    
-    private lazy var button: UIButton = {
-        let button = UIButton(type: .custom)
-        button.showsTouchWhenHighlighted = true
-        button.setImage(self.action.image, for: .normal)
-        button.addTarget(self, action: #selector(TabBarActionView.buttonTapped(_:)), for: .touchUpInside)
-        return button
-    }()
-    
-    private lazy var titleLabel: UILabel = {
-        let label = UILabel()
-        label.font = UIFont.boldSystemFont(ofSize: 12)
-        label.text = self.action.title
-        label.textColor = .white
-        label.textAlignment = .center
-        label.numberOfLines = 1
-        return label
-    }()
-    
-    
-    // MARK: - Lifecycle
-    
-    public init(action: TabBarAction, condition: AdaptiveTabBarController.ConditionHandler? = nil) {
+    public init(
+        action: TabBarAction,
+        condition: AdaptiveTabBarController.ConditionHandler? = nil
+    ) {
         self.action = action
         self.condition = condition
         super.init(frame: .zero)
-        self.commonInit()
+        commonInit()
     }
     
     required public init?(coder aDecoder: NSCoder) {
@@ -78,13 +61,11 @@ final class TabBarActionView: UIView {
     private func commonInit() {
         let diameter: CGFloat = 56
         button.layer.cornerRadius = diameter/2
-        button.backgroundColor = .white
-        
-        addSubview(button)
-        addSubview(titleLabel)
-        
         button.translatesAutoresizingMaskIntoConstraints = false
+        addSubview(button)
+        
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
+        addSubview(titleLabel)
         
         NSLayoutConstraint.activate([
             button.topAnchor.constraint(equalTo: topAnchor),
@@ -110,17 +91,40 @@ final class TabBarActionView: UIView {
         }
     }
     
+    // MARK: - UIView
+    
     override func sizeThatFits(_ size: CGSize) -> CGSize {
         let fittingSize = systemLayoutSizeFitting(UIView.layoutFittingCompressedSize)
         return fittingSize
     }
     
-}
-
-extension TabBarActionView {
+    // MARK: - Helpers
+    
     @objc
     private func buttonTapped(_ sender: UIButton) {
         action.handler()
         didTapHandler?()
     }
+    
+    // MARK: - Private
+    
+    private lazy var button: UIButton = {
+        let button = UIButton(type: .custom)
+        button.backgroundColor = .white
+        button.tintColor = .black
+        button.showsTouchWhenHighlighted = true
+        button.setImage(action.image, for: .normal)
+        button.addTarget(self, action: #selector(TabBarActionView.buttonTapped(_:)), for: .touchUpInside)
+        return button
+    }()
+    
+    private lazy var titleLabel: UILabel = {
+        let label = UILabel()
+        label.numberOfLines = 1
+        label.font = .boldSystemFont(ofSize: 12)
+        label.textAlignment = .center
+        label.textColor = .white
+        label.text = action.title
+        return label
+    }()
 }

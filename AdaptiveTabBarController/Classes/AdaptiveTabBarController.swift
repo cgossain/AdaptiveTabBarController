@@ -29,24 +29,19 @@ public protocol AdaptiveTabBarControllerDelegate: NSObjectProtocol {
     func tabBarController(_ tabBarController: AdaptiveTabBarController, didSelectViewController viewController: UIViewController)
 }
 
-/// The _AdaptivePlaceholderViewController is a dummy view controller used to
-/// add an untapable tab item behind the circular center accessory button.
-private class _AdaptivePlaceholderViewController: UIViewController {}
-
 /// AdaptiveTabBarController is a tab bar view controller that adapts between compact and regular size environments.
-open class AdaptiveTabBarController: AppViewController {
+open class AdaptiveTabBarController: AppViewController, UITabBarControllerDelegate {
     public typealias ConditionHandler = () -> Bool
     
-    open var accessoryButtonDidExpandHandler: (() -> Void)?
-    
     open weak var delegate: AdaptiveTabBarControllerDelegate?
+    
+    open var accessoryButtonDidExpandHandler: (() -> Void)?
     
     open var viewControllers: [UIViewController]? {
         didSet {
             if let controller = currentTabBarController as? UITabBarController {
                 controller.viewControllers = viewControllers
-            }
-            else if let controller = currentTabBarController as? VerticalTabBarController {
+            } else if let controller = currentTabBarController as? VerticalTabBarController {
                 controller.tabBarViewControllers = viewControllers
             }
         }
@@ -67,11 +62,9 @@ open class AdaptiveTabBarController: AppViewController {
                     }
                 }
                 return controller.selectedIndex - offset
-            }
-            else if let controller = currentTabBarController as? VerticalTabBarController {
+            } else if let controller = currentTabBarController as? VerticalTabBarController {
                 return controller.selectedIndex
-            }
-            else {
+            } else {
                 return 0
             }
         }
@@ -89,8 +82,7 @@ open class AdaptiveTabBarController: AppViewController {
                     }
                 }
                 controller.selectedIndex = newValue + offset
-            }
-            else if let controller = currentTabBarController as? VerticalTabBarController {
+            } else if let controller = currentTabBarController as? VerticalTabBarController {
                 controller.selectedIndex = newValue
             }
         }
@@ -99,24 +91,14 @@ open class AdaptiveTabBarController: AppViewController {
     open var selectedViewController: UIViewController? {
         if let controller = currentTabBarController as? UITabBarController {
             return controller.selectedViewController
-        }
-        else if let controller = currentTabBarController as? VerticalTabBarController {
+        } else if let controller = currentTabBarController as? VerticalTabBarController {
             return controller.selectedViewController
-        }
-        else {
+        } else {
             return nil
         }
     }
     
-    
-    // MARK: - Private Properties
-    
-    private var currentTabBarController: UIViewController?
-    private var actionRegistrations = [TabBarActionRegistration]()
-    private var isCenterButtonEnabled: Bool { return actionRegistrations.count > 0 }
-    
-    
-    // MARK: - Lifecycle
+    // MARK: - UIViewController
     
     open override func viewDidLoad() {
         super.viewDidLoad()
@@ -130,22 +112,33 @@ open class AdaptiveTabBarController: AppViewController {
     
     open override func willTransition(to newCollection: UITraitCollection, with coordinator: UIViewControllerTransitionCoordinator) {
         super.willTransition(to: newCollection, with: coordinator)
-        coordinator.animate(alongsideTransition: { (context) in
-            self.loadTabBarController(for: newCollection)
-        }, completion: nil)
+        coordinator.animate(
+            alongsideTransition: { [weak self] (context) in
+                self?.loadTabBarController(for: newCollection)
+            },
+            completion: nil
+        )
     }
     
-    
-    // MARK: - Public
+    // MARK: - API
     
     open func addTabBarAction(_ action: TabBarAction, condition: AdaptiveTabBarController.ConditionHandler? = nil) {
         let registration = TabBarActionRegistration(action: action, condition: condition)
         actionRegistrations.append(registration)
     }
-
-}
-
-extension AdaptiveTabBarController {
+    
+    // MARK: - UITabBarControllerDelegate
+    
+    public func tabBarController(_ tabBarController: UITabBarController, shouldSelect viewController: UIViewController) -> Bool {
+        return !(viewController is _AdaptivePlaceholderViewController) // prevent the placeholder view controller from beign selected
+    }
+    
+    public func tabBarController(_ tabBarController: UITabBarController, didSelect viewController: UIViewController) {
+        delegate?.tabBarController(self, didSelectViewController: viewController)
+    }
+    
+    // MARK: - Helpers
+    
     private func loadTabBarController(for traitCollection: UITraitCollection) {
         let currentSelectedIndex = selectedIndex
         
@@ -227,14 +220,16 @@ extension AdaptiveTabBarController {
         // select/reselect the previously loaded view controller
         selectedIndex = currentSelectedIndex
     }
+
+    // MARK: - Private
+    
+    private var currentTabBarController: UIViewController?
+    private var actionRegistrations: [TabBarActionRegistration] = []
+    private var isCenterButtonEnabled: Bool {
+        actionRegistrations.count > 0
+    }
 }
 
-extension AdaptiveTabBarController: UITabBarControllerDelegate {
-    public func tabBarController(_ tabBarController: UITabBarController, shouldSelect viewController: UIViewController) -> Bool {
-        return !(viewController is _AdaptivePlaceholderViewController) // prevent the placeholder view controller from beign selected
-    }
-    
-    public func tabBarController(_ tabBarController: UITabBarController, didSelect viewController: UIViewController) {
-        delegate?.tabBarController(self, didSelectViewController: viewController)
-    }
-}
+/// The _AdaptivePlaceholderViewController is a dummy view controller used to
+/// add an untapable tab item behind the circular center accessory button.
+fileprivate class _AdaptivePlaceholderViewController: UIViewController {}

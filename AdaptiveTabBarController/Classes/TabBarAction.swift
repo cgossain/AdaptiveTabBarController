@@ -32,9 +32,14 @@ public struct TabBarAction {
     
     public let handler: (() -> Void)
     
-    public var isNew = false
+    public var isNew: Bool = false
     
-    public init(title: String, image: UIImage, isNew: Bool = false, handler: @escaping (() -> Void)) {
+    public init(
+        title: String,
+        image: UIImage,
+        isNew: Bool = false,
+        handler: @escaping (() -> Void)
+    ) {
         self.title = title
         self.image = image
         self.isNew = isNew
