@@ -76,7 +76,7 @@ final class VerticalTabBar: UIView {
     }
     
     private func commonInit() {
-        backgroundColor = .white
+        backgroundColor = .systemBackground
     }
     
     override func updateConstraints() {
