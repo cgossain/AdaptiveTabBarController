@@ -24,17 +24,23 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+final class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+        
+        print("View Controller \(tabBarItem.title ?? "n/a") - viewDidLoad (bounds: \(view.bounds) frame: \(view.frame)")
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        print("View Controller \(tabBarItem.title ?? "n/a") - viewWillAppear (bounds: \(view.bounds) frame: \(view.frame)")
     }
-
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        print("View Controller \(tabBarItem.title ?? "n/a") - viewWillDisappear (bounds: \(view.bounds) frame: \(view.frame)")
+    }
 }
-

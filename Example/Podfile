@@ -1,6 +1,6 @@
 use_frameworks!
 
-platform :ios, '13.0'
+platform :ios, '15.0'
 
 target 'AdaptiveTabBarController_Example' do
   pod 'AdaptiveTabBarController', :path => '../'
