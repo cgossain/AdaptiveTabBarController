@@ -1,7 +1,7 @@
 //
-//  TabBarActionView.swift
+//  TabBarActionButton.swift
 //
-//  Copyright (c) 2021 Christian Gossain
+//  Copyright (c) 2024 Christian Gossain
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -24,7 +24,7 @@
 
 import UIKit
 
-final class TabBarActionView: UIView {
+final class TabBarActionButton: UIView {
     
     /// The action.
     let action: TabBarAction
@@ -51,44 +51,50 @@ final class TabBarActionView: UIView {
         self.action = action
         self.condition = condition
         super.init(frame: .zero)
-        commonInit()
-    }
-    
-    required public init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-    private func commonInit() {
+        
         let diameter: CGFloat = 56
-        button.layer.cornerRadius = diameter/2
-        button.translatesAutoresizingMaskIntoConstraints = false
-        addSubview(button)
+        
+        internalButton.addTarget(self, action: #selector(TabBarActionButton.buttonTapped), for: .touchUpInside)
+        
+        var config = UIButton.Configuration.filled()
+        config.cornerStyle = .capsule
+        config.image = action.image.withRenderingMode(.alwaysTemplate)
+        config.baseBackgroundColor = .white
+        config.baseForegroundColor = .black
+        internalButton.configuration = config
+        
+        internalButton.translatesAutoresizingMaskIntoConstraints = false
+        addSubview(internalButton)
         
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
         addSubview(titleLabel)
         
         NSLayoutConstraint.activate([
-            button.topAnchor.constraint(equalTo: topAnchor),
-            button.trailingAnchor.constraint(equalTo: trailingAnchor),
-            button.leadingAnchor.constraint(equalTo: leadingAnchor),
-            button.bottomAnchor.constraint(equalTo: titleLabel.topAnchor, constant: -4),
-            button.widthAnchor.constraint(equalToConstant: diameter),
-            button.heightAnchor.constraint(equalToConstant: diameter),
+            internalButton.topAnchor.constraint(equalTo: topAnchor),
+            internalButton.trailingAnchor.constraint(equalTo: trailingAnchor),
+            internalButton.leadingAnchor.constraint(equalTo: leadingAnchor),
+            internalButton.bottomAnchor.constraint(equalTo: titleLabel.topAnchor, constant: -4),
+            internalButton.widthAnchor.constraint(equalToConstant: diameter),
+            internalButton.heightAnchor.constraint(equalToConstant: diameter),
             titleLabel.bottomAnchor.constraint(equalTo: bottomAnchor),
             titleLabel.centerXAnchor.constraint(equalTo: centerXAnchor)
         ])
         
-        // show "new" badge
+        // add "new" badge if enabled
         if action.isNew {
-            let newBadge = TabBarActionViewNewBadge()
+            let newBadge = TabBarActionButtonNewBadge()
             newBadge.tintColor = .systemBlue
-            addSubview(newBadge)
             newBadge.translatesAutoresizingMaskIntoConstraints = false
+            addSubview(newBadge)
             NSLayoutConstraint.activate([
-                newBadge.topAnchor.constraint(equalTo: button.topAnchor, constant: -4),
-                newBadge.trailingAnchor.constraint(equalTo: button.trailingAnchor, constant: 4)
+                newBadge.topAnchor.constraint(equalTo: internalButton.topAnchor, constant: -4),
+                newBadge.trailingAnchor.constraint(equalTo: internalButton.trailingAnchor, constant: 4)
             ])
         }
+    }
+    
+    required public init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
     
     // MARK: - UIView
@@ -101,22 +107,14 @@ final class TabBarActionView: UIView {
     // MARK: - Helpers
     
     @objc
-    private func buttonTapped(_ sender: UIButton) {
+    private func buttonTapped() {
         action.handler()
         didTapHandler?()
     }
     
     // MARK: - Private
     
-    private lazy var button: UIButton = {
-        let button = UIButton(type: .custom)
-        button.backgroundColor = .white
-        button.tintColor = .black
-        button.showsTouchWhenHighlighted = true
-        button.setImage(action.image, for: .normal)
-        button.addTarget(self, action: #selector(TabBarActionView.buttonTapped(_:)), for: .touchUpInside)
-        return button
-    }()
+    private let internalButton = UIButton(type: .custom)
     
     private lazy var titleLabel: UILabel = {
         let label = UILabel()

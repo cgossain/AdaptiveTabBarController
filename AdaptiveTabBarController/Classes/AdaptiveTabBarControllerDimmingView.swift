@@ -1,7 +1,7 @@
 //
-//  TabBarControllerDimmingView.swift
+//  AdaptiveTabBarControllerDimmingView.swift
 //
-//  Copyright (c) 2021 Christian Gossain
+//  Copyright (c) 2024 Christian Gossain
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -24,85 +24,69 @@
 
 import UIKit
 
-extension Int {
-    fileprivate var isEven: Bool {
-        return self % 2 == 0
+fileprivate extension Int {
+    var isEven: Bool {
+        self % 2 == 0
     }
 }
 
-protocol TabBarControllerDimmingViewDelegate: NSObjectProtocol {
-    func dimmingViewWillExpand(_ dimmingView: TabBarControllerDimmingView)
-    func dimmingViewDidExpand(_ dimmingView: TabBarControllerDimmingView)
-    func dimmingViewWillCollapse(_ dimmingView: TabBarControllerDimmingView)
-    func dimmingViewDidCollapse(_ dimmingView: TabBarControllerDimmingView)
+protocol AdaptiveTabBarControllerDimmingViewListener: AnyObject {
+    func dimmingViewWillExpand(_ dimmingView: AdaptiveTabBarControllerDimmingView)
+    func dimmingViewDidExpand(_ dimmingView: AdaptiveTabBarControllerDimmingView)
+    func dimmingViewWillCollapse(_ dimmingView: AdaptiveTabBarControllerDimmingView)
+    func dimmingViewDidCollapse(_ dimmingView: AdaptiveTabBarControllerDimmingView)
 }
 
-final public class TabBarControllerDimmingView: UIView {
-    private struct ArcLayoutMetrics {
-        static let expansionRadiusCompact = 135.0
-        static let expansionRadiusRegular = 200.0
-    }
+final class AdaptiveTabBarControllerDimmingView: UIView {
     
-    public enum ActionsLayoutMode {
+    enum ActionsLayoutMode {
         case linear
         case gridCentered(_ maximumItemsPerRow: Int)
         case gridTrailing(_ maximumItemsPerRow: Int)
         case arc
     }
     
+    private struct ArcLayoutMetrics {
+        static let expansionRadiusCompact = 135.0
+        static let expansionRadiusRegular = 200.0
+    }
+    
+    /// The listener.
+    weak var listener: AdaptiveTabBarControllerDimmingViewListener?
+    
     /// The layout mode to use when expanding the tab bar actions.
     ///
     /// Tab bar actions will be layed out accoding to this mode, centered around the specified `actionsAnchorPoint`.
-    public var actionsLayoutMode: ActionsLayoutMode = .linear
+    var actionsLayoutMode: ActionsLayoutMode = .linear
     
     /// The view around which the tab bar actions will be layed out.
-    public var actionsAnchorView: UIView?
-    
-    
-    // MARK: - Internal
-    
-    /// The delegate.
-    weak var delegate: TabBarControllerDimmingViewDelegate?
+    weak var actionsAnchorView: UIView?
     
     /// Indicates if the action buttons are in the collapsed state or not.
     private(set) var isCollapsed = true
     
+    // MARK: - Init
     
-    // MARK: - Private Properties
-    
-    private var allActionViews: [TabBarActionView] = []
-    private var showableActionViews: [TabBarActionView] { return allActionViews.filter({ $0.canShow }) }
-    
-    
-    // MARK: - Lifecycle
-    
-    override public init(frame: CGRect) {
+    override init(frame: CGRect) {
         super.init(frame: frame)
-        commonInit()
-    }
-    
-    required public init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-        commonInit()
-    }
-    
-    private func commonInit() {
+        
         backgroundColor = UIColor.black.withAlphaComponent(0.8)
         directionalLayoutMargins = NSDirectionalEdgeInsets(top: 0, leading: 36, bottom: 0, trailing: 36)
-        addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(TabBarControllerDimmingView.backgroundTappedGesture(_:))))
+        addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(AdaptiveTabBarControllerDimmingView.backgroundTappedGesture(_:))))
     }
     
-}
-
-extension TabBarControllerDimmingView {
-    // MARK: - Internal
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    // MARK: - API
     
     func addTabBarAction(_ action: TabBarAction, condition: AdaptiveTabBarController.ConditionHandler? = nil) {
-        let actionView = TabBarActionView(action: action, condition: condition)
-        actionView.didTapHandler = { [unowned self] in
-            self.collapse(animated: true)
+        let actionButton = TabBarActionButton(action: action, condition: condition)
+        actionButton.didTapHandler = { [weak self] in
+            self?.collapse(animated: true)
         }
-        allActionViews.append(actionView)
+        actionButtons.append(actionButton)
     }
     
     func collapse(animated: Bool) {
@@ -155,52 +139,52 @@ extension TabBarControllerDimmingView {
     }
     
     func moveActionViewsToCollapsedPositions() {
-        for (idx, actionView) in allActionViews.enumerated() {
+        for (idx, actionView) in actionButtons.enumerated() {
             actionView.sizeToFit()
             actionView.center = collapsedCenterPointFor(actionView, at: idx)
             actionView.alpha = 0.0
         }
     }
-}
-
-extension TabBarControllerDimmingView {
+    
+    // MARK: - Helpers
+    
     @objc
     private func backgroundTappedGesture(_ sender: UITapGestureRecognizer) {
         collapse(animated: true)
     }
-}
-
-extension TabBarControllerDimmingView {
+    
     private func willExpand() {
         isCollapsed = false
-        delegate?.dimmingViewWillExpand(self)
+        listener?.dimmingViewWillExpand(self)
     }
     
     private func didExpand() {
-        delegate?.dimmingViewDidExpand(self)
+        listener?.dimmingViewDidExpand(self)
     }
     
     private func willCollapse() {
-        delegate?.dimmingViewWillCollapse(self)
+        listener?.dimmingViewWillCollapse(self)
     }
     
     private func didCollapse() {
-        allActionViews.forEach {
+        actionButtons.forEach {
             $0.removeFromSuperview()
         }
         isCollapsed = true
-        delegate?.dimmingViewDidCollapse(self)
+        listener?.dimmingViewDidCollapse(self)
     }
     
-    private func collapsedCenterPointFor(_ action: TabBarActionView, at idx: Int) -> CGPoint {
-        guard let actionsAnchorView = actionsAnchorView, let superview = actionsAnchorView.superview else {
+    private func collapsedCenterPointFor(_ action: TabBarActionButton, at idx: Int) -> CGPoint {
+        guard let actionsAnchorView,
+              let superview = actionsAnchorView.superview else {
             return .zero
         }
         return convert(actionsAnchorView.center, from: superview)
     }
     
-    private func expandedCenterPointFor(_ action: TabBarActionView, at idx: Int) -> CGPoint {
-        guard let actionsAnchorView = actionsAnchorView, let superview = actionsAnchorView.superview else {
+    private func expandedCenterPointFor(_ action: TabBarActionButton, at idx: Int) -> CGPoint {
+        guard let actionsAnchorView,
+              let superview = actionsAnchorView.superview else {
             return .zero
         }
         
@@ -291,9 +275,9 @@ extension TabBarControllerDimmingView {
     private func expansionRadiusForArcLayout() -> Double {
         switch traitCollection.horizontalSizeClass {
         case .compact:
-            return TabBarControllerDimmingView.ArcLayoutMetrics.expansionRadiusCompact
+            return AdaptiveTabBarControllerDimmingView.ArcLayoutMetrics.expansionRadiusCompact
         default:
-            return TabBarControllerDimmingView.ArcLayoutMetrics.expansionRadiusRegular
+            return AdaptiveTabBarControllerDimmingView.ArcLayoutMetrics.expansionRadiusRegular
         }
     }
     
@@ -304,5 +288,12 @@ extension TabBarControllerDimmingView {
     
     private func startAngleForArcLayout() -> Double {
         return 160
+    }
+    
+    // MARK: - Private
+    
+    private var actionButtons: [TabBarActionButton] = []
+    private var showableActionViews: [TabBarActionButton] {
+        actionButtons.filter(\.canShow)
     }
 }

@@ -1,7 +1,7 @@
 //
 //  AdaptiveTabBarController.swift
 //
-//  Copyright (c) 2021 Christian Gossain
+//  Copyright (c) 2024 Christian Gossain
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -23,213 +23,206 @@
 //
 
 import UIKit
-import AppController
+
+protocol TabBarControlling {
+    var viewControllers: [UIViewController]? { get set }
+    
+    var selectedViewController: UIViewController? { get }
+}
 
 public protocol AdaptiveTabBarControllerDelegate: NSObjectProtocol {
-    func tabBarController(_ tabBarController: AdaptiveTabBarController, didSelectViewController viewController: UIViewController)
+    func tabBarController(_ tabBarController: AdaptiveTabBarController, didSelect viewController: UIViewController)
 }
 
 /// AdaptiveTabBarController is a tab bar view controller that adapts between compact and regular size environments.
-open class AdaptiveTabBarController: AppViewController, UITabBarControllerDelegate {
+public final class AdaptiveTabBarController: UIViewController, UITabBarControllerDelegate, VerticalTabBarControllerDelegate {
     public typealias ConditionHandler = () -> Bool
     
-    open weak var delegate: AdaptiveTabBarControllerDelegate?
+    public weak var delegate: AdaptiveTabBarControllerDelegate?
     
-    open var accessoryButtonDidExpandHandler: (() -> Void)?
+    public var accessoryButtonDidExpandHandler: (() -> Void)?
     
-    open var viewControllers: [UIViewController]? {
+    public var viewControllers: [UIViewController]? {
         didSet {
-            if let controller = currentTabBarController as? UITabBarController {
-                controller.viewControllers = viewControllers
-            } else if let controller = currentTabBarController as? VerticalTabBarController {
-                controller.tabBarViewControllers = viewControllers
-            }
+            activeTabBarController?.viewControllers = viewControllers
         }
     }
     
-    open var selectedIndex: Int {
+    public var selectedIndex: Int {
         get {
-            if let controller = currentTabBarController as? UITabBarController {
+            if let tabBarController = activeTabBarController as? UITabBarController {
                 var offset = 0
-                if let viewControllers = controller.viewControllers {
+                if let viewControllers = tabBarController.viewControllers {
                     for (idx, vc) in viewControllers.enumerated() {
-                        if vc is _AdaptivePlaceholderViewController {
+                        if vc is _DummyPlaceholderViewController {
                             offset += 1
-                        }
-                        else if idx >= controller.selectedIndex {
+                        } else if idx >= tabBarController.selectedIndex {
                             break
                         }
                     }
                 }
-                return controller.selectedIndex - offset
-            } else if let controller = currentTabBarController as? VerticalTabBarController {
-                return controller.selectedIndex
+                return tabBarController.selectedIndex - offset
+            } else if let verticalTabBarController = activeTabBarController as? VerticalTabBarController {
+                return verticalTabBarController.selectedIndex
             } else {
                 return 0
             }
         }
         set {
-            if let controller = currentTabBarController as? UITabBarController {
+            if let tabBarController = activeTabBarController as? UITabBarController {
                 var offset = 0
-                if let viewControllers = controller.viewControllers {
+                if let viewControllers = tabBarController.viewControllers {
                     for (idx, vc) in viewControllers.enumerated() {
-                        if vc is _AdaptivePlaceholderViewController {
+                        if vc is _DummyPlaceholderViewController {
                             offset += 1
-                        }
-                        else if idx >= newValue + offset {
+                        } else if idx >= newValue + offset {
                             break
                         }
                     }
                 }
-                controller.selectedIndex = newValue + offset
-            } else if let controller = currentTabBarController as? VerticalTabBarController {
-                controller.selectedIndex = newValue
+                tabBarController.selectedIndex = newValue + offset
+            } else if let verticalTabBarController = activeTabBarController as? VerticalTabBarController {
+                verticalTabBarController.selectedIndex = newValue
             }
         }
     }
     
-    open var selectedViewController: UIViewController? {
-        if let controller = currentTabBarController as? UITabBarController {
-            return controller.selectedViewController
-        } else if let controller = currentTabBarController as? VerticalTabBarController {
-            return controller.selectedViewController
-        } else {
-            return nil
-        }
-    }
-    
-    // MARK: - UIViewController
-    
-    open override func viewDidLoad() {
-        super.viewDidLoad()
-        loadTabBarController(for: traitCollection)
-    }
-    
-    open override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-        super.traitCollectionDidChange(previousTraitCollection)
-        loadTabBarController(for: traitCollection)
-    }
-    
-    open override func willTransition(to newCollection: UITraitCollection, with coordinator: UIViewControllerTransitionCoordinator) {
-        super.willTransition(to: newCollection, with: coordinator)
-        coordinator.animate(
-            alongsideTransition: { [weak self] (context) in
-                self?.loadTabBarController(for: newCollection)
-            },
-            completion: nil
-        )
+    public var selectedViewController: UIViewController? {
+        activeTabBarController?.selectedViewController
     }
     
     // MARK: - API
     
-    open func addTabBarAction(_ action: TabBarAction, condition: AdaptiveTabBarController.ConditionHandler? = nil) {
+    public func addTabBarAction(_ action: TabBarAction, condition: AdaptiveTabBarController.ConditionHandler? = nil) {
         let registration = TabBarActionRegistration(action: action, condition: condition)
         actionRegistrations.append(registration)
+    }
+    
+    // MARK: - UIViewController
+    
+    public override func viewDidLoad() {
+        super.viewDidLoad()
+        configureForTraittCollection(traitCollection)
+    }
+    
+    public override func willTransition(to newCollection: UITraitCollection, with coordinator: UIViewControllerTransitionCoordinator) {
+        super.willTransition(to: newCollection, with: coordinator)
+        coordinator.animate(
+            alongsideTransition: { [weak self] _ in
+                self?.configureForTraittCollection(newCollection)
+            }
+        )
     }
     
     // MARK: - UITabBarControllerDelegate
     
     public func tabBarController(_ tabBarController: UITabBarController, shouldSelect viewController: UIViewController) -> Bool {
-        return !(viewController is _AdaptivePlaceholderViewController) // prevent the placeholder view controller from beign selected
+        !(viewController is _DummyPlaceholderViewController)
     }
     
     public func tabBarController(_ tabBarController: UITabBarController, didSelect viewController: UIViewController) {
-        delegate?.tabBarController(self, didSelectViewController: viewController)
+        delegate?.tabBarController(self, didSelect: viewController)
+    }
+    
+    // MARK: - VerticalTabBarControllerDelegate
+    
+    func verticalTabBarController(_ tabBarController: VerticalTabBarController, didSelect viewController: UIViewController) {
+        delegate?.tabBarController(self, didSelect: viewController)
     }
     
     // MARK: - Helpers
     
-    private func loadTabBarController(for traitCollection: UITraitCollection) {
+    private func configureForTraittCollection(_ newCollection: UITraitCollection) {
+        // track of the selected index
+        // before transition
         let currentSelectedIndex = selectedIndex
         
-        // load the correct tab bar controller based on the horizontal environment
-        switch traitCollection.horizontalSizeClass {
-        case .compact:
-            let tabBarController = TabBarController()
-            tabBarController.accessoryButtonDidExpandHandler = accessoryButtonDidExpandHandler
-            tabBarController.delegate = self
-            
-            if isCenterButtonEnabled {
-                tabBarController.enableAccessoryButton()
-            }
-            
-            for registration in actionRegistrations {
-                tabBarController.addTabBarAction(registration.action, condition: registration.condition)
-            }
-            
-            // set the view controllers
-            if let viewControllers = viewControllers {
-                // cleanup: remove from old hierarchy
-                viewControllers.forEach { (vc) in
-                    vc.willMove(toParent: nil)
-                    vc.view.removeFromSuperview()
-                    vc.removeFromParent()
-                }
-                
-                // inject dummy view controller behind the center button if enabled
-                var mutableViewControllers = viewControllers
-                if isCenterButtonEnabled {
-                    if mutableViewControllers.count == 2 || mutableViewControllers.count == 4 {
-                        // insert a placeholder view controller to make room for the center button
-                        mutableViewControllers.insert(_AdaptivePlaceholderViewController(), at: (mutableViewControllers.count/2))
-                    }
-                }
-                tabBarController.viewControllers = mutableViewControllers
-            }
-            
-            currentTabBarController = tabBarController
-            
-            // transition
-            let configuration = AppController.Configuration(dismissesPresentedViewControllerOnTransition: false)
-            transition(to: tabBarController, configuration: configuration, completionHandler: nil)
-            
-        default:
-            let tabBarController = VerticalTabBarController()
-            tabBarController.accessoryButtonDidExpandHandler = accessoryButtonDidExpandHandler
-            tabBarController.didSelectViewControllerHandler = { [unowned self] viewController in
-                self.delegate?.tabBarController(self, didSelectViewController: viewController)
-            }
-            
-            if isCenterButtonEnabled {
-                tabBarController.enableAccessoryButton()
-            }
-            
-            for registration in actionRegistrations {
-                tabBarController.addTabBarAction(registration.action, condition: registration.condition)
-            }
-            
-            // set the view controllers
-            if let viewControllers = viewControllers {
-                // cleanup: remove from old hierarchy
-                viewControllers.forEach { (vc) in
-                    vc.willMove(toParent: nil)
-                    vc.view.removeFromSuperview()
-                    vc.removeFromParent()
-                }
-                
-                tabBarController.tabBarViewControllers = viewControllers
-            }
-            
-            currentTabBarController = tabBarController
-            
-            // transition
-            let configuration = AppController.Configuration(dismissesPresentedViewControllerOnTransition: false)
-            transition(to: tabBarController, configuration: configuration, completionHandler: nil)
+        // handle size class
+        if newCollection.horizontalSizeClass == .compact {
+            transitionToCompactEnvironment()
+        } else {
+            transitionToRegularEnvironment()
         }
         
-        // select/reselect the previously loaded view controller
+        // reselect selected index
         selectedIndex = currentSelectedIndex
+    }
+    
+    private func transitionToCompactEnvironment() {
+        removeCurrentChildViewController()
+
+        let tabBarController = TabBarController()
+        tabBarController.accessoryButtonDidExpandHandler = accessoryButtonDidExpandHandler
+        tabBarController.delegate = self
+        
+        var mutableViewControllers = viewControllers ?? []
+        if isCenterButtonEnabled {
+            if mutableViewControllers.count % 2 == 0 {
+                // insert a dummy placeholder view 
+                // controller to make room for the
+                // action button
+                mutableViewControllers.insert(_DummyPlaceholderViewController(), at: (mutableViewControllers.count / 2))
+            }
+        }
+        tabBarController.viewControllers = mutableViewControllers
+        
+        if isCenterButtonEnabled {
+            tabBarController.enableAccessoryButton()
+        }
+        
+        for registration in actionRegistrations {
+            tabBarController.addTabBarAction(registration.action, condition: registration.condition)
+        }
+        
+        addChild(tabBarController)
+        tabBarController.view.frame = view.bounds
+        view.addSubview(tabBarController.view)
+        tabBarController.didMove(toParent: self)
+        
+        activeTabBarController = tabBarController
+    }
+
+    private func transitionToRegularEnvironment() {
+        removeCurrentChildViewController()
+
+        let tabBarController = VerticalTabBarController()
+        tabBarController.accessoryButtonDidExpandHandler = accessoryButtonDidExpandHandler
+        tabBarController.delegate = self
+        tabBarController.viewControllers = viewControllers
+        
+        if isCenterButtonEnabled {
+            tabBarController.enableAccessoryButton()
+        }
+        
+        for registration in actionRegistrations {
+            tabBarController.addTabBarAction(registration.action, condition: registration.condition)
+        }
+        
+        addChild(tabBarController)
+        tabBarController.view.frame = view.bounds
+        view.addSubview(tabBarController.view)
+        tabBarController.didMove(toParent: self)
+        
+        activeTabBarController = tabBarController
+    }
+    
+    private func removeCurrentChildViewController() {
+        children.forEach {
+            $0.willMove(toParent: nil)
+            $0.view.removeFromSuperview()
+            $0.removeFromParent()
+        }
     }
 
     // MARK: - Private
     
-    private var currentTabBarController: UIViewController?
+    private var activeTabBarController: TabBarControlling?
     private var actionRegistrations: [TabBarActionRegistration] = []
     private var isCenterButtonEnabled: Bool {
         actionRegistrations.count > 0
     }
 }
 
-/// The _AdaptivePlaceholderViewController is a dummy view controller used to
+/// The `_DummyPlaceholderViewController` is a dummy view controller used to
 /// add an untapable tab item behind the circular center accessory button.
-fileprivate class _AdaptivePlaceholderViewController: UIViewController {}
+fileprivate class _DummyPlaceholderViewController: UIViewController {}

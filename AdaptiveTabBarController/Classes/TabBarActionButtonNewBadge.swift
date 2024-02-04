@@ -1,7 +1,7 @@
 //
-//  TabBarActionViewNewBadge.swift
+//  TabBarActionButtonNewBadge.swift
 //
-//  Copyright (c) 2021 Christian Gossain
+//  Copyright (c) 2024 Christian Gossain
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -24,19 +24,13 @@
 
 import UIKit
 
-final class TabBarActionViewNewBadge: UIView {
+final class TabBarActionButtonNewBadge: UIView {
+    
+    // MARK: - Init
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        commonInit()
-    }
-    
-    required init?(coder: NSCoder) {
-        super.init(coder: coder)
-        commonInit()
-    }
-    
-    private func commonInit() {
+        
         let newBadgeImage = UIImage(named: "tab-bar-center-button-action-new-badge", in: .lib, compatibleWith: nil)?.withRenderingMode(.alwaysTemplate)
         let newBadgeImageView = UIImageView(image: newBadgeImage)
         addSubview(newBadgeImageView)
@@ -65,4 +59,7 @@ final class TabBarActionViewNewBadge: UIView {
         ])
     }
     
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
 }

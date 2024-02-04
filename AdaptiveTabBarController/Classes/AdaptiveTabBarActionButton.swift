@@ -1,7 +1,7 @@
 //
-//  AdaptiveTabBarCenterButton.swift
+//  AdaptiveTabBarActionButton.swift
 //
-//  Copyright (c) 2021 Christian Gossain
+//  Copyright (c) 2024 Christian Gossain
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -24,39 +24,23 @@
 
 import UIKit
 
-final class AdaptiveTabBarCenterButton: UIView {
+final class AdaptiveTabBarActionButton: UIView {
     
     /// Called when the receiver is tapped.
     var touchUpInsideHandler: (() -> Void)?
     
-    
-    // MARK: - Private Properties
-    
-    private let overlayButton = UIButton(type: .custom)
-    private let plusImageView = UIImageView()
-    private let preferredSize = CGSize(width: 56, height: 56)
-    
-    
-    // MARK: - Lifecycle
+    // MARK: - Init
     
     override init(frame: CGRect) {
         super.init(frame: CGRect(x: 0, y: 0, width: preferredSize.width, height: preferredSize.height))
-        commonInit()
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-        commonInit()
-    }
-    
-    private func commonInit() {
+        
         let circleImage = UIImage(named: "tab-bar-center-button-circle", in: .lib, compatibleWith: nil)?.withRenderingMode(.alwaysTemplate)
-        overlayButton.setBackgroundImage(circleImage, for: .normal)
-        overlayButton.layer.cornerRadius = preferredSize.width / 2
-        overlayButton.layer.borderColor = UIColor.white.cgColor
-        overlayButton.layer.borderWidth = 1.0
-        overlayButton.translatesAutoresizingMaskIntoConstraints = false
-        addSubview(overlayButton)
+        internalButton.setBackgroundImage(circleImage, for: .normal)
+        internalButton.layer.cornerRadius = preferredSize.width / 2
+        internalButton.layer.borderColor = UIColor.white.cgColor
+        internalButton.layer.borderWidth = 1.0
+        internalButton.translatesAutoresizingMaskIntoConstraints = false
+        addSubview(internalButton)
         
         let plusImage = UIImage(named: "tab-bar-center-button-plus", in: .lib, compatibleWith: nil)?.withRenderingMode(.alwaysTemplate)
         plusImageView.image = plusImage
@@ -64,30 +48,40 @@ final class AdaptiveTabBarCenterButton: UIView {
         plusImageView.translatesAutoresizingMaskIntoConstraints = false
         addSubview(plusImageView)
         
-        // constraints
         plusImageView.centerXAnchor.constraint(equalTo: self.centerXAnchor).isActive = true
         plusImageView.centerYAnchor.constraint(equalTo: self.centerYAnchor).isActive = true
-        topAnchor.constraint(equalTo: overlayButton.topAnchor).isActive = true
-        leadingAnchor.constraint(equalTo: overlayButton.leadingAnchor).isActive = true
-        bottomAnchor.constraint(equalTo: overlayButton.bottomAnchor).isActive = true
-        trailingAnchor.constraint(equalTo: overlayButton.trailingAnchor).isActive = true
+        topAnchor.constraint(equalTo: internalButton.topAnchor).isActive = true
+        leadingAnchor.constraint(equalTo: internalButton.leadingAnchor).isActive = true
+        bottomAnchor.constraint(equalTo: internalButton.bottomAnchor).isActive = true
+        trailingAnchor.constraint(equalTo: internalButton.trailingAnchor).isActive = true
         
-        overlayButton.addTarget(self, action: #selector(AdaptiveTabBarCenterButton.overlayButtonTapped(_:)), for: .touchUpInside)
+        internalButton.addTarget(self, action: #selector(AdaptiveTabBarActionButton.overlayButtonTapped(_:)), for: .touchUpInside)
     }
     
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    // MARK: - UIView
+    
     override var intrinsicContentSize: CGSize {
-        return preferredSize
+        preferredSize
     }
     
     override func sizeThatFits(_ size: CGSize) -> CGSize {
-        return preferredSize
+        preferredSize
     }
     
-}
-
-extension AdaptiveTabBarCenterButton {
+    // MARK: - Helpers
+    
     @objc
     private func overlayButtonTapped(_ sender: UIButton) {
         touchUpInsideHandler?()
     }
+    
+    // MARK: - Private
+    
+    private let internalButton = UIButton(type: .custom)
+    private let plusImageView = UIImageView()
+    private let preferredSize = CGSize(width: 56, height: 56)
 }

@@ -1,7 +1,7 @@
 //
 //  TabBarActionRegistration.swift
 //
-//  Copyright (c) 2021 Christian Gossain
+//  Copyright (c) 2024 Christian Gossain
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -32,7 +32,10 @@ final class TabBarActionRegistration {
     let condition: AdaptiveTabBarController.ConditionHandler?
     
     /// Creates and returns a new action registration.
-    init(action: TabBarAction, condition: AdaptiveTabBarController.ConditionHandler? = nil) {
+    init(
+        action: TabBarAction,
+        condition: AdaptiveTabBarController.ConditionHandler? = nil
+    ) {
         self.action = action
         self.condition = condition
     }
