@@ -4,7 +4,7 @@ AdaptiveTabBarController is a UITabBarController replacement that includes suppo
 
 The included example project showcases the core functionality of this library.
 
-![Split Screen & Rotation Adaptivity](./Example/split-screen-and-rotation-adaptivity.gif)
+![Split Screen & Rotation Adaptivity](./split-screen-and-rotation-adaptivity.gif)
 
 [![CI Status](https://img.shields.io/travis/cgossain/AdaptiveTabBarController.svg?style=flat)](https://travis-ci.org/cgossain/AdaptiveTabBarController)
 [![Version](https://img.shields.io/cocoapods/v/AdaptiveTabBarController.svg?style=flat)](https://cocoapods.org/pods/AdaptiveTabBarController)

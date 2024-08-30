@@ -1,6 +1,0 @@
-framework module AdaptiveTabBarController {
-  umbrella header "AdaptiveTabBarController-umbrella.h"
-
-  export *
-  module * { export * }
-}

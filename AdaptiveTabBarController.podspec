@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name             = 'AdaptiveTabBarController'
-  s.version          = '3.0.0'
+  s.version          = '3.1.0'
   s.summary          = 'A UITabBarController replacement with support for floating action button and adaptivity between trait environments on iOS, written in Swift.'
   s.description      = <<-DESC
   The AdaptiveTabBarController is an adaptive view controller that can be installed as
@@ -16,9 +16,9 @@ Pod::Spec.new do |s|
   s.source           = { git: 'https://github.com/cgossain/AdaptiveTabBarController.git', tag: s.version.to_s }
   s.swift_version    = '5.0'
   s.ios.deployment_target = '15.0'
-  s.source_files = 'AdaptiveTabBarController/Classes/**/*'
+  s.source_files = 'Sources/AdaptiveTabBarController/**/*'
   s.resource_bundles = {
-    'LibAssets' => ['AdaptiveTabBarController/Assets/**/*']
+    'LibAssets' => ['Sources/AdaptiveTabBarController/Assets/**/*']
   }
   s.frameworks = 'UIKit'
 end
