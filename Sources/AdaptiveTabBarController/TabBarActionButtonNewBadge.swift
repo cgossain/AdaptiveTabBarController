@@ -31,7 +31,7 @@ final class TabBarActionButtonNewBadge: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        let newBadgeImage = UIImage(named: "tab-bar-center-button-action-new-badge", in: .lib, compatibleWith: nil)?.withRenderingMode(.alwaysTemplate)
+        let newBadgeImage = UIImage(named: "tab-bar-center-button-action-new-badge", in: .module, compatibleWith: nil)?.withRenderingMode(.alwaysTemplate)
         let newBadgeImageView = UIImageView(image: newBadgeImage)
         addSubview(newBadgeImageView)
         newBadgeImageView.translatesAutoresizingMaskIntoConstraints = false

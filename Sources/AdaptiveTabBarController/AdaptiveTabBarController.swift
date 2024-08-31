@@ -102,14 +102,14 @@ public final class AdaptiveTabBarController: UIViewController, UITabBarControlle
     
     public override func viewDidLoad() {
         super.viewDidLoad()
-        configureForTraittCollection(traitCollection)
+        configureForTraitCollection(traitCollection)
     }
     
     public override func willTransition(to newCollection: UITraitCollection, with coordinator: UIViewControllerTransitionCoordinator) {
         super.willTransition(to: newCollection, with: coordinator)
         coordinator.animate(
             alongsideTransition: { [weak self] _ in
-                self?.configureForTraittCollection(newCollection)
+                self?.configureForTraitCollection(newCollection)
             }
         )
     }
@@ -132,7 +132,7 @@ public final class AdaptiveTabBarController: UIViewController, UITabBarControlle
     
     // MARK: - Helpers
     
-    private func configureForTraittCollection(_ newCollection: UITraitCollection) {
+    private func configureForTraitCollection(_ newCollection: UITraitCollection) {
         // track of the selected index
         // before transition
         let currentSelectedIndex = selectedIndex

@@ -34,7 +34,7 @@ final class AdaptiveTabBarActionButton: UIView {
     override init(frame: CGRect) {
         super.init(frame: CGRect(x: 0, y: 0, width: preferredSize.width, height: preferredSize.height))
         
-        let circleImage = UIImage(named: "tab-bar-center-button-circle", in: .lib, compatibleWith: nil)?.withRenderingMode(.alwaysTemplate)
+        let circleImage = UIImage(named: "tab-bar-center-button-circle", in: .module, compatibleWith: nil)?.withRenderingMode(.alwaysTemplate)
         internalButton.setBackgroundImage(circleImage, for: .normal)
         internalButton.layer.cornerRadius = preferredSize.width / 2
         internalButton.layer.borderColor = UIColor.white.cgColor
@@ -42,7 +42,7 @@ final class AdaptiveTabBarActionButton: UIView {
         internalButton.translatesAutoresizingMaskIntoConstraints = false
         addSubview(internalButton)
         
-        let plusImage = UIImage(named: "tab-bar-center-button-plus", in: .lib, compatibleWith: nil)?.withRenderingMode(.alwaysTemplate)
+        let plusImage = UIImage(named: "tab-bar-center-button-plus", in: .module, compatibleWith: nil)?.withRenderingMode(.alwaysTemplate)
         plusImageView.image = plusImage
         plusImageView.tintColor = .white
         plusImageView.translatesAutoresizingMaskIntoConstraints = false
